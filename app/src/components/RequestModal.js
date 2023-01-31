@@ -1,15 +1,20 @@
 import React from "react";
 import { useDispatch, useSelector, connect } from "react-redux";
+import { useEffect, useState, useCallback,useRef } from "react";
+
+
+//outside
+import { motion } from "framer-motion";
+import axios from "axios";
+import emailjs from "@emailjs/browser";
+
+//redux
+import { reloadPage } from "../redux/reload/reload-actions";
 import {
   setModalRequest,
   setRequestModalOpen,
   setRequestModalClose,
 } from "../redux/reservations/requestModal-actions";
-import axios from "axios";
-import { useEffect, useState, useCallback,useRef } from "react";
-import emailjs from "@emailjs/browser";
-import { reloadPage } from "../redux/reload/reload-actions";
-import { motion } from "framer-motion";
 
 function RequestModal({ request, visibility }) {
   const [isLoading, setIsLoading] = useState(true);

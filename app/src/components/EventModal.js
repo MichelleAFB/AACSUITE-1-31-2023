@@ -1,7 +1,13 @@
-import axios from 'axios'
+
 import React, { useEffect,useState, forceUpdate} from 'react'
 import {useSelector,useDispatch,connect } from 'react-redux'
 
+
+//outside
+import axios from 'axios'
+
+
+//redux
 import {setModalEvent,setModalOpen,setModalClose,setModalEventOccupied,setAccessTypeModalOpen,editEventAccessType} from '../redux/eventModal/eventModal-action'
 import { setOccupiedSeats } from '../redux/events/events-actions'
 import { useNavigate } from 'react-router-dom'

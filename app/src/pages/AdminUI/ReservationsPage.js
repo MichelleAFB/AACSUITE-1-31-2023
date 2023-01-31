@@ -1,12 +1,15 @@
 import React from "react";
 import { useState, useEffect } from "react";
 import axios from "axios";
-import ReservationList from "../components/ReservationList";
-import RequestsList from "../components/RequestsList"
-import RequestModal from "../components/RequestModal";
-import ErrorBoundary from "../components/ErrorBoundary";
-import RecentChangesCard from "../components/RecentChangesCard";
-import TodayEventBox from "../components/TodayEventBox";
+
+
+//components
+import ReservationList from "../../components/ReservationList";
+import RequestsList from "../../components/RequestsList"
+import RequestModal from "../../components/RequestModal";
+import ErrorBoundary from "../../components/ErrorBoundary";
+import RecentChangesCard from "../../components/RecentChangesCard";
+import TodayEventBox from "../../components/TodayEventBox";
 
 function ReservationsPage() {
   const [requests, setRequests] = useState();

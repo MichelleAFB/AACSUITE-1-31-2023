@@ -1,6 +1,9 @@
-import axios from 'axios'
+
 import React from 'react'
 import {useEffect,useState} from 'react'
+
+//outside
+import axios from 'axios'
 
 
 function RecentChangesCard({title,changeType,width,color}) {

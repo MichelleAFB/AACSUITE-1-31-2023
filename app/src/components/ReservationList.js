@@ -1,7 +1,12 @@
 import React from 'react'
 
-import axios from 'axios'
+
 import {useEffect,useState} from 'react'
+
+//outside
+import axios from 'axios'
+
+//components
 import ErrorBoundary from './ErrorBoundary'
 import ReservationListItem from './ReservationListItem'
 

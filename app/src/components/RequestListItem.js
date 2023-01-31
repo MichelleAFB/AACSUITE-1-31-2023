@@ -4,7 +4,7 @@ import {useState,useEffect} from 'react'
 
 
 
-
+//outside
 import { EmailJS } from '@emailjs/browser'
 
 //redux
@@ -12,7 +12,7 @@ import {setRequestModalOpen,setModalRequest} from '../redux/reservations/request
 
 //icons
 import { GrFormSubtract } from "react-icons/gr";
-import {FontAwesomeIcon}  from '@fortawesome/free-solid-svg-icons'
+//import {FontAwesomeIcon}  from '@fontawesome/free-solid-svg-icons'
 import {FiAlertTriangle,FiX } from "react-icons/fi";
 import { TfiClose  } from "react-icons/tfi";
 import { FaHeart,FaCheck} from "react-icons/fa";
