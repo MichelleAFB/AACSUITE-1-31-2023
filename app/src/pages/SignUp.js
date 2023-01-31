@@ -229,8 +229,8 @@ function SignUp() {
           <div className='signInBar'>
             
             <input className='signInButton' type='submit' value='Sign Up'  />
-            {/*<ArrowRightIcon fill='bg-green-400' width='34px' height='34px' />*/}
-            <faCloudArrowDown/>
+            {/*<ArrowRightIcon fill='bg-green-400' width='34px' height='34px' />  <faCloudArrowDown/>*/}
+           
 
             <button className='registerLink ml-5' onClick={signInInstead}>
               Sign In Instead
