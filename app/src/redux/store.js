@@ -1,16 +1,18 @@
-import {legacy_createStore as createStore } from 'redux'
-import {composeWithDevTools} from 'redux-devtools-extension'
-import {rootReducer} from './rootReducer'
+import { legacy_createStore as createStore } from "redux";
+import { composeWithDevTools } from "redux-devtools-extension";
+import { rootReducer } from "./rootReducer";
 
-
-const composerEnhancers=composeWithDevTools({
+const composerEnhancers = composeWithDevTools({
   name: `Redux`,
   realtime: true,
   trace: true,
-  traceLimit: 25
-})
+  traceLimit: 25,
+});
 
-export const store =createStore(rootReducer,composerEnhancers())
+export const store = createStore(rootReducer, composerEnhancers());
 
-console.log("store")
-console.log(store)
+console.log("store");
+console.log(store);
+
+console.log(rootReducer);
+console.log(composeWithDevTools);

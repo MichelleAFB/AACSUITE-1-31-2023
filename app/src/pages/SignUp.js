@@ -2,15 +2,18 @@
 import { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import React from "react";
-import emailjs from "@emailjs/browser";
 import { useRef } from "react";
-import { faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
-//outside
+
+//out
 import axios from "axios";
+import emailjs from "@emailjs/browser";
 
 //icons
 import { ReactComponent as ArrowRightIcon } from "../assets/keyboardArrowRightIcon.svg";
 import visibilityIcon from "../assets/visibilityIcon.svg";
+//import { faCloudArrowDown } from "@fortawesome/free-solid-svg-icons";
+//outside
+
 
 function SignUp() {
   const navigate = useNavigate();
