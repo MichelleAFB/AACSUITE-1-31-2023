@@ -1,0 +1,4 @@
+
+
+export const SHOW_TOPNAVBAR = "SHOW_TOPNAVBAR";
+export const HIDE_TOPNAVBAR = "HIDE_TOPNAVBAR";
