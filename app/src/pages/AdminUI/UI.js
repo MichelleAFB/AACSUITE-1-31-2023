@@ -4,16 +4,16 @@ import { Link } from 'react-router-dom'
 
 
 //utils
-import ErrorBoundary from '../components/ErrorBoundary'
+import ErrorBoundary from '../../components/ErrorBoundary'
 
 //components
-import RequestsList from '../components/RequestsList'
-import EventModal from '../components/EventModal'
-import RequestModal from '../components/RequestModal'
-import RecentChangesCard from '../components/RecentChangesCard'
-import EventsList from "../components/EventList"
-import EventListFull from '../components/EventListFull'
-import TodayEventBox from '../components/TodayEventBox'
+import RequestsList from '../../components/RequestsList'
+import EventModal from '../../components/EventModal'
+import RequestModal from '../../components/RequestModal'
+import RecentChangesCard from '../../components/RecentChangesCard'
+import EventsList from "../../components/EventList"
+import EventListFull from '../../components/EventListFull'
+import TodayEventBox from '../../components/TodayEventBox'
 function UI() {
 
   const navigate = useNavigate()

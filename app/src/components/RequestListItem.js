@@ -1,13 +1,21 @@
 import React from 'react'
 import { useSelector ,useDispatch} from 'react-redux'
 import {useState,useEffect} from 'react'
+
+
+
+
+import { EmailJS } from '@emailjs/browser'
+
+//redux
 import {setRequestModalOpen,setModalRequest} from '../redux/reservations/requestModal-actions'
+
+//icons
+import { GrFormSubtract } from "react-icons/gr";
 import {FontAwesomeIcon}  from '@fortawesome/free-solid-svg-icons'
-import { FaHeart,FaCheck} from "react-icons/fa";
 import {FiAlertTriangle,FiX } from "react-icons/fi";
 import { TfiClose  } from "react-icons/tfi";
-import { EmailJS } from '@emailjs/browser'
-import { GrFormSubtract } from "react-icons/gr";
+import { FaHeart,FaCheck} from "react-icons/fa";
 function RequestListItem({request}) {
 
   const visible= useSelector(state => state.requestModal.visibility)

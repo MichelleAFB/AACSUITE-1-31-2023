@@ -1,8 +1,13 @@
 import React from 'react'
 import {useEffect,useState} from 'react'
-import { setModalRequest, setRequestModalOpen } from '../redux/reservations/requestModal-actions'
 import { useDispatch } from 'react-redux'
+
+//outside
 import axios from 'axios'
+
+//redux
+import { setModalRequest, setRequestModalOpen } from '../redux/reservations/requestModal-actions'
+
 
 function ReservationListItem({reservation}) {
 
