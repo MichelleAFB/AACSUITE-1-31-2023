@@ -1,7 +1,10 @@
 import React from 'react'
-import EventListFull from '../components/EventListFull'
-import EventsList from '../components/EventList'
-import TodayEventBox from '../components/TodayEventBox'
+
+
+//components
+import EventListFull from '../../components/EventListFull'
+import EventsList from '../../components/EventList'
+import TodayEventBox from '../../components/TodayEventBox'
 
 function EventsPage() {
   return (

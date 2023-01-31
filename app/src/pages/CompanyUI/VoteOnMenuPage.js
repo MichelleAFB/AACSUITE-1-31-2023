@@ -1,12 +1,16 @@
 import React from "react";
 import { useEffect, useState } from "react";
+import { useSelector, useDispatch } from "react-redux";
 import { connect } from "react-redux";
+
+//outside
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+//components
 import TodayEventBox from "../../components/TodayEventBox";
-import { useSelector, useDispatch } from "react-redux";
-//import { motion } from "framer-motion";
+import { motion } from "framer-motion";
 
 function VoteOnMenuPage({ visibility, event }) {
   const [menu, setMenu] = useState();

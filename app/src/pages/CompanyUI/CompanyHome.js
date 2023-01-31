@@ -1,14 +1,18 @@
 import React from "react";
-import EventList from "../../components/EventList";
-import { useState, useEffect } from "react";
-import EmployeeModal from "../../components/EmployeeModal";
-import TodayEventBox from "../../components/TodayEventBox";
-import useSessionStorage from "../../hooks/useSessionStorage";
+import {useNavigate,Link} from 'react-router-dom'
 import { useSelector, useDispatch } from "react-redux";
+import { useState, useEffect } from "react";
+
+//outside
 import axios from "axios";
+
+//components
 import VoteOnMenuPage from "./VoteOnMenuPage";
 import EmployeeReservationList from "../../components/EmployeeReservationList";
-import {useNavigate,Link} from 'react-router-dom'
+import EventList from "../../components/EventList";
+import EmployeeModal from "../../components/EmployeeModal";
+import TodayEventBox from "../../components/TodayEventBox";
+
 
 function CompanyHome() {
   const [first, setFirst] = useState("");
@@ -69,8 +73,8 @@ function CompanyHome() {
     });
   }, []);
 
-  const success = useSessionStorage("key", 9);
-  console.log(success);
+
+
 
   if (!isLoading) {
     return (

@@ -35,6 +35,7 @@ function ReservationsPage() {
           <input type="text" role="search" placeholder="Search..." class="py-2 pl-10 pr-4 w-full border-4 border-transparent placeholder-gray-400 focus:bg-gray-50 rounded-lg" />
         </div>
         <div class="flex flex-shrink-0 items-center ml-auto">
+       
           <button class="inline-flex items-center p-2 hover:bg-gray-100 focus:bg-gray-100 rounded-lg">
             <span class="sr-only">User Menu</span>
             <div class="hidden md:flex md:flex-col md:items-end md:leading-tight">
