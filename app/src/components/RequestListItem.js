@@ -108,6 +108,7 @@ function RequestListItem({request}) {
       isCurrent(request)==true ?" bg-gray-200 mt-4 py-5 border-b px-3 transition ease-in-out delay-150  hover:-translate-y-2 hover:bg-indigo-100  rounded-lg object-contain  ":"mt-4 bg-gray-400 m-3 py-5 border-b px-3 transition hover:bg-indigo-100 rounded-lg object-contain opacity-.5 "}>
         <h3 class="font-bold text-purple-500">Request ID:{request.id}</h3>
         <a href="#" class="flex justify-between items-center">
+          <p class="text-xl text-purple-900">hello</p>
         
         
           <h3 class="text-lg font-semibold">{request.clientName}</h3>
