@@ -11,4 +11,6 @@ const composerEnhancers=composeWithDevTools({
 })
 
 export const store =createStore(rootReducer,composerEnhancers())
+
+console.log("store")
 console.log(store)

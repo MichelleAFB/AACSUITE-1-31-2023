@@ -1,6 +1,6 @@
 import {combineReducers} from 'redux'
 import {eventReducer} from './events/events-reducer'
-import navbarReducer from '../features/navbar/navbarSlice'
+
 import { topNavbarReducer } from './topNavbar/topNavbar-reducer'
 import { eventModalReducer } from './eventModal/eventModal-reducer'
 import { todaysEventReducer } from './todaysEventModal/todaysEvent-reducer'
@@ -12,7 +12,6 @@ import {employeeEventModalReducer} from './employee/employeeModal-reducer'
 import { userReducer } from './user/user-reducer'
 export const rootReducer = combineReducers({
   storeEvent:eventReducer,
-  showNavbar:navbarReducer,
   showModal:eventModalReducer,
   showTodaysEvent:todaysEventReducer,
   accessEvents:accessEventsReducer,
