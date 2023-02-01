@@ -1,8 +1,8 @@
 import React from 'react'
 import {Link,useNavigate,useLocation} from 'react-router-dom'
-import{visibleNavbar,hideNavbar} from '../features/navbar/navbarSlice'
+
 import { useSelector, useDispatch,connect} from "react-redux"
-import { Layout } from "antd";
+
 
 
 import {useState,useEffect} from 'react'
@@ -12,7 +12,7 @@ import { showTopNavbar } from '../redux/topNavbar/topNavbar-action';
 
 function TopNavBar({visibility,usere}) {
   //retrieve navbar state from store
-  const showNavbar = useSelector((state) => state.showNavbar.showNavbar)
+  
   const dispatch = useDispatch()
   //const [type,setType]=useState()
   const[isLoading,setIsLoading] =useState(true)
@@ -23,7 +23,7 @@ function TopNavBar({visibility,usere}) {
   const[clientExist,setClientExist]=useState(false)
   const[adminExist,setAdminExist]=useState(false)
   const[type,setType]=useState()
-  const { Header,Menu,AppHeader } = Layout;
+ 
 
   //const [show,setShow]=useState(showNavbar)
   const location = useLocation()
@@ -110,8 +110,8 @@ function TopNavBar({visibility,usere}) {
 
   */
  const logout =() => {
-  dispatch(hideNavbar())
-  console.log("inside logout: " + showNavbar)
+
+ 
   setTimeout(function(){
     window.location="http://localhost:3000"
     //window.location="http://localhost:3002/auth/logout"

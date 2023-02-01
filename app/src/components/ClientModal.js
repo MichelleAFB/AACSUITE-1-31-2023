@@ -5,7 +5,7 @@ import axios from "axios";
 import { setClientModalClose } from "../redux/client/clientModal-actions";
 import { reloadPage } from "../redux/reload/reload-actions";
 import { motion } from "framer-motion";
-import { genComponentStyleHook } from "antd/es/theme/internal";
+
 
 
 function ClientModal({ visibility,ourEvent }) {
@@ -62,6 +62,13 @@ function ClientModal({ visibility,ourEvent }) {
   console.log(event);
   console.log(modalEvent.event)
 
+/*
+  <motion.div
+  variants={dropIn}
+  initial='hidden'
+  animate='visible'
+  exit='exit'
+>
   const dropIn = {
     hidden: {
       y: "-100vh",
@@ -82,7 +89,7 @@ function ClientModal({ visibility,ourEvent }) {
       opacity: 0,
     },
   };
-
+*/
   if (!isLoading ) {
 
     console.log("event act in modal:"+event)
@@ -90,12 +97,7 @@ function ClientModal({ visibility,ourEvent }) {
     return (
       <div class='bg-gray-200'>
         <div class='h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50'>
-          <motion.div
-            variants={dropIn}
-            initial='hidden'
-            animate='visible'
-            exit='exit'
-          >
+       
             <main id='content' role='main' class='w-full max-w-md mx-auto '>
               <div class=' bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 mb-5'>
                 <div class='p-4 sm:p-7'>
@@ -294,7 +296,7 @@ function ClientModal({ visibility,ourEvent }) {
                 </a>
               </p>
             </main>
-          </motion.div>
+   
         </div>
       </div>
     );

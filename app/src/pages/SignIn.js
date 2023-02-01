@@ -197,14 +197,8 @@ function SignIn() {
           
             dispatch(showTopNavbar());
             sessionStorage.setItem("visibleNavbar",true)
-            navigate("/company-home")
-            
-           
-          
-
+            navigate("/employee-home")
           })
-        
-          
         }
        })
     }
