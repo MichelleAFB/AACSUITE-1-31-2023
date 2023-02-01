@@ -11,6 +11,7 @@ import UI from './pages/AdminUI/UI';
 import ReservationsPage from './pages/AdminUI/ReservationsPage'
 import EventsPage from './pages/AdminUI/EventsPage';
 import CompanyHome from './pages/CompanyUI/CompanyHome';
+
 function App() {
   return (
     <div >
@@ -22,7 +23,8 @@ function App() {
         <Route path="/admin-home" element={<UI/>}/>
         <Route path="/admin-reservations" element={<ReservationsPage/>}/>
         <Route path="/admin-events" element={<EventsPage/>}/>
-        <Route path="/employee-home" elemnet={<CompanyHome/>}/>
+        <Route path="/employee-home" element={<CompanyHome/>}/>
+        
         
       </Routes>
       </BrowserRouter>

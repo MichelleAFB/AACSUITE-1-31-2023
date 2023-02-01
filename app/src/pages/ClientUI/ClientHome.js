@@ -3,6 +3,22 @@ import axios from 'axios'
 
 
 import {useEffect,useState} from 'react'
+
+
+import {useSelector,useDispatch} from 'react-redux'
+import {setTodaysEventModalOpen,setTodaysEvent} from '../../redux/todaysEventModal/todaysEvent-actions'
+
+import {setModalClose,setModalOpen} from '../../redux/eventModal/eventModal-action'
+//import ClientModal from '../../components/ClientModal'
+
+import { connect } from 'react-redux'
+
+import {toast,ToastContainer} from 'react-toastify'
+
+
+
+//components
+import TodaysEventModal from '../../components/TodaysEventModal'
 import EventList from '../../components/EventList'
 import ClientEventListItem from '../../components/ClientEventListItem'
 import ClientEventList from '../../components/ClientEventList'
@@ -10,16 +26,9 @@ import EmptyEventListItem from '../../components/EmptyEventListItem'
 import TodayEventBox from '../../components/TodayEventBox'
 import EventModal from '../../components/EventModal'
 import EventAccesstypeModal from '../../components/EventAccesstypeModal'
-import {useSelector,useDispatch} from 'react-redux'
-import {setTodaysEventModalOpen,setTodaysEvent} from '../../redux/todaysEventModal/todaysEvent-actions'
-import TodaysEventModal from '../../components/TodaysEventModal'
-import {setModalClose,setModalOpen} from '../../redux/eventModal/eventModal-action'
-import ClientModal from '../../components/ClientModal'
-import ClientBookedReservationList from '../../components/ClientBookedReservationList'
-import { connect } from 'react-redux'
-import ClientRequestModal from '../../components/ClientRequestModal'
-import {toast,ToastContainer} from 'react-toastify'
 import ClientModalFix from '../../components/ClientModalFix'
+import ClientBookedReservationList from '../../components/ClientBookedReservationList'
+import ClientRequestModal from '../../components/ClientRequestModal'
 
 function ClientFullSuite({modalOpen}) {
 
