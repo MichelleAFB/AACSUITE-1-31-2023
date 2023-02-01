@@ -1,16 +1,20 @@
 import React from "react";
-import EventList from "../../components/EventList";
 import { useState, useEffect } from "react";
-import EmployeeModal from "../../components/EmployeeModal";
-import TodayEventBox from "../../components/TodayEventBox";
-import useSessionStorage from "../../hooks/useSessionStorage";
 import { useSelector, useDispatch } from "react-redux";
-import axios from "axios";
-import VoteOnMenuPage from "./VoteOnMenuPage";
-import EmployeeReservationList from "../../components/EmployeeReservationList";
 import {useNavigate,Link} from 'react-router-dom'
 
-function CompanyHome() {
+//outside
+import axios from "axios";
+
+
+//components
+import EmployeeReservationList from "../../components/EmployeeReservationList";
+import VoteOnMenuPage from "./VoteOnMenuPage";
+import EmployeeModal from "../../components/EmployeeModal";
+import TodayEventBox from "../../components/TodayEventBox";
+import EventList from "../../components/EventList";
+
+function EmployeeHome() {
   const [first, setFirst] = useState("");
   const [last, setLast] = useState("");
   const [user, setUser] = useState();
@@ -69,8 +73,6 @@ function CompanyHome() {
     });
   }, []);
 
-  const success = useSessionStorage("key", 9);
-  console.log(success);
 
   if (!isLoading) {
     return (
@@ -182,4 +184,4 @@ function CompanyHome() {
   }
 }
 
-export default CompanyHome;
+export default EmployeeHome;

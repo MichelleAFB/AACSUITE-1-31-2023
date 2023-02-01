@@ -8,6 +8,10 @@ import SignUp from './pages/SignUp'
 import SignIn from './pages/SignIn';
 //admin
 import UI from './pages/AdminUI/UI';
+import ReservationsPage from './pages/AdminUI/ReservationsPage'
+import EventsPage from './pages/AdminUI/EventsPage';
+//employee
+import EmployeeHome from './pages/CompanyUI/EmployeeHome'
 function App() {
   return (
     <div >
@@ -17,6 +21,7 @@ function App() {
         <Route path="/" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/admin-home" element={<UI/>}/>
+        <Route path="/employee-home" element={<EmployeeHome/>}/>
         
       </Routes>
       </BrowserRouter>

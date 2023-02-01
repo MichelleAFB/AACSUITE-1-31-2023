@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import ErrorBoundary from '../../components/ErrorBoundary'
 
 //components
-import RequestsList from '../../components/RequestsList'
+import RequestsList from '../../components/RequestListItem'
 import EventModal from '../../components/EventModal'
 import RequestModal from '../../components/RequestModal'
 import RecentChangesCard from '../../components/RecentChangesCard'
