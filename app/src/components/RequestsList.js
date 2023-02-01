@@ -14,20 +14,22 @@ function RequestsList() {
 
     const prom = new Promise((resolve, reject) => {
       axios
-        .get("https://accserverheroku.herokuapp.com/reservations/reservationRequests")
+        .get("http://localhost:3002/reservations/reservationRequests/")
         .then((response) => {
+          console.log(response)
+          console.log("!!!!!!!!!!!!")
           //console.log(response.data.request)
           console.log("requests");
           console.log(response.data);
           //setRequests(response.data)
 
-          const data = response.data.request;
+          const data = response.data;
           console.log(data)
           data.map((e) => {
             arr.push(e);
           });
           console.log(arr);
-          resolve(arr);
+          resolve();
         });
     });
 
@@ -45,7 +47,7 @@ function RequestsList() {
   }, []);
 
   console.log(filtered);
-
+console.log("!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
   const handleChange = (e) => {
     if (e.target.value == null || e.target.value == "") {
       const fil = requests;

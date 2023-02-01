@@ -122,7 +122,7 @@ console.log(modalType)
 if(!isLoading ){
   
   return (
-    <div class=" component_list_grid items-center justify-around overflow-y-scroll w-full">
+    <div class=" component_list_full bg-green-700 items-center justify-around overflow-y-scroll w-full">
       <header class="text-4xl m-3">Your Reservations</header>
  
           

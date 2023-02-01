@@ -1,11 +1,17 @@
 import React from 'react'
 import {useSelector,useDispatch} from "react-redux"
 import {useState,useEffect} from 'react'
+import axios from 'axios'
 
-function ClientIndividualSeats() {
+function ClientSeats() {
 
   
   useEffect(() => {
+    const seats=[]
+
+    const promise=new Promise((resolve,reject) => {
+      
+    })
 
 
 
@@ -24,4 +30,4 @@ function ClientIndividualSeats() {
   )
 }
 
-export default ClientIndividualSeats
+export default ClientSeats

@@ -35,10 +35,7 @@ function ClientBookedReservationList() {
         setFiltered(response.data.reservations)
      
       setEvents(response.data)
-      if(sessionStorage.getItem("employee")!=null){
-          setModalType("employee")
-          console.log(sessionStorage.getItem("employee"))
-      }
+     
     
       resolve()
       
@@ -122,7 +119,7 @@ console.log(modalType)
 if(!isLoading ){
   
   return (
-    <div class=" component_list items-center justify-around overflow-y-scroll w-full">
+    <div class=" component_list_full items-center justify-around overflow-y-scroll w-full">
       <header class="text-4xl m-3">Your Reservations</header>
  
           
@@ -131,20 +128,24 @@ if(!isLoading ){
         placeholder="Search..." onChange={handleChange}/>
        
     </label>
+    {
+      filtered.length==0 ? <div class="p-5 border-gray-400 border-dashed">No Reservations reserved</div>
+    :
     <ul class="mt-6 rounded-md p-10 ">
     {
               filtered.map((e) => {
              
                  return <li><ClientBookedReservationItem  modalType={modalType} key={e.id} event={e} /></li>
                 })
-               
             }
-    </ul>
+    </ul> 
+}
   </div>
   )
   }
   
 }
+
 
 const mapStateToProps = (state,props) => {
   const reload=state.reloadPage.reload

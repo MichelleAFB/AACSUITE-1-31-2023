@@ -59,7 +59,7 @@ function RequestListItem({request}) {
         day: day,
         year: year,
       };
-
+      console.log(request)
       const eventdate = request.actDate.split(" ");
           const eventday = eventdate[1].replace(",", "");
           

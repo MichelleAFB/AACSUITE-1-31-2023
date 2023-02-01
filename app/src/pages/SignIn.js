@@ -221,7 +221,7 @@ function SignIn() {
             sessionStorage.setItem("client", JSON.stringify(response.data.client));
             dispatch(showTopNavbar());
             sessionStorage.setItem("visibleNavbar",true)
-            navigate("/client-prehome");
+            navigate("/client-home");
           }
         });
     }

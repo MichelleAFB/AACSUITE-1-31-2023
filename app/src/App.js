@@ -16,7 +16,7 @@ import EventsPage from './pages/AdminUI/EventsPage';
 //employee
 import EmployeeHome from './pages/CompanyUI/EmployeeHome'
 //client
-
+import ClientHome from './pages/ClientUI/ClientHome';
 function App() {
   return (
     <div >
@@ -28,6 +28,7 @@ function App() {
         <Route path="/sign-up" element={<SignUp/>}/>
         <Route path="/admin-home" element={<UI/>}/>
         <Route path="/employee-home" element={<EmployeeHome/>}/>
+        <Route path="/client-home" element={<ClientHome/>}/>
        
         
       </Routes>
