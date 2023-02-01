@@ -34,8 +34,11 @@ function CompanyHome() {
 
   const [showMenu, setShowMenu] = useState();
 
+  
   const menuVisible = useSelector((state) => state.employeeModal.showMenu);
   const navigate=useNavigate()
+
+  console.log("company home")
   useEffect(() => {
     console.log(JSON.parse(sessionStorage.getItem("employee")));
     const prom = new Promise((resolve, reject) => {
