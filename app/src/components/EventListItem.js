@@ -27,31 +27,55 @@ import axios from 'axios'
     const [typeModal,setTypeModal] =useState()
     
     const eve=useRef(event)
-      //console.log(eve)
+    
+
+
       useEffect(() => {
         
         var reserved=false
         const prom = new Promise((resolve,reject) => {
           setTypeModal(modalType)
-          if(event.access=="company"){
+         
+            //console.log("*******PUBLIC EVENT*******")
             setIndividual(true)
+            axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
+              var reserved= response.data
+              console.log(response.data)
+                reserved.map((r) => {
+                  console.log("reserved event")
+                  console.log(r)
+                  console.log(event.id)
+          if(r.eventId == event.id && r.approved==1){
+            //console.log("reserved event!!!!")
+            //console.log(r)
             
-          }
-          axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
-          var reserved= response.data
-          console.log(response.data)
-            reserved.map((r) => {
-      if(r.eventId == event.id && r.approved==1){
-        console.log(r)
-        reserved=true
-        console.log(isReserved)
-
-        }
-     })
-    resolve()
-    })
+            reserved=true
+            console.log(isReserved)
     
-   resolve()
+            }
+         })
+       
+        
+        })
+        setTimeout(()=> {
+          resolve()
+        },1000)
+       
+            
+          
+         /* if(event.access=="company"){
+            console.log("*******COMPANY EVENT*********")
+            axios.get("http://localhost:3002/reservations/employee-occupied/"+event.id).then((response) => {
+              console.log(response)
+              const data=response.data
+            })
+            setTimeout(() => {
+              resolve()
+            },1000)
+            
+
+          }*/
+      
          
         })
 
@@ -61,11 +85,13 @@ import axios from 'axios'
           setIsLoading(false)
         })
 
-      },[ourEvent])
+      },[])
 
   
   
     if(!isLoading && typeModal==null){
+
+      
      
   return (
     <div class="max-h-sm rounded-md">

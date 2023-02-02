@@ -16,7 +16,7 @@ function ReservationsPage() {
           
   return (
     <body class="overflow-y-auto flex bg-gray-100 min-h-screen">
-       <RequestModal />
+       <RequestModal/>
     <div class="flex-grow text-gray-800">
       <header class="flex items-center h-20 px-6 sm:px-10 bg-white">
         <button class="block sm:hidden relative flex-shrink-0 p-2 mr-2 text-gray-600 hover:bg-gray-100 hover:text-gray-800 focus:bg-gray-100 focus:text-gray-800 rounded-full">
@@ -103,17 +103,17 @@ function ReservationsPage() {
           <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
           <div class="grid lg:grid-cols-2 md:grid-cols-1">
             <div class="p-4 flex-grow">
-            <RequestsList />
+                <RequestsList/>
             </div>
             <div>
-              <ReservationList />
+              <ReservationList/>
             </div>
 
             </div>
           </div>
         </section>
         <section class="grid grid-col-1">
-        <RecentChangesCard  color={"bg-yellow-500"} changeType={"reservationChanges"}/>
+       <RecentChangesCard changeType={"reservationChanges"} color={"bg-yellow-400"} title={"Approvals and Revocations"}/>
         </section>
       
        

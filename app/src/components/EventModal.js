@@ -41,7 +41,52 @@ const EventModal = ({ourEvent,visibility}) => {
   const[companyRequests,setCompanyRequests]=useState() //company requests exist
   
  
-  const seats=[]
+ 
+
+  const seats=[
+    {seat:0,reserved:false,selected:false},
+    {seat:1,reserved:false,selected:false},
+    {seat:2,reserved:false,selected:false},
+    {seat:3,reserved:false,selected:false},
+    {seat:4,reserved:false,selected:false},
+    {seat:5,reserved:false,selected:false},
+    {seat:6,reserved:false,selected:false},
+    {seat:7,reserved:false,selected:false},
+    {seat:8,reserved:false,selected:false},
+    {seat:9,reserved:false,selected:false},
+    {seat:10,reserved:false,selected:false},
+    {seat:11,reserved:false,selected:false},
+    {seat:12,reserved:false,selected:false},
+    {seat:13,reserved:false,selected:false},
+
+    {seat:14,reserved:false,selected:false},
+    {seat:15,reserved:false,selected:false},
+    {seat:16,reserved:false,selected:false},
+    {seat:17,reserved:false,selected:false},
+    {seat:18,reserved:false,selected:false},
+    {seat:19,reserved:false,selected:false},
+    {seat:20,reserved:false,selected:false},
+    {seat:21,reserved:false,selected:false},
+    {seat:22,reserved:false,selected:false},
+    {seat:23,reserved:false,selected:false},
+    {seat:24,reserved:false,selected:false},
+    {seat:25,reserved:false,selected:false},
+    {seat:26,reserved:false,selected:false},
+    {seat:27,reserved:false,selected:false},
+
+    {seat:28,reserved:false,selected:false},
+    {seat:29,reserved:false,selected:false},
+    {seat:30,reserved:false,selected:false},
+    {seat:31,reserved:false,selected:false},
+    {seat:32,reserved:false,selected:false},
+    {seat:33,reserved:false,selected:false},
+    {seat:34,reserved:false,selected:false},
+    {seat:35,reserved:false,selected:false},
+    {seat:36,reserved:false,selected:false},
+    {seat:37,reserved:false,selected:false},
+    {seat:38,reserved:false,selected:false},
+    {seat:39,reserved:false,selected:false},
+  ]
   
  useEffect(()=>{
   console.log("************************************ADMIN HOME RELOAD*********************")
@@ -101,10 +146,10 @@ const EventModal = ({ourEvent,visibility}) => {
 
 
         prom.then(()=> {
-          console.log(event)
+         
           const occClient=[]
           var clientReqs=false
-          console.log("%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%")
+         
           const companyrequests=[] //if there are pending company request 
           var requested=false  
           if(event.access=="private"){
@@ -117,10 +162,11 @@ const EventModal = ({ourEvent,visibility}) => {
                  //do pending request existing
 
            
-                axios.get("http://localhost:3002/reservations/reservationsandrequests/company/"+event.id).then((responseCompany) => {
+                axios.get("http://localhost:3002/reservations/reservationsandrequests/"+event.access+"/"+event.id).then((responseCompany) => {
                   if(responseCompany.data.success==true){
                     console.log('**********ComPANY MODAL:GETTING OCCUPIEND')
-
+                    const data=responseCompany.data.requests
+                    console.log(responseCompany.data)
                     console.log("request from api")
                     console.log(responseCompany.data.requests)
                     const r=responseCompany.data.requests
@@ -132,13 +178,14 @@ const EventModal = ({ourEvent,visibility}) => {
                        
                       
                       
-                    }if(responseCompany.data.request.length>1){
+                    }if(data.length>1){
                       console.log("MULTIPLE REQ")
                       requested=true
                      r.map((rr) => {
-                      console.log(r)
-                      companyrequests.push(r)
-                      console.log(companyRequests)
+                      console.log(rr)
+                      console.log(event)
+                      companyrequests.push(rr)
+                      console.log(companyrequests)
                      })
                     }
 
@@ -147,6 +194,11 @@ const EventModal = ({ourEvent,visibility}) => {
 
                   }
                 })
+                setTimeout(()=>{
+                  console.log("RESOLVE 22222222222222222222")
+                  resolve1()
+    
+                },2000)
               }
               if(event.access=="public"){
                 console.log("**********CLIENT REEQUEST")
@@ -176,14 +228,12 @@ const EventModal = ({ourEvent,visibility}) => {
 
 
               })
-              }
-            setTimeout(()=>{
-              resolve1()
-
-            },1000)
-
-
-           
+              setTimeout(()=>{
+                console.log("RESOLVE1111111111111111")
+                resolve1()
+  
+              },1000)
+              }   
         })
 
         prom1.then(() => {
@@ -201,12 +251,15 @@ const EventModal = ({ourEvent,visibility}) => {
             setClientRequests(occClient)
             setIsCompanyRequested(requested)
             setCompanyRequests(companyrequests)
-
-            resolve2()
+            setTimeout(() => {
+              resolve2()
+            },1000)
+          
           })
 
           prom2.then(() => {
             console.log('MADE IT HERE________')
+            console.log("company rested?"+isCompanyRequested)
             
             setIsLoading(false)
             /******************************** */
@@ -297,9 +350,10 @@ const EventModal = ({ourEvent,visibility}) => {
   if( visibility==true && !isLoading){
     console.log("companyrequests")
     console.log(companyRequests)
+    console.log(isCompanyRequested)
     console.log("clientRequets")
     console.log(clientRequests)
-    
+    console.log(isClientRequested)
   return (
 
    
@@ -313,7 +367,28 @@ const EventModal = ({ourEvent,visibility}) => {
           <p class="block text-xl font-bold text-gray-800 dark:text-white">{event.act} </p>
           <p class="block text-lg font-bold text-gray-800 dark:text-white">{event.date} </p>
           <p class="block text-lg font-bold text-gray-800 dark:text-white">{event.time} </p>
-         {isReserved? <p class="block text-2xl font-bold text-gray-800 dark:text-red-500">RESERVED</p>:<p></p>} 
+         {isCompanyRequested? <div class="flex flex-col p-10">
+              <div>
+                  <p class="block text-2xl font-bold text-gray-800 dark:text-red-500">RESERVED
+                  </p>
+                  <p class="text-white text-small">
+                    employees have active requests or reservations for this event
+                  </p>
+              </div>
+              <div class={`flex  row-span-${companyRequests.length}`}>
+                <ul class="justify-center">
+                {companyRequests.map((m) => {
+                  console.log(m)
+                  return<li class="justify-self-center ">
+                            <p class="text-xs text-white text-center">
+                              Seat {m.seat}
+                            </p>
+                         </li>
+                })}
+                </ul>
+              </div>
+            </div>:
+          <p></p>} 
           
          
         </div>
