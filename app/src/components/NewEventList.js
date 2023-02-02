@@ -1,6 +1,12 @@
 import React from 'react'
+import {useState,useEffect} from'react'
 
-function NewEventList() {
+//outside
+import axios from 'axios'
+
+//components
+import NewEventListItem from './NewEvenListItem'
+function NewEventList({listType}) {
   const [events,setEvents]=useState()
   const [isLoading,setIsLoading]=useState(true)
   const [access,setAccess]=useState("")
