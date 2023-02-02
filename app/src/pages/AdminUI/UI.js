@@ -14,6 +14,7 @@ import RecentChangesCard from '../../components/RecentChangesCard'
 import EventsList from "../../components/EventList"
 import EventListFull from '../../components/EventListFull'
 import TodayEventBox from '../../components/TodayEventBox'
+import NewEventListItem from '../../components/NewEvenListItem'
 function UI() {
 
   const navigate = useNavigate()
@@ -114,7 +115,7 @@ function UI() {
             </button>
            
           </div>
-             
+             <NewEventListItem/>
             </div>
           </div>
         </section>
