@@ -21,6 +21,9 @@ import ReactDOM from 'react-dom'
 //outside
 import { images } from './images'
 
+//assets
+import { otherImages,MavsImages,StarsImages } from './imagesLinks'
+
 
  function NewEventListItem({event}){
 
@@ -45,7 +48,12 @@ import { images } from './images'
         const prom = new Promise((resolve,reject) => {
 
           images.map((m) => {
-            console.log(m)
+            var ev=event.act.split("-")
+            if(ev.includes("Stars")){
+              console.log(StarsImages)
+              
+            }
+           
           })
          
          
@@ -91,7 +99,7 @@ import { images } from './images'
 
 
 const myImage = new CloudinaryImage('v1674517186/Tampa-Bay-Lightning-2e7b1b3175_ezdf4n.jpg', {cloudName: 'michelle-badu'}).resize(fill().width(100).height(150));
-console.log(myImage)
+
   
   
     if(!isLoading && typeModal==null){
