@@ -184,7 +184,7 @@ function CompanyMenu({ visibility, event }) {
                                         <button
                                           onClick={(e) => {
                                             e.preventDefault();
-                                            console.log("\n\n\n\n\n\n");
+                                            console.log(employee);
 
                                             console.log(
                                               reservedSeats.includes(s)
@@ -207,12 +207,10 @@ function CompanyMenu({ visibility, event }) {
                                               e.preventDefault();
                                               console.log("\n\n\n\n\n\n");
 
-                                              console.log(
-                                                reservedSeats.includes(s)
-                                              );
+                                             
                                               setUpdateSeats(!updateSeats);
                                               s.selected = !s.selected;
-                                              console.log(allSeats);
+                                             
                                             }}
                                             class='seat'
                                           >
@@ -307,19 +305,28 @@ function CompanyMenu({ visibility, event }) {
                                   console.log("sent");
                                     const emp=sessionStorage.getItem("employee")
                                     const employ=JSON.parse(emp)
-                                    const employee=employ
+                                  
                                     console.log(employee)
+                                    console.log("!!!!!!!!!!!!!!!!!!!!!!")
+                                    
+                                   
                                   const prom1 = new Promise(
                                     (resolve, reject) => {
                                       sendSeats.map((m) => {
+                                        console.log("!!!!!!!!!")
+                                        console.log({
+                                          lastname:employ.lastname})
+
                                         axios
                                           .post(
-                                            "https://accserverheroku.herokuapp.com/setOccupiedEmployee",
+                                            "https://localhost:3002/company/setOccupiedEmployee",
                                             {
                                               eventId: event.event.id,
                                               employeeId: employee.id,
                                               act: event.event.act,
                                               seat: m.seat,
+                                              firstname:employ.firstname,
+                                              lastname:employ.lastname
                                             }
                                           )
                                           .then((response) => {

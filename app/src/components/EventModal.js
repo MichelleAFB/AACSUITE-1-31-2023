@@ -7,6 +7,7 @@ import { setOccupiedSeats } from '../redux/events/events-actions'
 import { useNavigate } from 'react-router-dom'
 import { addPublicEvent } from '../redux/access/accessEvents-actions'
 import {reloadPage} from '../redux/reload/reload-actions'
+import { seats } from '../data/Seats'
 
 
 const EventModal = ({ourEvent,visibility}) => {
@@ -43,50 +44,7 @@ const EventModal = ({ourEvent,visibility}) => {
  
  
 
-  const seats=[
-    {seat:0,reserved:false,selected:false},
-    {seat:1,reserved:false,selected:false},
-    {seat:2,reserved:false,selected:false},
-    {seat:3,reserved:false,selected:false},
-    {seat:4,reserved:false,selected:false},
-    {seat:5,reserved:false,selected:false},
-    {seat:6,reserved:false,selected:false},
-    {seat:7,reserved:false,selected:false},
-    {seat:8,reserved:false,selected:false},
-    {seat:9,reserved:false,selected:false},
-    {seat:10,reserved:false,selected:false},
-    {seat:11,reserved:false,selected:false},
-    {seat:12,reserved:false,selected:false},
-    {seat:13,reserved:false,selected:false},
-
-    {seat:14,reserved:false,selected:false},
-    {seat:15,reserved:false,selected:false},
-    {seat:16,reserved:false,selected:false},
-    {seat:17,reserved:false,selected:false},
-    {seat:18,reserved:false,selected:false},
-    {seat:19,reserved:false,selected:false},
-    {seat:20,reserved:false,selected:false},
-    {seat:21,reserved:false,selected:false},
-    {seat:22,reserved:false,selected:false},
-    {seat:23,reserved:false,selected:false},
-    {seat:24,reserved:false,selected:false},
-    {seat:25,reserved:false,selected:false},
-    {seat:26,reserved:false,selected:false},
-    {seat:27,reserved:false,selected:false},
-
-    {seat:28,reserved:false,selected:false},
-    {seat:29,reserved:false,selected:false},
-    {seat:30,reserved:false,selected:false},
-    {seat:31,reserved:false,selected:false},
-    {seat:32,reserved:false,selected:false},
-    {seat:33,reserved:false,selected:false},
-    {seat:34,reserved:false,selected:false},
-    {seat:35,reserved:false,selected:false},
-    {seat:36,reserved:false,selected:false},
-    {seat:37,reserved:false,selected:false},
-    {seat:38,reserved:false,selected:false},
-    {seat:39,reserved:false,selected:false},
-  ]
+ 
   
  useEffect(()=>{
   console.log("************************************ADMIN HOME RELOAD*********************")
@@ -189,16 +147,15 @@ const EventModal = ({ourEvent,visibility}) => {
                      })
                     }
 
-                 
-                    
+                  var answer={exist:requested,occupied:companyrequests}
+                  resolve1(answer)
 
                   }
                 })
-                setTimeout(()=>{
-                  console.log("RESOLVE 22222222222222222222")
-                  resolve1()
+                //
+                 
     
-                },2000)
+               
               }
               if(event.access=="public"){
                 console.log("**********CLIENT REEQUEST")
@@ -208,46 +165,45 @@ const EventModal = ({ourEvent,visibility}) => {
                 if(responseClient.data.success==true){
                   console.log('**********PUBLIC MODAL:GETTING OCCUPIEND')
                   const r=responseClient.data.requests
-                  clientReqs=true
+                  
                   console.log(r.length)
                   if(r.length==1){
+                    clientReqs=true
                     occClient.push(r)
                       if(r.approved==1){
                         reservedExists=true
                       }
                   }if(r.length>1){
                     r.map((rr) => {
+                      clientReqs=true
                       occClient.push(rr)
-                        if(rr.approved==1){
-                          reservedExists=true
-                        }
+                       
                     })
                   }
 
                 }
 
+                var answer={exist:clientReqs,occ:occClient}
+                resolve1(answer)
 
               })
-              setTimeout(()=>{
-                console.log("RESOLVE1111111111111111")
-                resolve1()
-  
-              },1000)
+             
               }   
         })
 
-        prom1.then(() => {
+        prom1.then((answer) => {
           console.log("order work!!!!!")
+          console.log(answer)
 
           const prom2=new Promise((resolve2,reject3) => {
-            console.log("reservedExists:"+reservedExists)
-            console.log("clent requests array:")
-            console.log(clientReqs)
-            console.log("company request array: ")
-            console.log(companyrequests)
+            //console.log("reservedExists:"+reservedExists)
+           // console.log("clent requests array:")
+           // console.log(clientReqs)
+            //console.log("company request array: ")
+            //console.log(companyrequests)
             setIsReserved(reservedExists)
             setIsClientRequested(clientReqs)
-            console.log(occClient)
+            //console.log(occClient)
             setClientRequests(occClient)
             setIsCompanyRequested(requested)
             setCompanyRequests(companyrequests)
@@ -258,8 +214,8 @@ const EventModal = ({ourEvent,visibility}) => {
           })
 
           prom2.then(() => {
-            console.log('MADE IT HERE________')
-            console.log("company rested?"+isCompanyRequested)
+            //console.log('MADE IT HERE________')
+            //console.log("company rested?"+isCompanyRequested)
             
             setIsLoading(false)
             /******************************** */
@@ -285,7 +241,8 @@ const EventModal = ({ourEvent,visibility}) => {
               
       
         */
-      },[visibility])
+       
+      },[visibility,event])
 
       /**
        * if(event.access=="public"){
@@ -378,7 +335,7 @@ const EventModal = ({ourEvent,visibility}) => {
               <div class={`flex  row-span-${companyRequests.length}`}>
                 <ul class="justify-center">
                 {companyRequests.map((m) => {
-                  console.log(m)
+                  
                   return<li class="justify-self-center ">
                             <p class="text-xs text-white text-center">
                               Seat {m.seat}
@@ -432,18 +389,22 @@ const EventModal = ({ourEvent,visibility}) => {
 
                 prom.then(() => {
                   console.log("setting occupied then")
+
+                 
+                    console.log("CLOSING MODAL")
+                    dispatch(addPublicEvent(event))
+                    setIsLoading(true)
+                     dispatch(setModalClose(false))
+                    console.log("isloading")
+                    console.log(isLoading)
+                   console.log("has access changed:"+ hasChanged)
+                   console.log(changedAccess)
+
+                 
                   
-                  dispatch(addPublicEvent(event))
-                  setIsLoading(true)
-                  dispatch(setModalClose(false))
-                  console.log("isloading")
-                  console.log(isLoading)
-                  console.log("has access changed:"+ hasChanged)
-                  console.log(changedAccess)
                   
-                }).then(() => {
-                  dispatch(reloadPage(!reload))
-            })
+                  
+                })
                 
 
               
