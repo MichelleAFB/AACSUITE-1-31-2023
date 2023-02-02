@@ -5,8 +5,11 @@ import {useState,useEffect} from'react'
 import axios from 'axios'
 
 //components
-import NewEventListItem from './NewEvenListItem'
-function NewEventList({listType}) {
+import NewEventListItem from './NewEventListIem'
+
+
+
+function NewEventList() {
   const [events,setEvents]=useState()
   const [isLoading,setIsLoading]=useState(true)
   const [access,setAccess]=useState("")
@@ -21,7 +24,7 @@ function NewEventList({listType}) {
   useEffect(()=>{
     
     const prom= new Promise((resolve,reject) => {
-      axios.get("https://accserverheroku.herokuapp.com/"+listType+"Events").then((response)=> {
+      axios.get("http://localhost:3002/allNewEvents").then((response)=> {
         setFiltered(response.data)
      console.log(response)
       setEvents(response.data)
@@ -103,7 +106,7 @@ function NewEventList({listType}) {
 if(!isLoading){
   return (
     <div class=" component_list_full items-center justify-around overflow-y-scroll w-full">
-      <header class="text-4xl m-3">{listType}</header>
+      <header class="text-4xl m-3">All New Events</header>
  
           
     <label class="px-3">

@@ -113,9 +113,10 @@ function UI() {
               </svg>
               Create new dashboard
             </button>
+            <NewEventList />
            
           </div>
-             <NewEventList listType={"New Events"}/>
+            
             </div>
           </div>
         </section>

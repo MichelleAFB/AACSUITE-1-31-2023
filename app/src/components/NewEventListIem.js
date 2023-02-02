@@ -1,3 +1,5 @@
+
+import adamSandler from './images/Adam_Sandler.jpg'
 import React, { useEffect,useRef,useMemo } from 'react'
 import {useState} from 'react'
 import EventModal from './EventModal'
@@ -7,10 +9,17 @@ import {useDispatch,useSelector,connect} from 'react-redux'
 import {setModalEvent,setModalOpen,setModalEventOccupied} from '../redux/eventModal/eventModal-action'
 import { setEmployeeModalOpen,setEmployeeModalEvent} from '../redux/employee/employeeModal-actions'
 
-
+//outside
+import {fill} from "@cloudinary/url-gen/actions/resize";
+import {CloudinaryImage} from '@cloudinary/url-gen';
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+import axios from 'axios'
 
 import ReactDOM from 'react-dom'
-import axios from 'axios'
+
+//outside
+import { images } from './images'
 
 
  function NewEventListItem({event}){
@@ -34,29 +43,15 @@ import axios from 'axios'
         
         var reserved=false
         const prom = new Promise((resolve,reject) => {
-          setTypeModal(modalType)
+
+          images.map((m) => {
+            console.log(m)
+          })
+         
          
             //console.log("*******PUBLIC EVENT*******")
             setIndividual(true)
-            axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
-              var reserved= response.data
-              console.log(response.data)
-                reserved.map((r) => {
-                  console.log("reserved event")
-                  console.log(r)
-                  console.log(event.id)
-          if(r.eventId == event.id && r.approved==1){
-            //console.log("reserved event!!!!")
-            //console.log(r)
-            
-            reserved=true
-            console.log(isReserved)
-    
-            }
-         })
-       
-        
-        })
+           
         setTimeout(()=> {
           resolve()
         },1000)
@@ -87,6 +82,16 @@ import axios from 'axios'
 
       },[])
 
+      const cldInstance = new Cloudinary({cloud: {cloudName: 'michelle-badu'}});
+
+
+
+// Fetch images from the web without uploading them
+
+
+
+const myImage = new CloudinaryImage('v1674517186/Tampa-Bay-Lightning-2e7b1b3175_ezdf4n.jpg', {cloudName: 'michelle-badu'}).resize(fill().width(100).height(150));
+console.log(myImage)
   
   
     if(!isLoading && typeModal==null){
@@ -106,7 +111,9 @@ import axios from 'axios'
         {
           event.reserved == true? <p class="font-bold text-red-500">RESERVED</p>:<p></p>
         }
-        
+        <div>
+          <AdvancedImage cldImg={myImage} />
+        </div>
         
         <button class="bg-gray-400 p-2 rounded-md" onClick={()=> {
           console.log("CLICK")
@@ -154,7 +161,7 @@ import axios from 'axios'
       </div>
     
   )
-}if(!isLoading && modalType=="employee"){
+}if(!isLoading ){
   {
      console.log("EMPLOYEEEE LIST TYPE")
     return (
@@ -164,6 +171,8 @@ import axios from 'axios'
             <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
           </a>
           <h3>{event.access}</h3>
+          <img src={adamSandler} alt="photo"/>
+          <p>hello</p>
          
           {
             event.reserved == true? <p class="font-bold text-red-500">RESERVED</p>:<p></p>
@@ -205,6 +214,7 @@ import axios from 'axios'
           }}>
            view
           </button>
+          
           
         </li>
         </div>
