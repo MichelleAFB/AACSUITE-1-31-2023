@@ -42,9 +42,7 @@ import axios from 'axios'
               var reserved= response.data
               console.log(response.data)
                 reserved.map((r) => {
-                  console.log("reserved event")
-                  console.log(r)
-                  console.log(event.id)
+                 
           if(r.eventId == event.id && r.approved==1){
             //console.log("reserved event!!!!")
             //console.log(r)
