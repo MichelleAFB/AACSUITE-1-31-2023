@@ -390,7 +390,7 @@ const EventModal = ({ ourEvent, visibility }) => {
                           </a>
                         </button>
                       ) : (
-                        <button class='mt-4-3 p-2 rounded-md bg-red-600 '>
+                        <button class='mt-3 p-2 rounded-md bg-red-600 '>
                           <a
                             class='text-white text-xs '
                             onClick={() => {
@@ -408,10 +408,7 @@ const EventModal = ({ ourEvent, visibility }) => {
             
 
                 <div class='mt-5'>
-                  <div class='flex flex-wrap p-5 justify-center'>
-                    {isReserved && <p> HAS reservation</p>}
-                  </div>
-
+                  
                   <form>
                     <button
                       onClick={(e) => {
@@ -420,6 +417,8 @@ const EventModal = ({ ourEvent, visibility }) => {
                         const select = allSeats.filter(
                           (s) => s.selected == true
                         );
+                        console.log("\n\n\n\n")
+                        console.log("HASCHANGED:*************" + hasChanged)
                         //TODO:implement client revoke mechanism
                         if(isClientRequested==true && hasChanged==true && revokePublicRequests==true){
 
@@ -439,17 +438,22 @@ const EventModal = ({ ourEvent, visibility }) => {
                           const prom=new Promise((resolve,reject) => {
                         
                             axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.eventId).then((response) => {
-                            
+                            console.log(response.data)
                             if(response.data.success==true){
                               toast.success("All employee reservations and requests for\n"+ event.act + " have been revoked")
                               //TODO:email employees with cancellation notification
                             }
                            })
+                           setCompanyRequests()
+                            setClientRequests()
 
 
                           })
 
                           prom.then(() => {
+                            
+                            setIsLoading(true)
+                            dispatch(setModalClose(false));
 
                           })   
                       }
@@ -478,6 +482,8 @@ const EventModal = ({ ourEvent, visibility }) => {
                                   console.log(response);
                                   console.log("changed Access?");
                                   console.log(changedAccess);
+                                  setCompanyRequests()
+                                  setClientRequests()
                                 });
                             }
 
