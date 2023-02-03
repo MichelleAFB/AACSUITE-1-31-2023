@@ -173,34 +173,10 @@ if(!isLoading && typeModal==null){
           
          const occ=[]
           const prom = new Promise((resolve,reject) => {
-            /*axios.get("http://localhost:3002/sendOccupiedToFront").then((resp) => {
-              const res=resp.data
-
-              res.map((e) => {
-                if(e.actID==event.id){
-                  occ.push(e)
-                }
-              })
-              console.log("NEWWW IN EVENTMODAL")
-              dispatch(setModalEventOccupied(occ))
-              dispatch(setModalEvent(event))
-               
-              resolve()
-            })
-            */
-
-            //dispatch(setModalEventOccupied(occ))
-            //dispatch(setModalEvent(event))
-             
             resolve()
           })
 
-          prom.then(() => {
-            
-          
-            //dispatch(setModalOpen(true))
-            
-            
+          prom.then(() => {  
           }).catch(
             console.log("SET OCC FAILED")
           )

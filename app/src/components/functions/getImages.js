@@ -1,4 +1,9 @@
-function getImage(){
+import {fill} from "@cloudinary/url-gen/actions/resize";
+import {CloudinaryImage} from '@cloudinary/url-gen';
+import {AdvancedImage} from '@cloudinary/react';
+import {Cloudinary} from "@cloudinary/url-gen";
+
+export const  getImages =(event) =>{
   const act=event.act
   if(act.toUpperCase().includes("SZA")){
     return new CloudinaryImage("v1674517181/665-36a61726a0.t_pixyfz.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
@@ -23,10 +28,24 @@ function getImage(){
     
     return new CloudinaryImage("v1674517179/3_320x320-941dd06973_zapcyc.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
   }
-  if(act.toUpperCase().includes("BRUCE SPRINGSTEEN")){
+  if(act.toUpperCase().includes("MANA")){
     
-    return new CloudinaryImage("v1674517184/bruce_sqtmvf-58e674613c_jesttp.png", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
+    return new CloudinaryImage("v1674517180/320-16fe1574cc_ehdxv1.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
   }
+  if(act.toUpperCase().includes("MANA")){
+    
+    return new CloudinaryImage("v1674517180/320-16fe1574cc_ehdxv1.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
+  }
+  if(act.toUpperCase().includes("THOMAS RHETT")){
+    
+    return new CloudinaryImage("v1674517186/Static_Digital-320x320-cde0ecac60_igjv5y.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
+  }
+  if(act.toUpperCase().includes("BLINK 182 TOUR 2023")){
+     return new CloudinaryImage("v1674517181/blink320-142fb22f0d_dwueof.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
+  }
+  if(act.toUpperCase().includes("ANITA BAKER")){
+    return new CloudinaryImage("v1674517181/AnitaBaker_2023_Regional_AmericanAirlinesCenter_1217_320x320-ef66920f0b_aoymmj.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
+ }
 
 
   if(act.includes("Stars")){
@@ -66,6 +85,9 @@ function getImage(){
     }
     if(act.upperCase().includes("COYOTES")){
       return new CloudinaryImage("v1674517185/Stars-v-Coyotes-23-320-f9155b6ab8_ppy4kq.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
+    }
+    if(act.upperCase().includes("FLAMES")){
+      return new CloudinaryImage("v1674517185/Stars-v-Flames-320-4e6a696c09_qmxhf3.jpg", {cloudName: 'michelle-badu'}).resize(fill().width(200).height(150));
     }
   
   
@@ -152,3 +174,4 @@ function getImage(){
   }
 
 }
+
