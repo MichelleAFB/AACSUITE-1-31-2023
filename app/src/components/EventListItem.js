@@ -44,7 +44,7 @@ import EventModal from './EventModal'
             setIndividual(true)
             axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
               var reserved= response.data
-              console.log(response.data)
+             
                 reserved.map((r) => {
                  
           if(r.eventId == event.id && r.approved==1){

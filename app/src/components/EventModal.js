@@ -1,5 +1,5 @@
 
-import React, { useEffect, useState, forceUpdate } from "react";
+import React, { useEffect, useState, forceUpdate ,useMemo} from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
 
 
@@ -15,7 +15,7 @@ import {
 import { setOccupiedSeats } from "../redux/events/events-actions";
 import { useNavigate } from "react-router-dom";
 import { addPublicEvent } from "../redux/access/accessEvents-actions";
-import { reloadPage } from "../redux/reload/reload-actions";
+//import { reloadPage } from "../redux/reload/reload-actions";
 
 //data
 import { seats } from "../data/Seats";
@@ -57,7 +57,7 @@ const EventModal = ({ ourEvent, visibility }) => {
 
   useEffect(() => {
     console.log(
-      "************************************ADMIN HOME RELOAD*********************"
+      "************************************MODAL HOME RELOAD*********************"
     );
 
     var reservedExists;
@@ -66,11 +66,15 @@ const EventModal = ({ ourEvent, visibility }) => {
       console.log(ourEvent.event);
       const id = ourEvent.event.id;
       console.log(id);
+      //TODO: CHANGE API CALL TO USE MODALEVENT NOT OUR EVENT
       axios
-        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + id)
+        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.event.id)
         .then(async (response) => {
           console.log(response);
           setEvent(await response.data[0]);
+
+          console.log("*****************OUR EVENT*******")
+          console.log(event)
           //setIsLoading(false)
         });
 
@@ -204,53 +208,19 @@ const EventModal = ({ ourEvent, visibility }) => {
         });
       });
     });
-    // let reserved=false
-    // const requests=[]
-    /* 
+    
+  }, [visibility,event]);
 
-             prom1.then(()=> {
-              setRequest(requests)
-              setIsRequested(requested)
-              setIsReserved(reserved)
-              setIsLoading(false)
-              setEditAccess(event.access)
-               setAllSeats(seats)
-               console.log(allSeats)
-              
-      
-        */
-  }, [visibility, event]);
+  const memoEvent = useMemo(() => getEvent(event), [ourEvent]);
+console.log(memoEvent)
+  function getEvent(ourEvent){
+    console.log("\n\n\\n\n\n\n\n")
+    console.log(ourEvent)
+    console.log(event)
+    console.log("\n\n\\n\n\n\n\n")
+    return ourEvent
+  }
 
-  /**
-       * if(event.access=="public"){
-
-                   
-                    axios.get("http://localhost:3002/reservations/reservationsandrequests/"+event.access+"/"+event.id).then((responseClient) => {
-                      
-                    if(responseClient.data.success==true){
-                      console.log('**********PUBLIC MODAL:GETTING OCCUPIEND')
-                      const r=responseClient.data.requests
-                      clientReqs=true
-                      console.log(r.length)
-                      if(r.length==1){
-                        occClient.push(r)
-                      }if(r.length>1){
-                        r.map((rr) => {
-                          occClient.push(rr)
-                        })
-                      }
-
-                    }
-
-        
-
-                    })
-
-
-                    
-
-                  }
-       */
 
   console.log(event);
 
@@ -270,7 +240,7 @@ const EventModal = ({ ourEvent, visibility }) => {
     }
   }
 
-  const reload = useSelector((state) => state.reloadPage.reload);
+ 
 
   if (visibility == true && !isLoading) {
     console.log("companyrequests");
@@ -287,6 +257,14 @@ const EventModal = ({ ourEvent, visibility }) => {
             <div class=' bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 mb-5'>
               <div class='p-4 sm:p-7'>
                 <div class='text-center'>
+                <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
+                      setIsCompanyRequested(false)
+                      setIsClientRequested(false)
+                      setIsLoading(true);
+                      dispatch(setModalClose(false));
+                    }}>
+                      Exit
+                    </button>
                   <p class='mt-2 text-sm text-gray-600 font-bold dark:text-gray-400'>
                     Edit{" "}
                   </p>
@@ -299,6 +277,13 @@ const EventModal = ({ ourEvent, visibility }) => {
                   <p class='block text-lg font-bold text-gray-800 dark:text-white'>
                     {event.time}{" "}
                   </p>
+                  {() => {
+                    console.log("\n\n\n\n")
+                    console.log(editEvent)
+                    console.log(event)
+                    console.log(ourEvent)
+                    console.log(event==ourEvent)
+                  }}
                   {isCompanyRequested ? (
                     <div class='flex flex-col p-10'>
                       <div>
@@ -310,16 +295,18 @@ const EventModal = ({ ourEvent, visibility }) => {
                           this event
                         </p>
                       </div>
-                      <div class={`flex  row-span-${companyRequests.length}`}>
+                      <div class={`flex `}>
                         <div class='justify-center seats'>
                           {companyRequests.map((m) => {
                             return (
+                        
+                          
                               <div
                                 class='seat selected p-3'
                                 onMouseEnter={() => {
                                   return (
                                     <p>
-                                      {m.firstname} {m.lastname}
+                                     {m.act} {m.firstname} {m.lastname}
                                     </p>
                                   );
                                 }}
@@ -327,7 +314,9 @@ const EventModal = ({ ourEvent, visibility }) => {
                                 <p class='text-xs text-white text-center'>
                                   {m.seat}
                                 </p>
+                                
                               </div>
+                      
                             );
                           })}
                         </div>
@@ -376,7 +365,7 @@ const EventModal = ({ ourEvent, visibility }) => {
                         <div class="p-3">
                       {clientRequests.map((m) =>{
                         console.log(m)
-                        return <p class="text-white text-sm">{m.clientName} | reserved on: {m.dateReserved}</p>
+                        return <p class="text-white text-sm">{m.act} | {m.clientName} | reserved on: {m.dateReserved}</p>
                       })}
                        {revokePublicRequests == false ? (
                         <button
@@ -417,15 +406,20 @@ const EventModal = ({ ourEvent, visibility }) => {
                         const select = allSeats.filter(
                           (s) => s.selected == true
                         );
-                        console.log("\n\n\n\n")
+                        console.log("\n\n\n\n\n\n\n")
                         console.log("HASCHANGED:*************" + hasChanged)
                         //TODO:implement client revoke mechanism
                         if(isClientRequested==true && hasChanged==true && revokePublicRequests==true){
+                          console.log("HASCHANGED"+ hasChanged)
 
 
                         }{
 
                         }
+                        console.log(isCompanyRequested +" "+
+                          revokeEmployees +" "+
+                        
+                          hasChanged)
                         //if company req exist,revoke is approved, and access has changed
                         if(
                           isCompanyRequested ==true
@@ -509,6 +503,7 @@ const EventModal = ({ ourEvent, visibility }) => {
                       confirm
                     </button>
                     <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
+                     
                       setIsLoading(true);
                       dispatch(setModalClose(false));
                     }}>

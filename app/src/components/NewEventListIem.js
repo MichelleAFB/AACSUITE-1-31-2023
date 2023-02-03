@@ -84,7 +84,7 @@ import { otherImages,MavsImages,StarsImages } from './imagesLinks'
         })
 
         prom.then(() => {
-          console.log("reserved: " + reserved)
+          
           setIsReserved(reserved)
           setIsLoading(false)
         })
@@ -143,9 +143,9 @@ const myImage = new CloudinaryImage("v1674517181/665-36a61726a0.t_pixyfz.jpg", {
   }
   
 if(!isLoading && typeModal==null){
-  console.log(event.act)
+ 
   const myImage=getImage()
-  console.log(myImage)
+ 
    
   return (
     <div class="max-h-sm rounded-md">
