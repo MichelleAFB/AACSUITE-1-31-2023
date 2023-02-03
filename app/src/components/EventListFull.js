@@ -27,7 +27,7 @@ function EventListFull({listType}) {
   useEffect(()=>{
     
     const prom= new Promise((resolve,reject) => {
-      axios.get("https://accserverheroku.herokuapp.com/"+listType+"Events").then((response)=> {
+      axios.get("http://localhost:3002/"+listType+"Events").then((response)=> {
         setFiltered(response.data)
      console.log(response)
       setEvents(response.data)
