@@ -40,6 +40,7 @@ const EventModal = ({ourEvent,visibility}) => {
 
   const[isCompanyRequested,setIsCompanyRequested]=useState(false) //company requests
   const[companyRequests,setCompanyRequests]=useState() //company requests exist
+  const[revokeEmployees,setRevokeEmployees]=useState(false)
   
  
  
@@ -114,7 +115,7 @@ const EventModal = ({ourEvent,visibility}) => {
             setIsLoading(false)
           }
           const prom1= new Promise((resolve1,reject1) => {
-            if(event.access=="company"){
+            if(event.access=="company" ){
               console.log("*********COMPANY OPTION")
 
                  //do pending request existing
@@ -328,7 +329,7 @@ const EventModal = ({ourEvent,visibility}) => {
               <div>
                   <p class="block text-2xl font-bold text-gray-800 dark:text-red-500">RESERVED
                   </p>
-                  <p class="text-white text-small">
+                  <p class="text-white text-small mt-3 mb-2">
                     employees have active requests or reservations for this event
                   </p>
               </div>
@@ -345,7 +346,17 @@ const EventModal = ({ourEvent,visibility}) => {
                          </div>
                 })}
                 </div>
-              </div>
+              </div>{
+                revokeEmployees==false ?   
+                <button class="mt-3 p-2 rounded-md bg-gray-400 "  onClick={() => {
+                  setRevokeEmployees(!revokeEmployees)
+                }}><a  class="text-white text-xs font-bold">Click to cancel all reservations</a>
+                </button>: 
+                <button class="mt-3 p-2 rounded-md bg-red-600 "><a  class="text-white text-xs " onClick={() => {
+                  setRevokeEmployees(!revokeEmployees)
+                }}>Retain reservations</a></button>
+              }
+             
             </div>:
           <p></p>} 
           
@@ -363,11 +374,30 @@ const EventModal = ({ourEvent,visibility}) => {
         
           <form>
           <button onClick ={(e) => {
+
+
                 e.preventDefault()
                 console.log("setting occupied confirm")
                 const select=allSeats.filter((s) => 
                   s.selected==true
                 )
+                if(isCompanyRequested==true && revokeEmployees==false){
+                  
+                  const prom=new Promise((resolve,reject) => {
+                    alert("Access Type wont be changed")
+                    resolve()
+                  })
+
+                  prom.then(() => {
+                    setIsLoading(true)
+                    dispatch(setModalClose(false))
+
+                  }).catch(()=> {
+                    console.log("promise in event modal failed")
+                  })
+                }
+                //Todo:add functionality for revoking ema=ployee reservation, as well as email notifcation
+                if(isCompanyRequested==false && isClientRequested==false){
                 const prom = new Promise((resolve,reject) => {
                   select.map((s) => {
                     s.actID=event.id
@@ -407,7 +437,7 @@ const EventModal = ({ourEvent,visibility}) => {
                   
                   
                 })
-                
+              }
 
               
               }}class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800">confirm</button>
