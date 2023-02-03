@@ -333,16 +333,18 @@ const EventModal = ({ourEvent,visibility}) => {
                   </p>
               </div>
               <div class={`flex  row-span-${companyRequests.length}`}>
-                <ul class="justify-center">
+                <div class="justify-center seats">
                 {companyRequests.map((m) => {
                   
-                  return<li class="justify-self-center ">
+                  return<div class="seat selected p-3" onMouseEnter={() => {
+                    return <p>{m.firstname} {m.lastname}</p>
+                  }}>
                             <p class="text-xs text-white text-center">
-                              Seat {m.seat}
+                               {m.seat}
                             </p>
-                         </li>
+                         </div>
                 })}
-                </ul>
+                </div>
               </div>
             </div>:
           <p></p>} 
