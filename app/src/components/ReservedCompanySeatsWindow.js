@@ -1,73 +1,36 @@
 import React from 'react'
 import {useState} from 'react'
-export default function ReservedCompanySeatsWindow({isCompanyRequested,companyRequests}) {
+export class ReservedCompanySeatsWindow extends React.Component {
+  constructor(props) {
+    super(props);
+    this.listRef = React.createRef();
+  }
 
-  const [revokeEmployees, setRevokeEmployees] = useState(false);
-  const [revokePublicRequests, setRevokePublicRequests] = useState(false);
+  getSnapshotBeforeUpdate(prevProps, prevState) {
+    // Are we adding new items to the list?
+    // Capture the scroll position so we can adjust scroll later.
+    if (prevProps.list.length < this.props.list.length) {
+      const list = this.listRef.current;
+      return list.scrollHeight - list.scrollTop;
+    }
+    return null;
+  }
 
-  if(isCompanyRequested){
-  return (
-   
-      <div class='flex flex-col p-10'>
-        <div>
-          <p class='block text-2xl font-bold text-gray-800 dark:text-red-500'>
-            RESERVED
-          </p>
-          <p class='text-white text-small mt-3 mb-2'>
-            employees have active requests or reservations for
-            this event
-          </p>
-        </div>
-        <div class={`flex `}>
-          <div class='justify-center seats'>
-            {companyRequests.map((m) => {
-              return (
-          
-            
-                <div
-                  class='seat selected p-3'
-                  onMouseEnter={() => {
-                    return (
-                      <p>
-                       {m.act} {m.firstname} {m.lastname}
-                      </p>
-                    );
-                  }}
-                >
-                  <p class='text-xs text-white text-center'>
-                    {m.seat}
-                  </p>
-                  
-                </div>
-        
-              );
-            })}
-          </div>
-        </div>
-        {revokeEmployees == false ? (
-          <button
-            class='mt-3 p-2 rounded-md bg-gray-400 '
-            onClick={() => {
-              setRevokeEmployees(!revokeEmployees);
-            }}
-          >
-            <a class='text-white text-xs font-bold'>
-              Click to cancel all reservations
-            </a>
-          </button>
-        ) : (
-          <button class='mt-3 p-2 rounded-md bg-red-600 '>
-            <a
-              class='text-white text-xs '
-              onClick={() => {
-                setRevokeEmployees(!revokeEmployees);
-              }}
-            >
-              Retain reservations
-            </a>
-          </button>
-        )}
-      </div>
-    )
+  componentDidUpdate(prevProps, prevState, snapshot) {
+    // If we have a snapshot value, we've just added new items.
+    // Adjust scroll so these new items don't push the old ones out of view.
+    // (snapshot here is the value returned from getSnapshotBeforeUpdate)
+    if (snapshot !== null) {
+      const list = this.listRef.current;
+      list.scrollTop = list.scrollHeight - snapshot;
+    }
+  }
+
+  render() {
+    return (
+      <div ref={this.listRef}>{
+        <div>Hello</div>
+        }</div>
+    );
   }
 }

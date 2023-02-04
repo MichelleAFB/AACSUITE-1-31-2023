@@ -23,7 +23,7 @@ import { seats } from "../data/Seats";
 //outside
 import axios from "axios";
 import { ToastContainer,toast } from "react-toastify";
-import ReservedCompanySeatsWindow from "./ReservedCompanySeatsWindow";
+import { ReservedCompanySeatsWindow } from "./ReservedCompanySeatsWindow";
 
 
 const EventModal = ({ ourEvent, visibility }) => {
@@ -56,11 +56,16 @@ const EventModal = ({ ourEvent, visibility }) => {
   const [revokeEmployees, setRevokeEmployees] = useState(false);
   const [revokePublicRequests, setRevokePublicRequests] = useState(false);
 
+  const [count, setCount] = useState(0);
+  console.log(useState)
+  console.log(useState)
   useEffect(() => {
     console.log(
       "************************************MODAL HOME RELOAD*********************"
     );
 
+    setTimeout(() => setCount(count + 1), 2000)
+    console.log(count)
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
       console.log("edit Event");
@@ -254,6 +259,7 @@ console.log(memoEvent)
       <div class='bg-gray-200'>
         <div class='h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50'>
           <ToastContainer/>
+        
           <main id='content' role='main' class='w-full max-w-md mx-auto '>
             <div class=' bg-white  rounded-xl shadow-lg dark:bg-gray-800 dark:border-gray-700 mb-5'>
               <div class='p-4 sm:p-7'>
@@ -288,7 +294,70 @@ console.log(memoEvent)
                   {
                     isCompanyRequested?<p class="font-bold text-red-600">Wait to see Detected</p>:<p></p>
                   }
-                  <ReservedCompanySeatsWindow isCompanyRequested={isCompanyRequested} companyRequests={companyRequests}/>
+                  {isCompanyRequested ? (
+                    <div class='flex flex-col p-10'>
+                      <div>
+                        <p class='block text-2xl font-bold text-gray-800 dark:text-red-500'>
+                          RESERVED
+                        </p>
+                        <p class='text-white text-small mt-3 mb-2'>
+                          employees have active requests or reservations for
+                          this event
+                        </p>
+                      </div>
+                      <div class={`flex `}>
+                        <div class='justify-center seats'>
+                          {companyRequests.map((m) => {
+                            return (
+                        
+                          
+                              <div
+                                class='seat selected p-3'
+                                onMouseEnter={() => {
+                                  return (
+                                    <p>
+                                     {m.act} {m.firstname} {m.lastname}
+                                    </p>
+                                  );
+                                }}
+                              >
+                                <p class='text-xs text-white text-center'>
+                                  {m.seat}
+                                </p>
+                                
+                              </div>
+                      
+                            );
+                          })}
+                        </div>
+                      </div>
+                      {revokeEmployees == false ? (
+                        <button
+                          class='mt-3 p-2 rounded-md bg-gray-400 '
+                          onClick={() => {
+                            setRevokeEmployees(!revokeEmployees);
+                          }}
+                        >
+                          <a class='text-white text-xs font-bold'>
+                            Click to cancel all reservations
+                          </a>
+                        </button>
+                      ) : (
+                        <button class='mt-3 p-2 rounded-md bg-red-600 '>
+                          <a
+                            class='text-white text-xs '
+                            onClick={() => {
+                              setRevokeEmployees(!revokeEmployees);
+                            }}
+                          >
+                            Retain reservations
+                          </a>
+                        </button>
+                      )}
+                    </div>
+                  ) : (
+                    <p></p>
+                  )}
                 </div>
                 
                   {
@@ -636,68 +705,5 @@ export default connect(mapStateToProps)(EventModal);
 
 /***
  * 
- * {isCompanyRequested ? (
-                    <div class='flex flex-col p-10'>
-                      <div>
-                        <p class='block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED
-                        </p>
-                        <p class='text-white text-small mt-3 mb-2'>
-                          employees have active requests or reservations for
-                          this event
-                        </p>
-                      </div>
-                      <div class={`flex `}>
-                        <div class='justify-center seats'>
-                          {companyRequests.map((m) => {
-                            return (
-                        
-                          
-                              <div
-                                class='seat selected p-3'
-                                onMouseEnter={() => {
-                                  return (
-                                    <p>
-                                     {m.act} {m.firstname} {m.lastname}
-                                    </p>
-                                  );
-                                }}
-                              >
-                                <p class='text-xs text-white text-center'>
-                                  {m.seat}
-                                </p>
-                                
-                              </div>
-                      
-                            );
-                          })}
-                        </div>
-                      </div>
-                      {revokeEmployees == false ? (
-                        <button
-                          class='mt-3 p-2 rounded-md bg-gray-400 '
-                          onClick={() => {
-                            setRevokeEmployees(!revokeEmployees);
-                          }}
-                        >
-                          <a class='text-white text-xs font-bold'>
-                            Click to cancel all reservations
-                          </a>
-                        </button>
-                      ) : (
-                        <button class='mt-3 p-2 rounded-md bg-red-600 '>
-                          <a
-                            class='text-white text-xs '
-                            onClick={() => {
-                              setRevokeEmployees(!revokeEmployees);
-                            }}
-                          >
-                            Retain reservations
-                          </a>
-                        </button>
-                      )}
-                    </div>
-                  ) : (
-                    <p></p>
-                  )}
+ * 
  */
