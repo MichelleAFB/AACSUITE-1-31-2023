@@ -438,7 +438,7 @@ console.log(memoEvent)
                           &&
                           hasChanged==true
                         ){
-
+                          console.log("ATTEMPTING TO DELETE ALL COMPANY RESERVATIONS")
                           const prom=new Promise((resolve,reject) => {
                         
                             axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.eventId).then((response) => {
@@ -448,9 +448,9 @@ console.log(memoEvent)
                               //TODO:email employees with cancellation notification
                             }
                            })
-                           setCompanyRequests()
-                            setClientRequests()
-
+                           setCompanyRequests([])
+                            setClientRequests([])
+                            resolve()
 
                           })
 
