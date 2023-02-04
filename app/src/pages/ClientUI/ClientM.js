@@ -9,6 +9,8 @@ import { motion } from "framer-motion";
 
 function ClientM({visibility,ourEvent}) {
 
+  console.log(visibility)
+
   console.log(ourEvent)
   return (
     <div class='bg-gray-200'>

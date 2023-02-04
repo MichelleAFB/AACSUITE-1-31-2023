@@ -20,6 +20,7 @@ import { connect } from 'react-redux'
 import ClientRequestModal from '../../components/ClientRequestModal'
 import {toast,ToastContainer} from 'react-toastify'
 import ClientModalFix from '../../components/ClientModalFix'
+import {ClientM} from './ClientM'
 
 function ClientFullSuite({modalOpen}) {
 
@@ -52,6 +53,7 @@ function ClientFullSuite({modalOpen}) {
 		}}>
 			<ToastContainer/>
 			<ClientModalFix/>
+			<ClientM/>
 			<div class="px-10 mt-6">
 				<div class="w-full">
 				<div class="flex p-5">
