@@ -23,7 +23,7 @@ function UI() {
     <body class="flex bg-gray-100 min-h-screen">
       
       <RequestModal/>
-      <Modal/>
+      <EventModal/>
     <div class="page">
     
       <main class="p-6 sm:p-10 space-y-6">
