@@ -136,8 +136,7 @@ const EventModal = ({ ourEvent, visibility }) => {
                   });
                 }
 
-                var answer = { exist: requested, occupied: companyrequests };
-                resolve1(answer);
+                resolve1();
               }
             });
           //
@@ -174,13 +173,13 @@ const EventModal = ({ ourEvent, visibility }) => {
                 }
               }
 
-              var answer = { exist: clientReqs, occ: occClient };
-              resolve1(answer);
+              
+              resolve1();
             });
         }
       });
 
-      prom1.then((answer) => {
+      prom1.then(() => {
         console.log("order work!!!!!");
        
 
@@ -215,7 +214,7 @@ const EventModal = ({ ourEvent, visibility }) => {
       });
     });
     
-  }, [visibility,event]);
+  }, [visibility,ourEvent]);
 
   const memoEvent = useMemo(() => getEvent(event), [ourEvent]);
 console.log(memoEvent)
@@ -445,8 +444,12 @@ console.log(memoEvent)
                             axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.eventId).then((response) => {
                             console.log(response.data)
                             if(response.data.success==true){
-                              toast.success("All employee reservations and requests for\n"+ event.act + " have been revoked")
-                              //TODO:email employees with cancellation notification
+                              alert("All employee reservations and requests for\n"+ event.act + " have been revoked")
+                              
+
+
+
+
                             }
                            })
                            setCompanyRequests([])
@@ -457,8 +460,47 @@ console.log(memoEvent)
 
                           prom.then(() => {
                             
-                            setIsLoading(true)
+                           /******** */
+                           const prom1 = new Promise((resolve1, reject) => {
+                            select.map((s) => {
+                              s.actID = event.id;
+                              s.act = event.act;
+                            });
+                            console.log("changed Access?");
+                            console.log(changedAccess);
+                            if (hasChanged == true) {
+                              axios
+                                .post(
+                                  "https://accserverheroku.herokuapp.com/setAccessType",
+                                  { event: event, access: changedAccess }
+                                )
+                                .then((response) => {
+                                  console.log("response");
+                                  console.log(response);
+                                  console.log("changed Access?");
+                                  console.log(changedAccess);
+                                  setCompanyRequests()
+                                  setClientRequests()
+                                });
+                            }
+
+                            resolve1();
+                          });
+
+                          prom1.then(() => {
+                            console.log("setting occupied then");
+
+                            console.log("CLOSING MODAL");
+                            dispatch(addPublicEvent(event));
+                            setIsLoading(true);
                             dispatch(setModalClose(false));
+                            console.log("isloading");
+                            console.log(isLoading);
+                            console.log("has access changed:" + hasChanged);
+                            console.log(changedAccess);
+                          });
+
+                          /***** */
 
                           })   
                       }
