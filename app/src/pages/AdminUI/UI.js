@@ -15,13 +15,15 @@ import EventsList from "../../components/EventList"
 import EventListFull from '../../components/EventListFull'
 import TodayEventBox from '../../components/TodayEventBox'
 import NewEventList from '../../components/NewEventList'
+import Modal from '../../components/Modal'
 function UI() {
 
   const navigate = useNavigate()
   return (
     <body class="flex bg-gray-100 min-h-screen">
-      <RequestModal/>
       <EventModal/>
+  
+      <Modal/>
     <div class="page">
     
       <main class="p-6 sm:p-10 space-y-6">
