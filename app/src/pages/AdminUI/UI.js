@@ -21,8 +21,8 @@ function UI() {
   const navigate = useNavigate()
   return (
     <body class="flex bg-gray-100 min-h-screen">
-      <EventModal/>
-  
+      
+      <RequestModal/>
       <Modal/>
     <div class="page">
     
