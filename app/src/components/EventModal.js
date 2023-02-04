@@ -57,15 +57,15 @@ const EventModal = ({ ourEvent, visibility }) => {
   const [revokePublicRequests, setRevokePublicRequests] = useState(false);
 
   const [count, setCount] = useState(0);
-  console.log(useState)
-  console.log(useState)
+  
+
+
   useEffect(() => {
     console.log(
       "************************************MODAL HOME RELOAD*********************"
     );
 
-    setTimeout(() => setCount(count + 1), 2000)
-    console.log(count)
+    
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
       console.log("edit Event");
@@ -182,7 +182,7 @@ const EventModal = ({ ourEvent, visibility }) => {
 
       prom1.then((answer) => {
         console.log("order work!!!!!");
-        console.log(answer);
+       
 
         const prom2 = new Promise((resolve2, reject3) => {
           //console.log("reservedExists:"+reservedExists)
@@ -421,6 +421,7 @@ console.log(memoEvent)
                         //TODO:implement client revoke mechanism
                         if(isClientRequested==true && hasChanged==true && revokePublicRequests==true){
                           console.log("HASCHANGED"+ hasChanged)
+                          console.log("*************************************************************************************************************************************************************************************************************************************************************************************************************************************************\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
 
                         }{
