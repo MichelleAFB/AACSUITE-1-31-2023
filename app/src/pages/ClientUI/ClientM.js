@@ -11,8 +11,9 @@ function ClientM({visibility,ourEvent}) {
 
   const[event,setEvent]=useState()
   const[isLoading,setIsLoading]=useState(true)
-  const[clientInfo,setClientInfo]=useState({phone:'',email:''})
-  console.log(visibility)
+  const[clientAltEmail,setClientAltEmail]=useState()
+  const[clientPhone,setClientPhone]=useState()
+  const[useAltEmail,setUseAltEmail]=useState(false)
   const dispatch=useDispatch()
 
   useEffect(() => {
@@ -28,11 +29,12 @@ function ClientM({visibility,ourEvent}) {
   function onMutate(e){
     console.log("mutate")
     if(e.target.name =='phone'){
-      setClientInfo(phone => e.target.value)
+      setClientPhone(e.target.value)
+      console.log(clientPhone)
     }
     if(e.target.name =='email'){
-      setClientInfo(email=> e.target.value)
-      console.log(clientInfo.phone)
+      setClientAltEmail(e.target.value)
+      console.log(clientAltEmail)
      
     }
   }
@@ -63,9 +65,12 @@ function ClientM({visibility,ourEvent}) {
                     <div class="relative m-2">
                       <label for="phone" class="text-white">Email:</label>
                       <input  name="email" placeholder="@gmail.com" type="text" onChange={(e) => {
+                        console.log("hello")
                         onMutate(e)
                       
                       }} class="ml-2 p-1  rounded-md"/>
+                          <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+
                     </div>
                   </div>
                   <button class="bg-gray-600 p-2 rounded-md m-2" onClick={() => {
@@ -77,10 +82,16 @@ function ClientM({visibility,ourEvent}) {
                     console.log("CLOSE MODAL")
                     const primaryEmail=JSON.parse(sessionStorage.getItem("client"))
                     console.log(primaryEmail.email)
-                    
-                    
-                      console.log(clientInfo.email)
-                     console.log(clientInfo.phone)
+                      var message
+                      if(clientPhone.length!=10){
+                        message.append("\nPlease enter valid phone number")
+                       
+                      }
+                      if(!clientAltEmail.includes("@")){
+                        message.append("please enter valid alter")
+                      }
+                      console.log(clientAltEmail)
+                     console.log(clientPhone)
                         console.log(primaryEmail)
                  
 
