@@ -62,14 +62,43 @@ function ClientM({visibility,ourEvent}) {
                         onMutate(e)
                       })} class="ml-2 p-1  rounded-md"/>
                     </div>
-                    <div class="relative m-2">
-                      <label for="phone" class="text-white">Email:</label>
-                      <input  name="email" placeholder="@gmail.com" type="text" onChange={(e) => {
-                        console.log("hello")
-                        onMutate(e)
+                    <div class="flex m-2  align-baseline">
+                    
                       
-                      }} class="ml-2 p-1  rounded-md"/>
-                          <input checked id="default-radio-2" type="radio" value="" name="default-radio" class="w-4 h-4 text-blue-600 bg-gray-100 border-gray-300 focus:ring-blue-500 dark:focus:ring-blue-600 dark:ring-offset-gray-800 focus:ring-2 dark:bg-gray-700 dark:border-gray-600"/>
+                      {
+                      useAltEmail ?   
+                      <div class="flex-col align-bottom">
+                        <div class="flex">
+                          <button class=" h-3 w-3 p-1 rounded-lg bg-blue-700 items-center" onClick={()=> {
+                        setUseAltEmail(!useAltEmail)
+                      }}>
+                          
+                        </button>
+                        <p class="text-white text-xs m-2">Optional: use alternative email </p>
+                     </div>
+                     <div>
+                     <div class="relative">
+                          <label for="email" class="text-white">Email:</label>
+                          <input  name="email" placeholder="@gmail.com" type="text" onChange={(e) => {
+                              console.log("hello")
+                              onMutate(e)
+                            
+                            }} class="ml-2 p-1  rounded-md"/>
+                          </div>
+                     </div>
+                     </div>: 
+                     <div class="flex align-bottom"> 
+                      <button class="h-3 w-3 p-1 rounded-lg bg-white " onClick={()=> {
+                        setUseAltEmail(!useAltEmail)
+                      }}>
+                        
+                          
+                          </button>
+                          <p class="text-white text-xs m-2">use alternative email </p>
+                        </div>
+                    }
+                     
+                        
 
                     </div>
                   </div>
@@ -91,8 +120,20 @@ function ClientM({visibility,ourEvent}) {
                         message.append("please enter valid alter")
                       }
                       console.log(clientAltEmail)
-                     console.log(clientPhone)
+                      console.log(clientPhone)
                         console.log(primaryEmail)
+                        console.log(!useAltEmail && clientPhone!="" )
+                        if(useAltEmail && clientAltEmail!="" && clientPhone!="" ){
+                          axios.post("http://localhost:3002/reservations/reservationRequests",{altEmail:clientAltEmail,email:primaryEmail,phone:clientPhone,event:event}).then((response) => {
+                            console.log(response.data)
+                          })
+                        }
+                        if(!useAltEmail && clientPhone!="" ){
+                          console.log("sending")
+                          axios.post("http://localhost:3002/reservations/reservationRequests",{email:primaryEmail,phone:clientPhone,event:event}).then((response) => {
+                            console.log(response.data)
+                          })
+                        }
                  
 
                     
