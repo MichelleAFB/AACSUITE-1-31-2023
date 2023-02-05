@@ -5,7 +5,7 @@ import * as actionTypes from '../redux/eventModal/eventModal-action'
 
 import {useDispatch,useSelector,connect} from 'react-redux'
 //import {setModalEvent,setClientModalOpen,setClientModalClose} from '../redux/client/clientModal-actions'
-import {setModalEvent,setModalOpen,setModalEventOccupied} from '../redux/eventModal/eventModal-action'
+import { setClientModalOpen,setModalEvent } from '../redux/client/clientModal-actions'
 
 
 
@@ -107,14 +107,16 @@ import { useRef } from 'react'
            // dispatch(setClientModalOpen())
 
             
-              resolve()
+              setTimeout(() =>{
+                resolve()
+              },500)
          
           })
 
           prom.then(() => {
             console.log("event item should be set for modal" )
             //TODO: CHANGE CLIENTMODAL REDUCE,SEPARATE REQUEST MODAL FROM REGULAR
-              dispatch(setModalOpen())
+              dispatch(setClientModalOpen())
             
 
           })
