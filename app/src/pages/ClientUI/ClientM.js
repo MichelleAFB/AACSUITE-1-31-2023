@@ -116,21 +116,19 @@ function ClientM({visibility,ourEvent}) {
                         message.append("\nPlease enter valid phone number")
                        
                       }
-                      if(!clientAltEmail.includes("@")){
-                        message.append("please enter valid alter")
-                      }
+                     
                       console.log(clientAltEmail)
                       console.log(clientPhone)
                         console.log(primaryEmail)
-                        console.log(!useAltEmail && clientPhone!="" )
+                        console.log(useAltEmail )
                         if(useAltEmail && clientAltEmail!="" && clientPhone!="" ){
-                          axios.post("http://localhost:3002/reservations/reservationRequests",{altEmail:clientAltEmail,email:primaryEmail,phone:clientPhone,event:event}).then((response) => {
+                          axios.post("http://localhost:3002/reservations/reservationRequests",{altEmail:clientAltEmail,firstname:primaryEmail.firstname,lastname:primaryEmail.lastname,email:primaryEmail.email,phone:clientPhone,event:event}).then((response) => {
                             console.log(response.data)
                           })
                         }
                         if(!useAltEmail && clientPhone!="" ){
                           console.log("sending")
-                          axios.post("http://localhost:3002/reservations/reservationRequests",{email:primaryEmail,phone:clientPhone,event:event}).then((response) => {
+                          axios.post("http://localhost:3002/reservations/reservationRequests",{firstname:primaryEmail.firstname,lastname:primaryEmail.lastname,email:primaryEmail.email,phone:clientPhone,event:event}).then((response) => {
                             console.log(response.data)
                           })
                         }

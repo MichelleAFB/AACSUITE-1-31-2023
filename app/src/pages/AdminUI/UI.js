@@ -16,6 +16,8 @@ import EventListFull from '../../components/EventListFull'
 import TodayEventBox from '../../components/TodayEventBox'
 import NewEventList from '../../components/NewEventList'
 import Modal from '../../components/Modal'
+import PublicEventModal from '../../components/EventList/PublicEventModal'
+import CompanyEventModal from '../../components/EventList/CompanyEventModal'
 function UI() {
 
   const navigate = useNavigate()
@@ -24,6 +26,9 @@ function UI() {
       
       <RequestModal/>
       <EventModal/>
+      <PublicEventModal/>
+      <CompanyEventModal/>
+      
     <div class="page">
     
       <main class="p-6 sm:p-10 space-y-6">

@@ -36,6 +36,74 @@ export function setModalEvent (event) {
   }
 }
 
+export function setPublicModalOpen () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+  
+  return {
+    type: actionTypes.SET_PUBLIC_MODAL_OPEN,
+    payload:{
+      publicVisibility:true
+    }
+    
+  }
+}
+
+export function setPublicModalClose () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+ 
+  return {
+    type: actionTypes.SET_PUBLIC_MODAL_CLOSE,
+    payload:{
+      publicVisibility:false
+    }
+    
+  }
+}
+
+export function setPublicModalEvent (event) {
+  console.log("set modal EVENT in action types")
+  return {
+    type: actionTypes.SET_PUBLIC_MODAL_EVENT,
+    payload: {
+      publicEvent: event
+    }
+  }
+}
+
+export function setCompanyModalOpen () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+  
+  return {
+    type: actionTypes.SET_COMPANY_MODAL_OPEN,
+    payload:{
+      companyVisibility:true
+    }
+    
+  }
+}
+
+export function setCompanyModalClose () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+ 
+  return {
+    type: actionTypes.SET_COMPANY_MODAL_CLOSE,
+    payload:{
+      companyVisibility:false
+    }
+    
+  }
+}
+
+export function setCompanyModalEvent (event) {
+  console.log("set modal EVENT in action types")
+  return {
+    type: actionTypes.SET_COMPANY_MODAL_EVENT,
+    payload: {
+      companyEvent: event
+    }
+  }
+}
+
 export function setModalEventOccupied (occupied) {
   console.log("set modal EVENT OCCUPIED in action types")
   return {

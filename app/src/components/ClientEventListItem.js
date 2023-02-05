@@ -95,9 +95,9 @@ import { useRef } from 'react'
     <div class="object-contain " onMouseEnter={()=> {
       
     }}>
-      <li class="py-5 border-b px-3 transition hover:bg-indigo-100 rounded-md ">
+      <li class="py-5 border-b px-3 transition hover:bg-indigo-300 rounded-md ">
         <a href="#" class="flex justify-between items-center">
-          <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time}</h3>
+          <h3 class="text-lg font-semibold text-white">{event.act} | {event.date} | {event.time}</h3>
         </a>
        
         <button class="bg-gray-400 p-2 rounded-md" onClick={()=> {
