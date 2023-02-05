@@ -1,10 +1,10 @@
 import React from 'react'
 import {useState,useEffect} from 'react'
 import { ReactReduxContext, useSelector } from 'react-redux'
-import EventListItem from './EventListItem'
-import EventModal from './EventModal'
+
+
 import axios from 'axios'
-import PublicEventListItem from './PrivateEventListItem'
+import PublicEventListItem from './PublicEventListItem'
 import CompanyEventListItem from './CompanyEventListItem'
 
 
@@ -13,7 +13,7 @@ import CompanyEventListItem from './CompanyEventListItem'
 
 
 
-function NewEventList({listType}) {
+function TypeEventList({listType}) {
 
   const [events,setEvents]=useState()
   const [isLoading,setIsLoading]=useState(true)
@@ -137,4 +137,4 @@ if(!isLoading){
   }
 }
 
-export default  NewEventList
+export default  TypeEventList

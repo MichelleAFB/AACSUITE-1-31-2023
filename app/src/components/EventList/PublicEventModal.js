@@ -69,12 +69,12 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
       console.log("edit Event");
-      console.log(ourEvent.event);
-      const id = ourEvent.event.id;
+      console.log(ourEvent.publicEvent);
+      const id = ourEvent.publicEvent.id;
       console.log(id);
       //TODO: CHANGE API CALL TO USE MODALEVENT NOT OUR EVENT
       axios
-        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.event.id)
+        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.publicEvent.id)
         .then(async (response) => {
           console.log(response);
           setEvent(await response.data[0]);
@@ -95,12 +95,10 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
 
       const companyrequests = []; //if there are pending company request
       var requested = false;
-      if (event.access == "private") {
-        setIsLoading(false);
-      }
+      
       const prom1 = new Promise((resolve1, reject1) => {
        
-        if (event.access == "public") {
+   
           console.log("**********CLIENT REEQUEST");
 
           axios
@@ -135,7 +133,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
               
               resolve1();
             });
-        }
+        
       });
 
       prom1.then(() => {
@@ -143,14 +141,9 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
        
 
         const prom2 = new Promise((resolve2, reject3) => {
-          //console.log("reservedExists:"+reservedExists)
-          // console.log("clent requests array:")
-          // console.log(clientReqs)
-          //console.log("company request array: ")
-          //console.log(companyrequests)
+        
           setIsReserved(reservedExists);
           setIsClientRequested(clientReqs);
-          //console.log(occClient)
           if(clientRequests==null){
           setClientRequests(occClient);
           }

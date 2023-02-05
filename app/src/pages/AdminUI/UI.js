@@ -18,6 +18,7 @@ import NewEventList from '../../components/NewEventList'
 import Modal from '../../components/Modal'
 import PublicEventModal from '../../components/EventList/PublicEventModal'
 import CompanyEventModal from '../../components/EventList/CompanyEventModal'
+import TypeEventList from '../../components/EventList/TypeEventList'
 function UI() {
 
   const navigate = useNavigate()
@@ -120,7 +121,8 @@ function UI() {
               </svg>
               Create new dashboard
             </button>
-            <NewEventList />
+              <NewEventList />
+              <TypeEventList/>
            
           </div>
             

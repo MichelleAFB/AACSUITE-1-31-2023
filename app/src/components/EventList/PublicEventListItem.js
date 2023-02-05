@@ -16,7 +16,7 @@ import {fill} from "@cloudinary/url-gen/actions/resize";
 import axios from 'axios'
 
 //components
-import EventModal from './EventModal'
+
  function PublicEventListItem({modalType,event}){
 
     const visible= useSelector(state => state.showModal.visibilty)
@@ -250,7 +250,7 @@ import EventModal from './EventModal'
      
   return (
     <div class="max-h-sm rounded-md">
-      <li class="py-5 m-4  bg-gray-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
+      <li class="py-5 m-4  bg-pink-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
         <a href="#" class="flex justify-between items-center">
           <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
         </a>
@@ -298,8 +298,8 @@ import EventModal from './EventModal'
             })
             */
 
-            dispatch(setModalEventOccupied(occ))
-            dispatch(setModalEvent(event))
+         
+            dispatch(setPublicModalEvent(event))
              
             resolve()
           })
@@ -307,7 +307,7 @@ import EventModal from './EventModal'
           prom.then(() => {
             
           
-            dispatch(setModalOpen(true))
+            dispatch(setPublicModalOpen(true))
             
             
           }).catch(

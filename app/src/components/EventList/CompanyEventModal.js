@@ -59,7 +59,7 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
   const [count, setCount] = useState(0);
   
 
-
+console.log(ourEvent)
   useEffect(() => {
     console.log(
       "************************************MODAL HOME RELOAD*********************"
@@ -69,15 +69,15 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
       console.log("edit Event");
-      console.log(ourEvent.event);
-      const id = ourEvent.event.id;
+      console.log(ourEvent.companyEvent);
+      const id = ourEvent.companyEvent.id;
       console.log(id);
       //TODO: CHANGE API CALL TO USE MODALEVENT NOT OUR EVENT
       axios
-        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.event.id)
-        .then(async (response) => {
+        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.companyEvent.id)
+        .then((response) => {
           console.log(response);
-          setEvent(await response.data[0]);
+          setEvent(response.data[0]);
 
           console.log("*****************OUR EVENT*******")
           console.log(event)
@@ -91,7 +91,7 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
 
     prom.then(() => {
       const occClient = [];
-      var clientReqs = false;
+      
 
       const companyrequests = []; //if there are pending company request
       var requested = false;
@@ -101,12 +101,10 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
           console.log("*********COMPANY OPTION");
 
           //do pending request existing
-
+        console.log(event.id)
           axios
             .get(
-              "http://localhost:3002/reservations/reservationsandrequests/" +
-                event.access +
-                "/" +
+              "http://localhost:3002/reservations/reservationsandrequests/company/" +
                 event.id
             )
             .then((responseCompany) => {
@@ -146,17 +144,11 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
        
 
         const prom2 = new Promise((resolve2, reject3) => {
-          //console.log("reservedExists:"+reservedExists)
-          // console.log("clent requests array:")
-          // console.log(clientReqs)
-          //console.log("company request array: ")
-          //console.log(companyrequests)
+        
           setIsReserved(reservedExists);
-          setIsClientRequested(clientReqs);
+        
           //console.log(occClient)
-          if(clientRequests==null){
-          setClientRequests(occClient);
-          }
+          
           setIsCompanyRequested(requested);
           setCompanyRequests(companyrequests);
           setTimeout(() => {
@@ -170,7 +162,7 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
 
           setIsLoading(false);
           /******************************** */
-
+          console.log("DONEE")
           /******************************** */
         });
       });
@@ -219,7 +211,7 @@ const CompanyEventModal = ({ ourEvent, visibility }) => {
           <ToastContainer/>
         
           <main id='content' role='main' class='w-full max-w-md mx-auto '>
-            <div class=' bg-white  rounded-xl shadow-lg dark:bg-gray-500 dark:border-gray-700 mb-5'>
+            <div class=' bg-white  rounded-xl shadow-lg dark:bg-blue-300  dark:border-gray-700 mb-5'>
               <div class='p-4 sm:p-7'>
                 <div class='text-center'>
                 

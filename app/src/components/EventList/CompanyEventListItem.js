@@ -2,7 +2,7 @@ import React, { useEffect,useRef,useMemo } from 'react'
 import {useState} from 'react'
 import * as actionTypes from '../../redux/eventModal/eventModal-action'
 import {useDispatch,useSelector,connect} from 'react-redux'
-import {setModalEvent,setModalOpen,setModalEventOccupied} from '../../redux/eventModal/eventModal-action'
+import {setCompanyModalEvent,setCompanyModalOpen} from '../../redux/eventModal/eventModal-action'
 import { setEmployeeModalOpen,setEmployeeModalEvent} from '../../redux/employee/employeeModal-actions'
 
 //functions
@@ -250,7 +250,7 @@ import EventModal from '../EventModal'
      
   return (
     <div class="max-h-sm rounded-md">
-      <li class="py-5 m-4  bg-gray-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
+      <li class="py-5 m-4  bg-blue-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
         <a href="#" class="flex justify-between items-center">
           <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
         </a>
@@ -282,21 +282,7 @@ import EventModal from '../EventModal'
           
          const occ=[]
           const prom = new Promise((resolve,reject) => {
-            /*axios.get("http://localhost:3002/sendOccupiedToFront").then((resp) => {
-              const res=resp.data
-
-              res.map((e) => {
-                if(e.actID==event.id){
-                  occ.push(e)
-                }
-              })
-              console.log("NEWWW IN EVENTMODAL")
-              dispatch(setModalEventOccupied(occ))
-              dispatch(setModalEvent(event))
-               
-              resolve()
-            })
-            */
+          console.log("deploy company modal")
 
             dispatch(setCompanyModalEvent(event))
              
@@ -326,7 +312,7 @@ import EventModal from '../EventModal'
      console.log("EMPLOYEEEE LIST TYPE")
     return (
       <div class="max-h-sm rounded-md">
-        <li class="py-5 m-4  bg-gray-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
+        <li class="py-5 m-4  bg-green-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
           <a href="#" class="flex justify-between items-center">
             <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
           </a>
@@ -353,7 +339,7 @@ import EventModal from '../EventModal'
                   }
                 })
                 console.log("NEWWW IN EVENTMODAL")
-                dispatch(setModalEventOccupied(occ))
+               
                 dispatch(setEmployeeModalEvent(event))
                  
                 resolve()

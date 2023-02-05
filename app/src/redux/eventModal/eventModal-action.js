@@ -104,6 +104,40 @@ export function setCompanyModalEvent (event) {
   }
 }
 
+export function setPrivateModalOpen () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+  
+  return {
+    type: actionTypes.SET_PRIVATE_MODAL_OPEN,
+    payload:{
+      privateVisibility:true
+    }
+    
+  }
+}
+
+export function setPrivateModalClose () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+ 
+  return {
+    type: actionTypes.SET_PRIVATE_MODAL_CLOSE,
+    payload:{
+      privateVisibility:false
+    }
+    
+  }
+}
+
+export function setPrivateModalEvent (event) {
+  console.log("set modal EVENT in action types")
+  return {
+    type: actionTypes.SET_PRIVATE_MODAL_EVENT,
+    payload: {
+      privateEvent: event
+    }
+  }
+}
+
 export function setModalEventOccupied (occupied) {
   console.log("set modal EVENT OCCUPIED in action types")
   return {

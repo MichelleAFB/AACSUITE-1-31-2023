@@ -32,10 +32,21 @@ const initialState = {
     access:""
 
   },
+  privateEvent:{
+    act:"",
+    id:-1,
+    date:"",
+    time:"",
+    httpId:"",
+    image:"",
+    access:""
+
+  },
   occupied:[],
   updateOccuring:false,
   publicVisibility:false,
   companyVisibility:false,
+  privateVisibility:false,
   visibility:false,
   visibilityAccessModal:false,
 }
@@ -103,6 +114,27 @@ const initialState = {
             ...state,
             companyEvent:action.payload
           }
+          /******************************** */
+          case actionTypes.SET_PRIVATE_MODAL_OPEN:
+            console.log("WORKING IN REDUCER: TOGGLE")
+          return{
+            ...state,
+            privateVisibility:true
+          }
+          case actionTypes.SET_PRIVATE_MODAL_CLOSE:
+            console.log("WORKING IN REDUCER: TOGGLE")
+          return{
+            ...state,
+            privateVisibility:false
+          }
+          case actionTypes.SET_PRIVATE_MODAL_EVENT:
+            console.log("REDUX::WORKING IN REDUCER: EVENT")
+            console.log("activating")
+            return{
+              ...state,
+              privateEvent:action.payload
+            }
+
           /******************************** */
       case actionTypes.SET_MODAL_EVENT_OCCUPIED:
         console.log("REDUX::WORKING IN REDUCER: EVENT OCCUPIED")
