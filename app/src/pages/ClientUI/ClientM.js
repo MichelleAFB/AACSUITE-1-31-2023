@@ -25,12 +25,14 @@ function ClientM({visibility,ourEvent}) {
   },[visibility,ourEvent])
 
 
-  const onMutate=(e) => {
+  function onMutate(e){
+    console.log("mutate")
     if(e.target.name =='phone'){
       setClientInfo(phone => e.target.value)
     }
     if(e.target.name =='email'){
       setClientInfo(email=> e.target.value)
+      console.log(clientInfo.phone)
      
     }
   }
@@ -53,16 +55,17 @@ function ClientM({visibility,ourEvent}) {
                   <div class="flex-col p-4">
                     <div class="relative m-2">
                       <label for="phone" class="text-white">Phone:</label>
-                      <input type="text" onChange={((e) => {
-                        console.log(e.target.value)
+                      <input name="phone" type="text" onChange={((e) => {
+                      
+                        onMutate(e)
                       })} class="ml-2 p-1  rounded-md"/>
                     </div>
                     <div class="relative m-2">
                       <label for="phone" class="text-white">Email:</label>
-                      <input  name="email" placeholder="@gmail.com" type="text" onChange={((e) => {
-                        console.log(e.target.value)
-                        console.log(e.target.name)
-                      })} class="ml-2 p-1  rounded-md"/>
+                      <input  name="email" placeholder="@gmail.com" type="text" onChange={(e) => {
+                        onMutate(e)
+                      
+                      }} class="ml-2 p-1  rounded-md"/>
                     </div>
                   </div>
                   <button class="bg-gray-600 p-2 rounded-md m-2" onClick={() => {
@@ -74,14 +77,14 @@ function ClientM({visibility,ourEvent}) {
                     console.log("CLOSE MODAL")
                     const primaryEmail=JSON.parse(sessionStorage.getItem("client"))
                     console.log(primaryEmail.email)
-                    var email
-                    if(clientInfo.email!=""){
+                    
+                    
                       console.log(clientInfo.email)
-                     
-                        console.log("info:"+primaryEmail+" "+clientInfo.phone+ " "+ clientInfo.email)
+                     console.log(clientInfo.phone)
+                        console.log(primaryEmail)
                  
 
-                    }
+                    
                      /* const prom= new Promise((resolve,reject) => {
                         axios.post("http://localhost:3002/reservationRequests",{email:JSON.parse(sessionStorage.get('client')),
                       })
