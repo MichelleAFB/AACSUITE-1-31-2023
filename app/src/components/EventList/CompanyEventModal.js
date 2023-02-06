@@ -101,11 +101,11 @@ console.log(ourEvent)
           console.log("*********COMPANY OPTION");
 
           //do pending request existing
-        console.log(event.id)
+        console.log(event)
           axios
             .get(
               "http://localhost:3002/reservations/reservationsandrequests/company/" +
-                event.id
+                ourEvent.companyEvent.id
             )
             .then((responseCompany) => {
               if (responseCompany.data.success == true) {

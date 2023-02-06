@@ -24,6 +24,7 @@ import { seats } from "../../data/Seats";
 import axios from "axios";
 import { ToastContainer,toast } from "react-toastify";
 import { ReservedCompanySeatsWindow } from "../ReservedCompanySeatsWindow";
+import ReservedPublicReservations from "./ReservedPublicReservations";
 
 
 const PublicEventModal = ({ ourEvent, visibility }) => {
@@ -77,7 +78,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
         .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.publicEvent.id)
         .then(async (response) => {
           console.log(response);
-          setEvent(await response.data[0]);
+          setEvent( response.data[0]);
 
           console.log("*****************OUR EVENT*******")
           console.log(event)
@@ -167,6 +168,8 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
     
   }, [visibility,ourEvent]);
 
+  console.log(clientRequests)
+
  
   function getEvent(ourEvent){
     console.log("\n\n\\n\n\n\n\n")
@@ -254,12 +257,14 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                           This event has pending or confirmed
                           public reservation(s):
                         </p>
+                        <ReservedPublicReservations/>
                         </div>
                         <div class="p-3">
                       {clientRequests.map((m) =>{
                         console.log(m)
                         return <p class="text-white text-sm">{m.act} | {m.clientName} | reserved on: {m.dateReserved}</p>
                       })}
+
                        {revokePublicRequests == false ? (
                         <button
                           class='mt-3 p-2 rounded-md bg-gray-400 '
