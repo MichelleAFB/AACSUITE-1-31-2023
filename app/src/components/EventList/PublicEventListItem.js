@@ -2,7 +2,7 @@ import React, { useEffect,useRef,useMemo } from 'react'
 import {useState} from 'react'
 import * as actionTypes from '../../redux/eventModal/eventModal-action'
 import {useDispatch,useSelector,connect} from 'react-redux'
-import {setPublicModalEvent,setPublicModalOpen} from '../../redux/eventModal/eventModal-action'
+import {setPublicModalEvent,setPublicModalOpen,setPublicModalOccupied} from '../../redux/eventModal/eventModal-action'
 import { setEmployeeModalOpen,setEmployeeModalEvent} from '../../redux/employee/employeeModal-actions'
 
 //functions
@@ -45,9 +45,10 @@ import axios from 'axios'
             axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
               var reserved= response.data
              console.log(response)
+             dispatch(setPublicModalOccupied(response.data))
                 reserved.map((r) => {
                  
-          if(r.eventId == event.id && r.approved==1){
+          if(r.eventId == event.id ){
             //console.log("reserved event!!!!")
             //console.log(r)
             

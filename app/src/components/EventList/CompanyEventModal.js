@@ -397,7 +397,7 @@ console.log(ourEvent)
                             }
                            })
                            setCompanyRequests([])
-                            setClientRequests([])
+                      
                             resolve()
 
                           })
@@ -562,7 +562,7 @@ console.log(ourEvent)
                                       class='seat selected'
                                       onClick={(e) => {
                                         e.preventDefault();
-
+                                          console.log(o)
                                         if (o.selected == null) {
                                           console.log("uninstantiates");
                                           o.selected = false;
@@ -576,6 +576,7 @@ console.log(ourEvent)
                                       }}
                                     >
                                       <p class='text-gray-200'>{o.seat}</p>
+                                      <p class='text-gray-200'></p>
                                     </button>
                                   );
                                 })}
@@ -636,7 +637,11 @@ console.log(ourEvent)
                           </div>
                         </div>
                       </div>
-                      <div class='flex'></div>
+                      <div class='flex'>{
+                        clientRequests.map((m)=>{
+                          <p>{m.firstname} {m.lastname}</p>
+                        })
+                      }</div>
                     </div>
                   </form>
                 </div>

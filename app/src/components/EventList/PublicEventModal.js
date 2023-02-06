@@ -76,18 +76,19 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
       //TODO: CHANGE API CALL TO USE MODALEVENT NOT OUR EVENT
       axios
         .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.publicEvent.id)
-        .then(async (response) => {
+        .then( (response) => {
           console.log(response);
           setEvent( response.data[0]);
 
           console.log("*****************OUR EVENT*******")
           console.log(event)
           //setIsLoading(false)
+          resolve();
         });
 
    
 
-      resolve();
+  
     });
 
     prom.then(() => {
@@ -101,16 +102,18 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
        
    
           console.log("**********CLIENT REEQUEST");
-
+        console.log(event.id)
           axios
             .get(
               "http://localhost:3002/reservations/reservationsandrequests/public/" +
-                ourEvent.publicEvent.id
+                event.id
             )
             .then((responseClient) => {
+              console.log(event)
               console.log("company requests");
               console.log(responseClient)
              
+              if(responseClient.data.success==true){
                 console.log("**********PUBLIC MODAL:GETTING OCCUPIEND");
                 const r = responseClient.data.requests;
 
@@ -129,9 +132,12 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                   });
                 }
               
-
               
-              resolve1();
+                  console.log(occClient)
+              setTimeout(()=> {
+                resolve1();
+              },1500)
+            }
             });
         
       });
@@ -165,7 +171,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
       });
     });
     
-  }, [visibility,ourEvent]);
+  }, [ourEvent]);
 
   console.log(clientRequests)
 
@@ -233,13 +239,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                   <p class='block text-lg font-bold text-gray-800 dark:text-white'>
                     {event.time}{" "}
                   </p>
-                  {() => {
-                    console.log("\n\n\n\n")
-                    console.log(editEvent)
-                    console.log(event)
-                    console.log(ourEvent)
-                    console.log(event==ourEvent)
-                  }}
+                
                   {
                     isCompanyRequested?<p class="font-bold text-red-600">Wait to see Detected</p>:<p></p>
                   }
@@ -256,7 +256,14 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                           This event has pending or confirmed
                           public reservation(s):
                         </p>
-                           <ReservedPublicReservations/>
+                        <p></p>
+                        <p>{clientRequests[0].clientName}|{clientRequests[0].dateReserved}|{clientRequests[0].timeReserved}</p>
+                        {
+                          clientRequests.map((m) => {
+                            return<p>{m.clientName} | {m.dateReserved} | {m.timeReserved}</p>
+                          })
+                        }
+                         
                         </div>
                         <div class="p-3">
                       {/*clientRequests.map((m) =>{

@@ -70,6 +70,16 @@ export function setPublicModalEvent (event) {
   }
 }
 
+export function setPublicModalOccupied (occ) {
+  console.log("set modal EVENT in action types")
+  return {
+    type: actionTypes.SET_PUBLIC_MODAL_OCCUPIED,
+    payload: {
+      publicOccupied: occ
+    }
+  }
+}
+
 export function setCompanyModalOpen () {
   console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
   

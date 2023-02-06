@@ -47,6 +47,7 @@ const initialState = {
   publicVisibility:false,
   companyVisibility:false,
   privateVisibility:false,
+  publicOccupied:null,
   visibility:false,
   visibilityAccessModal:false,
 }
@@ -94,6 +95,12 @@ const initialState = {
             ...state,
             publicEvent:action.payload
           }
+          case actionTypes.SET_PUBLIC_MODAL_OCCUPIED:
+            console.log("REDUX::WORKING IN REDUCER: EVENT OCCUPIED")
+            return{
+              ...state,
+              publicOccupied:action.payload
+            }
           /********************************/
           case actionTypes.SET_COMPANY_MODAL_OPEN:
           console.log("WORKING IN REDUCER: TOGGLE")
