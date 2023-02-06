@@ -637,11 +637,7 @@ console.log(ourEvent)
                           </div>
                         </div>
                       </div>
-                      <div class='flex'>{
-                        clientRequests.map((m)=>{
-                          <p>{m.firstname} {m.lastname}</p>
-                        })
-                      }</div>
+                      <div class='flex'></div>
                     </div>
                   </form>
                 </div>

@@ -258,10 +258,10 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                           public reservation(s):
                         </p>
                         <p></p>
-                        <p>{clientRequests[0].clientName}|{clientRequests[0].dateReserved}|{clientRequests[0].timeReserved}</p>
+                        
                         {
                           clientRequests.map((m) => {
-                            return<p>{m.clientName} | {m.dateReserved} | {m.timeReserved}</p>
+                            return<p>{m.clientName} | {m.dateReserved} | {m.timeReserved}|{m.act}</p>
                           })
                         }
                          
@@ -561,7 +561,7 @@ const mapStateToProps = (state, props) => {
   const vis = state.showModal.publicVisibility;
   const event = state.showModal.publicEvent;
   const occ=state.showModal.publicOccupied
-  console.log("vis: " + vis);
+  console.log("occupied:"+occ);
   return {
     visibility: vis,
     ourOccupied:occ,

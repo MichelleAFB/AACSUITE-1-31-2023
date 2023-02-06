@@ -348,6 +348,7 @@ import axios from 'axios'
             const prom = new Promise((resolve,reject) => {
               axios.get("http://localhost:3002/reservations/reservationsandrequests/public/"+event.id).then((resp) => {
                 const res=resp.data
+                console.log(res)
   
                 res.map((e) => {
                   if(e.actID==event.id){
@@ -356,7 +357,8 @@ import axios from 'axios'
                 })
                 dispatch(setPublicModalOccupied(resp.data))
                 dispatch(setPublicModalEvent(event))
-                 
+                
+                setTimeout(()=>{},500)
                 resolve()
               })
             })
