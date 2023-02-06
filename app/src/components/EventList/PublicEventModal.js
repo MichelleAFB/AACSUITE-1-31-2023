@@ -104,14 +104,13 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
 
           axios
             .get(
-              "http://localhost:3002/reservations/reservationsandrequests/" +
-                event.access +
-                "/" +
-                event.id
+              "http://localhost:3002/reservations/reservationsandrequests/public/" +
+                ourEvent.publicEvent.id
             )
             .then((responseClient) => {
               console.log("company requests");
-              if (responseClient.data.success == true) {
+              console.log(responseClient)
+             
                 console.log("**********PUBLIC MODAL:GETTING OCCUPIEND");
                 const r = responseClient.data.requests;
 
@@ -129,7 +128,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                     occClient.push(rr);
                   });
                 }
-              }
+              
 
               
               resolve1();
@@ -257,13 +256,13 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                           This event has pending or confirmed
                           public reservation(s):
                         </p>
-                        <ReservedPublicReservations/>
+                           <ReservedPublicReservations/>
                         </div>
                         <div class="p-3">
-                      {clientRequests.map((m) =>{
+                      {/*clientRequests.map((m) =>{
                         console.log(m)
                         return <p class="text-white text-sm">{m.act} | {m.clientName} | reserved on: {m.dateReserved}</p>
-                      })}
+                      })*/}
 
                        {revokePublicRequests == false ? (
                         <button

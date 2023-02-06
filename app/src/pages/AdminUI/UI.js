@@ -121,7 +121,7 @@ function UI() {
               </svg>
               Create new dashboard
             </button>
-              <NewEventList />
+              
               <TypeEventList/>
            
           </div>

@@ -4,7 +4,7 @@ import { useSelector,connect} from 'react-redux'
 
 //outside
 import axios from 'axios'
-function ReservedPublicReservations({ourEvent}) {
+function ReservedPublicReservations({ourEvent,visibility}) {
 
 
   const[clientRequests,setClientRequests]=useState()
@@ -83,20 +83,43 @@ function ReservedPublicReservations({ourEvent}) {
     });
   });
 
+  },[ourEvent,visibility])
 
-
-  })
-  
+  console.log(clientRequests[0])
+  console.log(isClientRequested)
+  if(!isLoading && isClientRequested){
+    console.log(clientRequests)
+    console.log(clientRequests.length +"for act: "+ ourEvent.publicEvent.act)
   return (
-    <div>ReservedPublicReservations</div>
+    <div class="flex flex-col p-5">
+      
+      <div>{clientRequests.map((m) => {
+       <p class="text-white text-xs m-1">{m.clientName} | {m.dateReserved} | {m.timeReserved} | {m.act} </p>
+        
+      })}</div>
+    </div>
   )
+}
+if(!isLoading && isClientRequested && clientRequests.length==1){
+  console.log(clientRequests)
+return (
+  <div class="flex flex-col p-5">
+    
+    <div>{
+     <p class="text-white text-xs m-2">{clientRequests[0].clientName} | {clientRequests[0].dateReserved} | {clientRequests[0].timeReserved} | {clientRequests[0].act}</p>
+      
+}</div>
+  </div>
+)
+}
 }
 const mapStateToProps = (state, props) => {
   
   const event = state.showModal.publicEvent;
+  const vis=state.showmodal.publicVisibility
  
   return {
-
+    visibility:vis,
     ourEvent: event
   };
 };
