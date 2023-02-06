@@ -56,6 +56,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
   const [pendingCompanyRequests, setPendingCompanyRequests] = useState(); //company requests exist
   const [revokeEmployees, setRevokeEmployees] = useState(false);
   const [revokePublicRequests, setRevokePublicRequests] = useState(false);
+  
 
   const [count, setCount] = useState(0);
   
@@ -65,7 +66,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
     console.log(
       "************************************MODAL HOME RELOAD*********************"
     );
-
+      
     
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
@@ -559,9 +560,11 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
 const mapStateToProps = (state, props) => {
   const vis = state.showModal.publicVisibility;
   const event = state.showModal.publicEvent;
+  const occ=state.showModal.publicOccupied
   console.log("vis: " + vis);
   return {
     visibility: vis,
+    ourOccupied:occ,
     ourEvent: event,
   };
 };

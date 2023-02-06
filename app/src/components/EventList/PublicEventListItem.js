@@ -45,7 +45,7 @@ import axios from 'axios'
             axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
               var reserved= response.data
              console.log(response)
-             dispatch(setPublicModalOccupied(response.data))
+             
                 reserved.map((r) => {
                  
           if(r.eventId == event.id ){
@@ -346,7 +346,7 @@ import axios from 'axios'
             
            const occ=[]
             const prom = new Promise((resolve,reject) => {
-              axios.get("https://accserverheroku.herokuapp.com/sendOccupiedToFront").then((resp) => {
+              axios.get("http://localhost:3002/reservations/reservationsandrequests/public/"+event.id).then((resp) => {
                 const res=resp.data
   
                 res.map((e) => {
@@ -354,7 +354,7 @@ import axios from 'axios'
                     occ.push(e)
                   }
                 })
-                
+                dispatch(setPublicModalOccupied(resp.data))
                 dispatch(setPublicModalEvent(event))
                  
                 resolve()
