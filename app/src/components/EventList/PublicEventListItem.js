@@ -44,7 +44,7 @@ import axios from 'axios'
             setIndividual(true)
             axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
               var reserved= response.data
-             console.log(response)
+             //console.log(response)
              
                 reserved.map((r) => {
                  
@@ -346,6 +346,7 @@ import axios from 'axios'
             
            const occ=[]
             const prom = new Promise((resolve,reject) => {
+              console.log("DEPLOYING PUBLIC MODAL")
               axios.get("http://localhost:3002/reservations/reservationsandrequests/public/"+event.id).then((resp) => {
                 const res=resp.data
                 console.log(res)
@@ -359,7 +360,7 @@ import axios from 'axios'
                 dispatch(setPublicModalEvent(event))
                 
                 setTimeout(()=>{},500)
-                resolve()
+                //resolve()
               })
             })
   
