@@ -319,7 +319,7 @@ function CompanyMenu({ visibility, event }) {
 
                                         axios
                                           .post(
-                                            "https://localhost:3002/company/setOccupiedEmployee",
+                                            "https://accserverheroku.herokuapp.com/company/setOccupiedEmployee",
                                             {
                                               eventId: event.event.id,
                                               employeeId: employee.id,
