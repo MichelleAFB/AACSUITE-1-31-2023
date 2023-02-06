@@ -42,7 +42,7 @@ import EventModal from '../EventModal'
          
             //console.log("*******PUBLIC EVENT*******")
             setIndividual(true)
-            axios.get("http://localhost:3002/reservations/approvedReservations").then((response) => {
+            axios.get("https://accserverheroku.herokuapp.com/reservations/approvedReservations").then((response) => {
               var reserved= response.data
              
                 reserved.map((r) => {

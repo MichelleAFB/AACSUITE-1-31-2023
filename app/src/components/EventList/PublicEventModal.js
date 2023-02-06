@@ -23,6 +23,9 @@ import { seats } from "../../data/Seats";
 //outside
 import axios from "axios";
 import { ToastContainer,toast } from "react-toastify";
+import { motion } from "framer-motion";
+
+//components
 import { ReservedCompanySeatsWindow } from "../ReservedCompanySeatsWindow";
 import ReservedPublicReservations from "./ReservedPublicReservations";
 
@@ -106,7 +109,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
         console.log(event.id)
           axios
             .get(
-              "http://localhost:3002/reservations/reservationsandrequests/public/" +
+              "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/public/" +
                 event.id
             )
             .then((responseClient) => {
@@ -175,6 +178,26 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
   }, [ourEvent]);
 
   console.log(clientRequests)
+  const dropIn = {
+    hidden: {
+      y: "-100vh",
+      opacity: 0,
+    },
+    visible: {
+      y: "0",
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 25,
+        stiffness: 500,
+      },
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  };
 
  
   function getEvent(ourEvent){
@@ -215,7 +238,11 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
       <div class='bg-gray-200'>
         <div class='h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50'>
           <ToastContainer/>
-        
+          <motion.div
+           variants={dropIn}
+           initial="hidden"
+           animate="visible"
+           exit="exit">
           <main id='content' role='main' class='w-full max-w-md mx-auto '>
             <div class=' bg-white  rounded-xl shadow-lg dark:bg-pink-400 dark:border-gray-700 mb-5'>
               <div class='p-4 sm:p-7'>
@@ -549,6 +576,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
               </a>
             </p>
           </main>
+          </motion.div>
         </div>
       </div>
     );

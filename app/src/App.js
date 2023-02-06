@@ -30,6 +30,7 @@ function App() {
         <Route path="/admin-home" element={<UI/>}/>
         <Route path="/employee-home" element={<EmployeeHome/>}/>
         <Route path="/admin-reservations" element={<ReservationsPage/>}/>
+        <Route path="/admin-events" element={<EventsPage/>}/>
         <Route path="/client-home" element={<ClientHome/>}/>
        
         

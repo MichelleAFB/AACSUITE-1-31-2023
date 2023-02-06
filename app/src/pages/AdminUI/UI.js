@@ -36,7 +36,7 @@ function UI() {
         <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
           <div class="mr-6">
             <h1 class="text-4xl font-semibold mb-2">Dashboard</h1>
-            <h2 class="text-gray-600 ml-0.5">Mobile UX/UI Design course</h2>
+            <h2 class="text-gray-600 ml-0.5 text-lg">Welcome {JSON.parse(sessionStorage.getItem("admin")).firstname}!</h2>
           </div>
           <div class="flex flex-wrap items-start justify-end -mb-3">
             <button class="inline-flex px-5 py-3 text-purple-600 hover:text-purple-700 focus:text-purple-700 hover:bg-purple-100 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">

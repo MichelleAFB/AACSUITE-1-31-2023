@@ -356,7 +356,8 @@ import axios from 'axios'
                     occ.push(e)
                   }
                 })
-                dispatch(setPublicModalOccupied(resp.data))
+                console.log("dsfsdfsdfdsfdsfdsfs")
+                dispatch(setPublicModalOccupied(res))
                 dispatch(setPublicModalEvent(event))
                 
                 setTimeout(()=>{},500)

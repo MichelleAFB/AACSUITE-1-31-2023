@@ -1,7 +1,7 @@
 
 import React, { useEffect, useState, forceUpdate ,useMemo} from "react";
 import { useSelector, useDispatch, connect } from "react-redux";
-
+import { motion } from "framer-motion";
 
 //redux
 import {
@@ -104,7 +104,7 @@ console.log(ourEvent)
         console.log(event)
           axios
             .get(
-              "http://localhost:3002/reservations/reservationsandrequests/company/" +
+              "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/company/" +
                 ourEvent.companyEvent.id
             )
             .then((responseCompany) => {
@@ -170,6 +170,26 @@ console.log(ourEvent)
     
   }, [visibility,ourEvent]);
 
+  const dropIn = {
+    hidden: {
+      y: "-100vh",
+      opacity: 0,
+    },
+    visible: {
+      y: "0",
+      opacity: 1,
+      transition: {
+        duration: 0.1,
+        type: "spring",
+        damping: 25,
+        stiffness: 500,
+      },
+    },
+    exit: {
+      y: "100vh",
+      opacity: 0,
+    },
+  };
 
   function getEvent(ourEvent){
     console.log("\n\n\\n\n\n\n\n")
@@ -209,6 +229,11 @@ console.log(ourEvent)
       <div class='bg-gray-200'>
         <div class='h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50'>
           <ToastContainer/>
+          <motion.div
+           variants={dropIn}
+           initial="hidden"
+           animate="visible"
+           exit="exit">
         
           <main id='content' role='main' class='w-full max-w-md mx-auto '>
             <div class=' bg-white  rounded-xl shadow-lg dark:bg-blue-300  dark:border-gray-700 mb-5'>
@@ -385,7 +410,7 @@ console.log(ourEvent)
                           console.log("ATTEMPTING TO DELETE ALL COMPANY RESERVATIONS")
                           const prom=new Promise((resolve,reject) => {
                         
-                            axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.eventId).then((response) => {
+                            axios.post("https://accserverheroku.herokuapp.com/company/revokeAllOccupiedEmployee/"+event.eventId).then((response) => {
                             console.log(response.data)
                             if(response.data.success==true){
                               alert("All employee reservations and requests for\n"+ event.act + " have been revoked")
@@ -670,6 +695,7 @@ console.log(ourEvent)
               </a>
             </p>
           </main>
+          </motion.div>
         </div>
       </div>
     );

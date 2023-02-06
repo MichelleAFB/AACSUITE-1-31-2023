@@ -14,7 +14,7 @@ function RecentChangesCard({title,changeType,width,color}) {
 
    const prom = new Promise((resolve,reject) => {
    
-    axios.post("http://localhost:3002/getRecentChanges/"+changeType).then((response) => {
+    axios.post("https://accserverheroku.herokuapp.com/getRecentChanges/"+changeType).then((response) => {
    setOurTitle(title)
     const data =response.data.changes
     data.map((r) => {
