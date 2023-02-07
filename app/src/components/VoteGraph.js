@@ -13,47 +13,8 @@ import {
   Legend,
 } from 'chart.js';
 import { Bar } from 'react-chartjs-2';
-import faker from 'faker';
 
-ChartJS.register(
-  CategoryScale,
-  LinearScale,
-  BarElement,
-  Title,
-  Tooltip,
-  Legend
-);
 
-export const options = {
-  responsive: true,
-  plugins: {
-    legend: {
-      position: 'top' ,
-    },
-    title: {
-      display: true,
-      text: 'Chart.js Bar Chart',
-    },
-  },
-};
-
-const labels = ['January', 'February', 'March', 'April', 'May', 'June', 'July'];
-
-export const data = {
-  labels,
-  datasets: [
-    {
-      label: 'Dataset 1',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(255, 99, 132, 0.5)',
-    },
-    {
-      label: 'Dataset 2',
-      data: labels.map(() => faker.datatype.number({ min: 0, max: 1000 })),
-      backgroundColor: 'rgba(53, 162, 235, 0.5)',
-    },
-  ],
-};
 
 
 
@@ -78,30 +39,80 @@ function VoteGraph() {
       resolve()
     })
 
-    prom.then(() => {
-      
-      
+    prom.then(() => {   
       setIsLoading(false)
+      console.log(starters)
     })
  
   }, []);
 
-  const updateData = newData => {
-    let data = startersChartData;
-    data.datasets[0].data = newData;
-    setStartersChartData(data);
-  };
+
+  
 
 
 if(!isLoading){
 
-  console.log(starters[0].name)
+  
+ChartJS.register(
+  CategoryScale,
+  LinearScale,
+  BarElement,
+  Title,
+  Tooltip,
+  Legend
+);
+
+ const options = {
+  maintainAspectRatio: false,
+ width:600,
+ height:600,
+  plugins: {
+    legend: {
+      position: 'top' ,
+    },
+    title: {
+      display: true,
+      text: 'Chart.js Bar Chart',
+    },
+  },
+};
+
+const labels = [starters[0].name,starters[1].name,starters[2].name, starters[3].name];
+
+const data = {
+  labels,
+  datasets: 
+[{
+      label: 'Dataset 1',
+      data: starters.map((m) => m.votes),
+      backgroundColor: 'rgba(255, 99, 132, 0.5)',
+    }],
+  
+};
+
+  console.log(starters)
   return (
     <div>
       {
-        show ? <Bar options={options} data={data} />:<p></p>}
+        show ?
+         <div >
+            <Bar options={options} data={data}  height="400px" width="300px"/>
+        </div>
+         :<p></p>}
       <button class="p-3 bg-purple-300 rounded-md"onClick={() => {
 
+          setShow(!show)
+      }}>
+        Update Data
+      </button>
+    </div>
+  )
+}
+}
+export default VoteGraph
+
+/**
+ * 
           setStartersChartData({
             labels: [starters[0].name, starters[1].name , starters[2].name, starters[3].name],
             datasets: [
@@ -125,12 +136,4 @@ if(!isLoading){
               }
             ]
           });
-          setShow(!show)
-      }}>
-        Update Data
-      </button>
-    </div>
-  )
-}
-}
-export default VoteGraph
+ */
