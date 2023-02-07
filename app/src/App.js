@@ -18,6 +18,7 @@ import EventsPage from './pages/AdminUI/EventsPage';
 import EmployeeHome from './pages/CompanyUI/EmployeeHome'
 //client
 import ClientHome from './pages/ClientUI/ClientHome';
+import VoteGraph from './components/VoteGraph';
 function App() {
   return (
     <div >
@@ -32,6 +33,7 @@ function App() {
         <Route path="/admin-reservations" element={<ReservationsPage/>}/>
         <Route path="/admin-events" element={<EventsPage/>}/>
         <Route path="/client-home" element={<ClientHome/>}/>
+        <Route path="/vote-graph" element={<VoteGraph/>}/>
        
         
       </Routes>
