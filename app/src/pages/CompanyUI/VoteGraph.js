@@ -35,22 +35,23 @@ function VoteGraph() {
         setStarters(response.data.starters)
         setSandwhiches(response.data.sandwhiches)
         setSweets(response.data.sweets)
+        console.log(response.data)
       })
       resolve()
     })
 
     prom.then(() => {   
       setIsLoading(false)
-      console.log(starters)
+      
     })
  
-  }, []);
+  },[]);
 
 
   
 
 
-if(!isLoading){
+if(!isLoading && starters!=null && sandwhiches!=null && sweets!=null){
 
   
 ChartJS.register(
@@ -89,22 +90,85 @@ const data = {
     }],
   
 };
+/******** */
 
-  console.log(starters)
+  const optionsSandwhiches = {
+  maintainAspectRatio: false,
+ width:600,
+ height:600,
+  plugins: {
+    legend: {
+      position: 'top' ,
+    },
+    title: {
+      display: true,
+      text: 'Sandwhiches',
+    },
+  },
+};
+
+const labelsSandwhiches = ['BEEF BRISKET','BBQ CHK',"BUFFALO CHK", "HOT DOGS", "SIRLOIN"];
+console.log(labelsSandwhiches)
+
+const dataSandwhiches = {
+  labels:[sandwhiches[0].name,sandwhiches[1].name,sandwhiches[2].name, sandwhiches[3].name, sandwhiches[4].name],
+  datasets: 
+[{
+      label: 'votes',
+      data: sandwhiches.map((m) => m.votes),
+      backgroundColor: 'rgba(150, 250, 100, 0.5)',
+    }],
+  
+};
+/***** */
+
+  const optionsSweets = {
+  maintainAspectRatio: false,
+ width:600,
+ height:600,
+  plugins: {
+    legend: {
+      position: 'top' ,
+    },
+    title: {
+      display: true,
+      text: 'Sweets',
+    },
+  },
+};
+
+
+
+const dataSweets = {
+  labels:[sweets[0].name,sweets[1].name],
+  datasets: 
+[{
+      label: 'votes',
+      data: sweets.map((m) => m.votes),
+      backgroundColor: 'rgba(50, 270, 100, 0.5)',
+    }],
+  
+};
+ 
+
+  console.log(sandwhiches)
   return (
     <div>
+       <button class="m-3 p-3 bg-purple-300 rounded-md w-1/3"onClick={() => {
+
+      setShow(!show)
+        }}>
+        See Votes
+      </button>
       {
         show ?
-         <div >
-            <Bar options={options} data={data}  height="400px" width="300px"/>
+         <div class="flex p-3 rounded-md bg-gray-300" >
+            <div class="w-1/3"><Bar options={options} data={data}  height="400px" width="300px"/></div>
+            <div class="w-1/3"><Bar options={optionsSandwhiches} data={dataSandwhiches}  height="400px" width="300px"/></div>
+            <div class="w-1/3"><Bar options={optionsSweets} data={dataSweets}  height="400px" width="300px"/></div>
         </div>
          :<p></p>}
-      <button class="p-3 bg-purple-300 rounded-md"onClick={() => {
-
-          setShow(!show)
-      }}>
-        Update Data
-      </button>
+     
     </div>
   )
 }

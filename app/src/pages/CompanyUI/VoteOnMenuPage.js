@@ -7,6 +7,7 @@ import "react-toastify/dist/ReactToastify.css";
 import TodayEventBox from "../../components/TodayEventBox";
 import { useSelector, useDispatch } from "react-redux";
 import { motion } from "framer-motion";
+import VoteGraph from "./VoteGraph";
 
 function VoteOnMenuPage({ visibility, event }) {
   const [menu, setMenu] = useState();
@@ -99,10 +100,17 @@ function VoteOnMenuPage({ visibility, event }) {
           exit='exit'
         >
           <section class='bg-gray-700 p-20 rounded-md overflow-y-auto '>
+            <div flex="flex m-5 justify-middle ">
+              <button class="m-4 p-3 bg-red-500 rounded-md justify-self-end" onClick={()=> {
+                setIsLoading(!isLoading)
+              }}>Close</button>
+              </div>
+          
             <div
               class='grid w-[40rem] grid-cols-3 space-x-2 rounded-xl bg-gray-200 p-2 mb-5 '
               x-data='app'
             >
+              
               <div
                 onClick={() => {
                   setSandwhiches(true);
@@ -299,6 +307,7 @@ function VoteOnMenuPage({ visibility, event }) {
                 <h1></h1>
               )}
             </div>
+            <VoteGraph/>
           </section>
         </motion.div>
         <ToastContainer />
