@@ -133,10 +133,7 @@ function EmployeeHome() {
               <TodayEventBox />
              
             </div>
-           <button class="p-3 bg-green-200 rounded-md" onClick={() => {
-            navigate("/votes-graph")
-           }}><Link to="/votes-graph">See Menu votes</Link></button>
-
+           
             <div class='grid md:grid-cols-2 xl:grid-cols-2 gap-6 m-3'></div>
             <section class='grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6'>
               <div class='flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg'>

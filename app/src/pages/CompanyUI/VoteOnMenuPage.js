@@ -307,7 +307,7 @@ function VoteOnMenuPage({ visibility, event }) {
                 <h1></h1>
               )}
             </div>
-            <VoteGraph/>
+            <VoteGraph event={event}/>
           </section>
         </motion.div>
         <ToastContainer />
