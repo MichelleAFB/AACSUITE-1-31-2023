@@ -12,6 +12,7 @@ import {
  
   editEventAccessType,
   setPublicReserved,
+  setPublicReservedOpen,
 } from "../../redux/eventModal/eventModal-action";
 import { setOccupiedSeats } from "../../redux/events/events-actions";
 import { useNavigate } from "react-router-dom";
@@ -31,7 +32,7 @@ import { motion } from "framer-motion";
 import ReservedPublicReservations from "./ReservedPublicReservations";
 
 
-const PublicEventModal = ({ ourEvent, visibility }) => {
+const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
   const editEvent = useSelector((state) => state.showModal.event);
   const editEventOccupied = useSelector((state) => state.showModal.occupied);
   console.log(editEvent);
@@ -122,19 +123,31 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
               if(responseClient.data.success==true){
                 console.log("**********PUBLIC MODAL:GETTING OCCUPIEND");
                 const r = responseClient.data.requests;
-                if(responseClient.data.requests.length>0){
-                  dispatch(setPublicReserved(responseClient.data.requests))
-                }
+                console.log(responseClient.data.requests.length)
+              
                   requests=r
                 console.log(r);
                 if (r.length == 1) {
+                  console.log(r.id + " " + event.id)
+                    if(r.id==event.id){
+                      dispatch(setPublicReserved(r[0]))
+                    }
+                  
                   clientReqs = true;
                   setClientRequests(r)
+                 
                   if (r.approved == 1) {
                     reservedExists = true;
                   }
                 }
                 if (r.length > 1) {
+                  console.log(event.id)
+                  console.log(r[0].eventId)
+                  console.log(event)
+                  if(requests.length>0 && event.id==r[0].id){
+                    
+                    dispatch(setPublicReserved(r))
+                  }
                   r.map((rr) => {
                     clientReqs = true;
                     occClient.push(rr);
@@ -143,15 +156,20 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
               
               
                   console.log(requests)
-              setTimeout(()=> {
-                resolve1(requests);
-              },1700)
+                
+                  setTimeout(() =>{
+                    console.log(requests)
+                    resolve1(requests)
+                },2000)
+                
+        
             }
             });
         
       });
 
       prom1.then((requests) => {
+        
         console.log("order work!!!!!");
        
 
@@ -240,6 +258,9 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
 
 
   if (visibility == true && !isLoading) {
+  
+   
+   
   
     console.log("clientRequets");
     console.log(clientRequests);
@@ -339,10 +360,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                 <div class='mt-5'>
                   
                   <form>
-                    <button>{count}</button>
-                    <button class="bg-gray-200 p-3 rounded-md" onClick={() =>{
-                      setCount(count+1)
-                    }}>see</button>
+                  
                     <button
                       onClick={(e) => {
                         e.preventDefault();
@@ -601,12 +619,14 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
 const mapStateToProps = (state, props) => {
   const vis = state.showModal.publicVisibility;
   const event = state.showModal.publicEvent;
+  const reserved = state.showModal.publicReserved;
   const occ=state.showModal.publicOccupied
   console.log("occupied:"+occ);
   return {
     visibility: vis,
     ourOccupied:occ,
     ourEvent: event,
+    reserved:reserved
   };
 };
 

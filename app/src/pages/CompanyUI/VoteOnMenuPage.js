@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect, useState } from "react";
 import { connect } from "react-redux";
+import { setGraphVisible } from "../../redux/employee/employeeModal-actions";
 import axios from "axios";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
@@ -26,6 +27,9 @@ function VoteOnMenuPage({ visibility, event }) {
   const [starterActive, setStarterActive] = useState(true);
   const [sweetActive, setSweetActive] = useState(true);
 
+  const dispatch=useDispatch()
+  
+  
   useEffect(() => {
     const menuItems = [];
     const prom = new Promise((resolve, reject) => {
@@ -307,7 +311,13 @@ function VoteOnMenuPage({ visibility, event }) {
                 <h1></h1>
               )}
             </div>
-            
+            <button class="p-3 bg-purple-400 rounded-md mt-3" onClick={() =>{
+              dispatch(setGraphVisible())
+            }}>
+              <p class="text-white">
+                See Votes Graph
+              </p>
+            </button>
             <VoteGraph event={event}/>
           </section>
         </motion.div>

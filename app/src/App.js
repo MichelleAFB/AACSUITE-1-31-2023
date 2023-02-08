@@ -26,7 +26,7 @@ function App() {
      
       <BrowserRouter>
       <TopNavbar/>
-      <ReservedPublic/>
+     
       <Routes>
         <Route path="/" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>

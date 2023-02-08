@@ -291,7 +291,7 @@ console.log(ourEvent)
                                 }}
                               >
                                 <p class='text-xs text-white text-center'>
-                                  {m.seat}
+                                  {m.seat} : {m.firstname}
                                 </p>
                                 
                               </div>
@@ -334,10 +334,10 @@ console.log(ourEvent)
                     <div class="flex flex-col p-10">
                       <div class="flex flex-col justify-center">
                        <p class='text-center block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED
+                          RESERVED!
                         </p>
                         <p class='text center text-white text-small mt-3 mb-2'>
-                          This event has pending or confirmed
+                         ! This event has pending or confirmed
                           public reservation(s):
                         </p>
                         </div>
@@ -388,18 +388,9 @@ console.log(ourEvent)
                         console.log("\n\n\n\n\n\n\n")
                         console.log("HASCHANGED:*************" + hasChanged)
                         //TODO:implement client revoke mechanism
-                        if(isClientRequested==true && hasChanged==true && revokePublicRequests==true){
-                          console.log("HASCHANGED"+ hasChanged)
-                          console.log("*************************************************************************************************************************************************************************************************************************************************************************************************************************************************\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
-
-
-                        }{
-
-                        }
-                        console.log(isCompanyRequested +" "+
-                          revokeEmployees +" "+
-                        
-                          hasChanged)
+                       console.log("has reseervation? "+ isCompanyRequested)
+                       console.log("revoke:" + revokeEmployees)
+                       console.log("hasChanged:" + hasChanged)
                         //if company req exist,revoke is approved, and access has changed
                         if(
                           isCompanyRequested ==true
@@ -424,7 +415,7 @@ console.log(ourEvent)
                            })
                            setCompanyRequests([])
                       
-                            resolve()
+                           // resolve()
 
                           })
 

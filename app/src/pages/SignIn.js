@@ -175,10 +175,10 @@ function SignIn() {
     if(employeeActive && !admin && employeeId!=" "){
       console.log({email:email,password:password})
       console.log("LOOG EMPLOY\n\n\n "+ employeeId)
-       await axios.post("https://accserverheroku.herokuapp.com/user/sign-in/employee/"+employeeId,{email:email,password:password}).then((response) => {
+       await axios.post("http://localhost:3002/user/sign-in/employee/"+employeeId,{email:email,password:password}).then((response) => {
         console.log(response.data)
         if(response.data.login ==true){
-          
+          console.log(response.data)
           const prom=new Promise((resolve,reject) => {
             dispatch(setUser({user:response.data.employee,type:"employee"}))
           //console.log(JSON.stringify(response.data.employee))
@@ -197,7 +197,7 @@ function SignIn() {
           
             dispatch(showTopNavbar());
             sessionStorage.setItem("visibleNavbar",true)
-           navigate("/employee-home")
+          navigate("/employee-home")
           })
         }
        })

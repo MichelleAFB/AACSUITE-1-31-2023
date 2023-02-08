@@ -1,6 +1,7 @@
 import React from "react";
 import { useState, useEffect } from "react";
-
+import { connect ,useDispatch} from "react-redux";
+import { setGraphHidden } from "../../redux/employee/employeeModal-actions";
 //outside
 import axios from "axios";
 import {
@@ -14,13 +15,15 @@ import {
 } from "chart.js";
 import { Bar } from "react-chartjs-2";
 
-function VoteGraph({event}) {
+function VoteGraph({event,visibility}) {
   const [startersChartData, setStartersChartData] = useState({});
   const [starters, setStarters] = useState();
   const [sandwhiches, setSandwhiches] = useState();
   const [sweets, setSweets] = useState();
   const [isLoading, setIsLoading] = useState(true);
   const [show, setShow] = useState(false);
+
+  const dispatch=useDispatch()
   useEffect(() => {
     const prom = new Promise((resolve, reject) => {
       axios
@@ -36,9 +39,13 @@ function VoteGraph({event}) {
     });
 
     prom.then(() => {
-      setIsLoading(false);
+
+      if(visibility){
+        setIsLoading(false);
+      }
+      
     });
-  }, []);
+  }, [visibility]);
 
   if (!isLoading && starters != null && sandwhiches != null && sweets != null) {
     ChartJS.register(
@@ -149,46 +156,60 @@ function VoteGraph({event}) {
     };
 
     console.log(sandwhiches);
+    if(!isLoading && visibility){
     return (
       <div>
-        <button
-          class='m-3 p-3 bg-purple-300 rounded-md w-1/3'
-          onClick={() => {
-            setShow(!show);
-          }}
-        >
-          See Votes
-        </button>
-        {show ? (
-          <div class='flex p-3 rounded-md bg-gray-300'>
-            <div class='w-1/3'>
-              <Bar options={options} data={data} height='400px' width='300px' />
+       
+       
+          <div class='p-3 rounded-md bg-gray-300'>
+            <div class="flex w-full justify-items-end">
+                <button class="bg-red-600 p-3 rounded-md" onClick={() =>{
+                  dispatch(setGraphHidden())
+                }}>
+                  <p class="text-white">X</p>
+                </button>
             </div>
-            <div class='w-1/3'>
-              <Bar
+            <div class=' flex w-full'>
+              <div class="flex p-3">
+              <Bar options={options} data={data} height='400px' width='300px' />
+              </div>
+              
+                <div class="flex p-3">
+                <Bar
                 options={optionsSandwhiches}
                 data={dataSandwhiches}
                 height='400px'
                 width='300px'
               />
-            </div>
-            <div class='w-1/3'>
+                </div>
+              <div class="flex p-3">
               <Bar
                 options={optionsSweets}
                 data={dataSweets}
                 height='400px'
                 width='300px'
               />
-            </div>
+              </div>
+           
           </div>
-        ) : (
-          <p></p>
-        )}
+        </div>
+        
       </div>
     );
+    }
   }
 }
-export default VoteGraph;
+
+const mapStateToProps = (state, props) => {
+  const vis = state.employeeModal.graphVisibility;
+  
+  console.log("vis: " + vis);
+  return {
+    visibility: vis,
+  };
+};
+
+export default connect(mapStateToProps)(VoteGraph);
 
 /**
  * 

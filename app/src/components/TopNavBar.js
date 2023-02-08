@@ -28,7 +28,7 @@ function TopNavBar({visibility,usere}) {
   //const [show,setShow]=useState(showNavbar)
   const location = useLocation()
   const navigate=useNavigate()
-
+  
   console.log(JSON.parse(sessionStorage.getItem('client')))
   console.log(typeof(JSON.parse(sessionStorage.getItem('client'))))
   
@@ -36,6 +36,7 @@ function TopNavBar({visibility,usere}) {
     const ad=JSON.parse(sessionStorage.getItem('admin'))
     const c=sessionStorage.getItem('client')
     const cli=JSON.parse(c)
+   
     const emp=JSON.parse(sessionStorage.getItem('employee'))
     console.log("emp")
     console.log(emp)

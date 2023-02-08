@@ -12,6 +12,7 @@ const initialState = {
     image:"",
   },
   visibility:false,
+  graphVisibility:false,
   showMenu:false,
   employee:{
 
@@ -43,6 +44,18 @@ export const employeeEventModalReducer = (state = initialState,action) => {
         return{
           ...state,
           showMenu:action.payload
+        }
+        case actionTypes.SET_GRAPH_VISIBLE:
+        console.log("REDUX::WORKING IN REDUCER:SHOW MENU")
+        return{
+          ...state,
+          graphVisibility:true
+        }
+        case actionTypes.SET_GRAPH_HIDDEN:
+        console.log("REDUX::WORKING IN REDUCER:SHOW MENU")
+        return{
+          ...state,
+          graphVisibility:false
         }
         case actionTypes.SET_EMPLOYEE:
         console.log("REDUX::WORKING IN REDUCER:SHOW MENU")

@@ -12,6 +12,30 @@ export function setEmployeeModalOpen () {
   }
 }
 
+
+export function setGraphVisible() {
+  console.log("****FROM REDUX SETTING EMPLOYEE MODAL OPEN *******")
+  
+  return {
+    type: actionTypes.SET_GRAPH_VISIBLE,
+    payload:{
+      graphVisibility:true
+    }
+    
+  }
+}
+
+export function setGraphHidden() {
+  console.log("****FROM REDUX SETTING EMPLOYEE MODAL OPEN *******")
+  
+  return {
+    type: actionTypes.SET_GRAPH_HIDDEN,
+    payload:{
+      graphVisibility:false
+    }
+    
+  }
+}
 export function setEmployeeModalClose () {
   console.log("****FROM REDUX SETTING EMPLOYEE MODAL CLOSE*******")
  

@@ -2,7 +2,7 @@ import React from 'react'
 
 import {useState,useEffect} from 'react'
 import { connect,useDispatch } from 'react-redux';
-
+import { ReactDOM } from 'react';
 
 //outside
 import axios from 'axios';
@@ -13,10 +13,13 @@ function ReservedPublic({ourEvent,visibility,reserved}) {
   const[clientRequests,setClientRequests]=useState()
   const[isRequested,setIsRequested]=useState(false)
   const[isLoading,setIsLoading]=useState(true)
+  const[event,setEvent]=useState()
 
   useEffect(() =>{
     const occ=[]
     var isrequested=false
+
+    console.log(reserved)
    /* const prom=new Promise((resolve,reject) => {
       axios.get("https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/public/" +
       event.id).then((response) => {
@@ -52,13 +55,28 @@ function ReservedPublic({ourEvent,visibility,reserved}) {
       })
     })
     */
+   if(visibility){
+    const prom= new Promise((resolve,reject) => {
+      setEvent(ourEvent)
+      resolve(event)
+    })
+
+    prom.then((event) => {
+      console.log(event)
+      if(visibility){
+        setIsLoading(false)
+      }
+     
+    })
+   }
+
 
   },[visibility,ourEvent])
 
-if(!isLoading && visibility){
-  return (
-    <div class="h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50">ReservedPortal</div>
-    )
+if(!isLoading  ){
+  return ReactDOM.createPortal(
+    <div class="h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50">{ourEvent.publicEvent.act}</div>
+    ,document.getElementById('portal'))
   }
 }
 
@@ -66,8 +84,11 @@ const mapStateToProps = (state, props) => {
   const vis = state.showModal.publicReservedVisibility;
   const reserved = state.showModal.publicReserved;
   const event=state.showModal.publicEvent
-  const occ=state.showModal.publicOccupied
-  console.log("occupied:"+occ);
+
+  console.log("event")
+  console.log(event)
+  console.log("reserved")
+  console.log(reserved);
   return {
     visibility: vis,
     reserved:reserved,
