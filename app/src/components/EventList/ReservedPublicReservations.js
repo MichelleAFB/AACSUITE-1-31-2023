@@ -1,6 +1,6 @@
 import React, { useState,useEffect } from 'react'
 import { useSelector,connect} from 'react-redux'
-
+import { ReactDOM } from 'react'
 
 //outside
 import axios from 'axios'
@@ -88,28 +88,30 @@ function ReservedPublicReservations({ourEvent,visibility}) {
   console.log(clientRequests[0])
   console.log(isClientRequested)
   if(!isLoading && isClientRequested){
-    console.log(clientRequests)
-    console.log(clientRequests.length +"for act: "+ ourEvent.publicEvent.act)
-  return (
-    <div class="flex flex-col p-5">
+    
+  
+    ReactDOM.createPortal(<div class="flex flex-col p-5">
       
       <div>{clientRequests.map((m) => {
        <p class="text-white text-xs m-1">{m.clientName} | {m.dateReserved} | {m.timeReserved} | {m.act} </p>
         
       })}</div>
-    </div>
+    </div>,
+    document.getElementById('portal')
   )
+  
 }
 if(!isLoading && isClientRequested && clientRequests.length==1){
   console.log(clientRequests)
-return (
+  ReactDOM.createPortal(
   <div class="flex flex-col p-5">
     
     <div>{
      <p class="text-white text-xs m-2">{clientRequests[0].clientName} | {clientRequests[0].dateReserved} | {clientRequests[0].timeReserved} | {clientRequests[0].act}</p>
       
 }</div>
-  </div>
+  </div>,
+  document.getElementById('portal')
 )
 }
 }

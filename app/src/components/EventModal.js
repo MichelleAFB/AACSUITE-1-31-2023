@@ -23,7 +23,6 @@ import { seats } from "../data/Seats";
 //outside
 import axios from "axios";
 import { ToastContainer,toast } from "react-toastify";
-import { ReservedCompanySeatsWindow } from "./ReservedCompanySeatsWindow";
 
 
 const EventModal = ({ ourEvent, visibility }) => {

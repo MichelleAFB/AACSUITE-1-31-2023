@@ -26,7 +26,7 @@ import { ToastContainer,toast } from "react-toastify";
 import { motion } from "framer-motion";
 
 //components
-import { ReservedCompanySeatsWindow } from "../ReservedCompanySeatsWindow";
+
 import ReservedPublicReservations from "./ReservedPublicReservations";
 
 
@@ -70,7 +70,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
       "************************************MODAL HOME RELOAD*********************"
     );
       
-    
+    var requests
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
       console.log("edit Event");
@@ -120,8 +120,8 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
               if(responseClient.data.success==true){
                 console.log("**********PUBLIC MODAL:GETTING OCCUPIEND");
                 const r = responseClient.data.requests;
-
-                console.log(r.length);
+                  requests=r
+                console.log(r);
                 if (r.length == 1) {
                   clientReqs = true;
                   setClientRequests(r)
@@ -137,21 +137,21 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                 }
               
               
-                  console.log(occClient)
+                  console.log(requests)
               setTimeout(()=> {
-                resolve1();
-              },1500)
+                resolve1(requests);
+              },1700)
             }
             });
         
       });
 
-      prom1.then(() => {
+      prom1.then((requests) => {
         console.log("order work!!!!!");
        
 
         const prom2 = new Promise((resolve2, reject3) => {
-        
+            console.log(requests)
           setIsReserved(reservedExists);
           setIsClientRequested(clientReqs);
           if(clientRequests==null){
@@ -175,7 +175,9 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
       });
     });
     
-  }, [ourEvent]);
+  }, [ourEvent,visibility]);
+
+
 
   console.log(clientRequests)
   const dropIn = {
@@ -227,7 +229,10 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
     }
   }
 
- 
+
+  /*****************************/
+
+
 
   if (visibility == true && !isLoading) {
   
@@ -235,7 +240,7 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
     console.log(clientRequests);
     console.log(isClientRequested);
     return (
-      <div class='bg-gray-200'>
+      <div class='bg-gray-200' data-testId="modal-public">
         <div class='h-screen w-full fixed ml-0 mr-0 mt-0 mb-0 flex justify-center items-center bg-black bg-opacity-50'>
           <ToastContainer/>
           <motion.div
@@ -284,8 +289,6 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                           This event has pending or confirmed
                           public reservation(s):
                         </p>
-                        <p></p>
-                        
                         {
                           clientRequests.map((m) => {
                             return<p>{m.clientName} | {m.dateReserved} | {m.timeReserved}|{m.act}</p>
@@ -331,6 +334,10 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                 <div class='mt-5'>
                   
                   <form>
+                    <button>{count}</button>
+                    <button class="bg-gray-200 p-3 rounded-md" onClick={() =>{
+                      setCount(count+1)
+                    }}>see</button>
                     <button
                       onClick={(e) => {
                         e.preventDefault();
@@ -380,12 +387,15 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                                   console.log(response);
                                   console.log("changed Access?");
                                   console.log(changedAccess);
-                                  setCompanyRequests()
-                                  setClientRequests()
+                                  setCompanyRequests([])
+                                  setClientRequests([])
                                 });
                             }
-
-                            resolve();
+                            setTimeout(() => {
+                              console.log("resolving...")
+                              resolve();
+                            },1000)
+                            
                           });
 
                           prom.then(() => {
@@ -395,10 +405,8 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
                             
                             setIsLoading(true);
                             dispatch(setPublicModalClose(false));
-                            console.log("isloading");
-                            console.log(isLoading);
-                            console.log("has access changed:" + hasChanged);
-                            console.log(changedAccess);
+                          
+                            
                           });
                         }
                       }}
