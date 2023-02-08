@@ -18,6 +18,7 @@ import EventsPage from './pages/AdminUI/EventsPage';
 import EmployeeHome from './pages/CompanyUI/EmployeeHome'
 //client
 import ClientHome from './pages/ClientUI/ClientHome';
+import ReservedPublic from './components/EventList/ReservedPublic';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
      
       <BrowserRouter>
       <TopNavbar/>
+      <ReservedPublic/>
       <Routes>
         <Route path="/" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>

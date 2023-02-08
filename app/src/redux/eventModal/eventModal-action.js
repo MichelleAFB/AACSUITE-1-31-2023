@@ -70,6 +70,42 @@ export function setPublicModalEvent (event) {
   }
 }
 
+/*********************** */
+
+export function setPublicReservedOpen () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+  
+  return {
+    type: actionTypes.SET_PUBLIC_RESERVED_OPEN,
+    payload:{
+      publicReservedVisibility:true
+    }
+    
+  }
+}
+
+export function setPublicReservedClose () {
+  console.log("****FROM REDUX SETTING MODAL OPEN OR CLOSE*******")
+ 
+  return {
+    type: actionTypes.SET_PUBLIC_RESERVED_CLOSE,
+    payload:{
+      publicReservedVisibility:false
+    }
+    
+  }
+}
+
+export function setPublicReserved (event) {
+  console.log("set modal EVENT in action types")
+  return {
+    type: actionTypes.SET_PUBLIC_RESERVED,
+    payload: {
+      publicReserved: event
+    }
+  }
+}
+/************************************************** */
 export function setPublicModalOccupied (occ) {
   console.log("set modal EVENT in action types")
   return {

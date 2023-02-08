@@ -42,11 +42,13 @@ const initialState = {
     access:""
 
   },
+  publicReserved:null,
   occupied:[],
   updateOccuring:false,
   publicVisibility:false,
   companyVisibility:false,
   privateVisibility:false,
+  publicReservedVisibility:false,
   publicOccupied:null,
   visibility:false,
   visibilityAccessModal:false,
@@ -94,6 +96,26 @@ const initialState = {
           return{
             ...state,
             publicEvent:action.payload
+          }
+          /****** */
+          case actionTypes.SET_PUBLIC_RESERVED:
+          console.log("WORKING IN REDUCER: TOGGLE")
+        return{
+          ...state,
+          publicReservedVisibility:true
+        }
+        case actionTypes.SET_PUBLIC_RESERVED_CLOSE:
+          console.log("WORKING IN REDUCER: TOGGLE")
+        return{
+          ...state,
+          publicReservedVisibility:false
+        }
+        case actionTypes.SET_PUBLIC_RESERVED:
+          console.log("REDUX::WORKING IN REDUCER: EVENT")
+          console.log("activating")
+          return{
+            ...state,
+            publicReserved:action.payload
           }
           case actionTypes.SET_PUBLIC_MODAL_OCCUPIED:
             console.log("REDUX::WORKING IN REDUCER: EVENT OCCUPIED")

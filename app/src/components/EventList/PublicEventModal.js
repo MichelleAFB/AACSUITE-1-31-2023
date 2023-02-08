@@ -11,6 +11,7 @@ import {
 
  
   editEventAccessType,
+  setPublicReserved,
 } from "../../redux/eventModal/eventModal-action";
 import { setOccupiedSeats } from "../../redux/events/events-actions";
 import { useNavigate } from "react-router-dom";
@@ -114,12 +115,16 @@ const PublicEventModal = ({ ourEvent, visibility }) => {
             )
             .then((responseClient) => {
               console.log(event)
+              
               console.log("company requests");
               console.log(responseClient)
              
               if(responseClient.data.success==true){
                 console.log("**********PUBLIC MODAL:GETTING OCCUPIEND");
                 const r = responseClient.data.requests;
+                if(responseClient.data.requests.length>0){
+                  dispatch(setPublicReserved(responseClient.data.requests))
+                }
                   requests=r
                 console.log(r);
                 if (r.length == 1) {

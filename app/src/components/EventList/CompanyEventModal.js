@@ -526,7 +526,7 @@ console.log(ourEvent)
                       confirm
                     </button>
                     <button class="bg-gray-300 p-3 rounded-md" onClick={() =>{
-                        return <ReservedCompanySeatsWindow/>
+                        
                       }}>See</button>
                     <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
                      
