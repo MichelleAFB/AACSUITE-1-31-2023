@@ -278,7 +278,23 @@ console.log(ourEvent)
                         <div class='justify-center seats'>
                           {companyRequests.map((m) => {
                             {
-                              m.confirmedApproval==1 ?<p>confirmed</p> :<p>not confirmed</p>                           
+                              m.confirmedApproval==1 ? <p>confirmed</p> : (
+                                <div
+                                class={`seat selected p-3`}
+                                onMouseEnter={() => {
+                                  return (
+                                    <p>
+                                     {m.act} {m.firstname} {m.lastname}
+                                    </p>
+                                  );
+                                }}
+                              >
+                                <p class='text-xs text-white text-center'>
+                                  {m.seat} : {m.firstname}
+                                </p>
+                                
+                              </div>
+                              )                   
                             }
                         
                           })}
