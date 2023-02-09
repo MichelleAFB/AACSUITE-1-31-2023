@@ -154,26 +154,7 @@ function EmployeeHome() {
             <VoteOnMenuPage />
             </section>
 
-            <section class='text-right font-semibold text-gray-500'>
-              <a href='#' class='text-purple-600 hover:underline'>
-                Recreated on Codepen
-              </a>{" "}
-              with{" "}
-              <a
-                href='https://tailwindcss.com/'
-                class='text-teal-400 hover:underline'
-              >
-                Tailwind CSS
-              </a>{" "}
-              by Azri Kahar,{" "}
-              <a
-                href='https://dribbble.com/shots/10711741-Free-UI-Kit-for-Figma-Online-Courses-Dashboard'
-                class='text-purple-600 hover:underline'
-              >
-                original design
-              </a>{" "}
-              made by Chili Labs
-            </section>
+         
           </main>
         </div>
       </body>
