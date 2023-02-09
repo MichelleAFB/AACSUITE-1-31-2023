@@ -361,9 +361,15 @@ import axios from 'axios'
                 return 
                 <div class="bg-gray-300 p-2 rounded-lg m-2 border-gray-600 border-3 shadow-lg">
                   <p class="text-sm font-bold text-left">{m.act}</p> 
-                    <div class="flex bg-gray-400">
+                    <p>{m.approved}</p>
                         <p class="text-xs">{m.clientName}</p> | <p class="text-xs">{m.dateReserved}</p> | <p class="text-xs">{m.timeReserved}</p>
-                        <div class=""></div>
+                        <div class="flex">
+                          {m.confirmedApproval==0 && m.approved==0?<p>pending</p>:<p></p>}
+                          {m.confirmedApproval==1 && m.approved==0?<p>approved: inform customer</p>:<p></p>}
+                          {m.confirmedApproval==1 && m.approved==1 ? <p class="text-green-600 font-bold">approved</p>:<p></p>}
+                          {m.confirmedApproval==-1 && m.approved==-1 ? <p class="text-red-500 font-bold">denied</p>:<p></p>}
+                          {m.confirmedApproval==-1 && m.approved==1 ? <p class="text-red-500 font-bold">pending</p>:<p></p>}
+                       
                    </div>
                   
                 </div>

@@ -325,6 +325,7 @@ import EventModal from '../EventModal'
             },500)
             
             console.log(isRequested)
+            console.log("seeMore"+seeMore)
             console.log(companyRequests)
           })
         }}>
@@ -334,17 +335,22 @@ import EventModal from '../EventModal'
           seeMore ?  <div class="flex-col m-3 p-3 items-center justify-items-center border-t-2 border-gray-200">
             <div class="flex-col p-3">
              {
-              seeMore ? <div>{companyRequests.map((m) => {
+              seeMore && companyRequests!=null ? <div>{companyRequests.map((m) => {
                 console.log(m)
-                return 
-                <div class="bg-gray-500 p-2 rounded-md m-2">
-                   <button class="p-2 bg-red-400 rounded-md">
-                    <p class="text-white text-xs">x</p>
-                   </button>
+                return <div class=" flex bg-gray-500 p-2 rounded-md m-2">
+                  <div class="flex">
+                    <button class="p-2 bg-red-400 rounded-md">
+                      <p class="text-white text-xs">x</p>
+                    </button>
+                   </div>
+                  <div class="flex p-2 m-2 justify-between bg-gray-100">
                   <p class="font-bold text-xs">{m.firstname} {m.lastname}| {m.seat} </p>
                   {m.confirmedApproval==1 ? <p class="text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
+                  
                  
                   :<p class="text-xs">pending</p>}
+                  </div>
+                 
                 </div>
               })}</div>:<div><p>No reservations</p></div>
               }

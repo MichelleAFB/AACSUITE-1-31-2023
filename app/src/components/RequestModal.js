@@ -240,6 +240,11 @@ function RequestModal({ request, visibility }) {
       .then(
         (result) => {
           console.log(result.text);
+          if(result.status==200 && result.text=='OK'){
+            return true
+          }else{
+            return false
+          }
         },
         (error) => {
           console.log(error.text);
@@ -376,7 +381,7 @@ function RequestModal({ request, visibility }) {
                             console.log(confirmCount);
                             setConfirmCount(confirmCount + 1);
 
-                            
+                            var successEmail=false;
                             if (confirmCount == 2) {
                               const prom = new Promise((resolve, reject) => {
                                 axios
@@ -388,13 +393,16 @@ function RequestModal({ request, visibility }) {
                                   const user=sessionStorage.getItem("user")
                                   console.log()
                                   if(response.data.approved==true){
-                                    sendEmail(approveForm)
+                                    successEmail=sendEmail(approveForm)
+                                    console.log("success:"+successEmail)
                                   }
                                  
                                   console.log(response.data.approved)
                                   alert(response.data.message)
-                                  dispatch(setRequestModalClose())
-                                  resolve()
+                                  
+                                    resolve()
+                                
+                                 
                                 })
                                 
                                  
@@ -403,6 +411,7 @@ function RequestModal({ request, visibility }) {
                               });
 
                          prom.then(() => {
+                        
                           dispatch(setModalRequest(null))
                           setConfirmCount(0);
                           setIsLoading(true);
@@ -430,7 +439,7 @@ function RequestModal({ request, visibility }) {
                               axios.post("https://accserverheroku.herokuapp.com/reservations/revokeReservation ",{reservation:request.request}).then((response) =>{
                                 const prom1=new Promise((resolve,reject) => {
                                   if(response.data.revoked==true){
-                                    sendEmail(revokeForm)
+                                    const successRevokeEmail=sendEmail(revokeForm)
                                   }else{
                                     alert("revoke not successful")
                                   }

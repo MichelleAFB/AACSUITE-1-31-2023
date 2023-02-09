@@ -365,10 +365,6 @@ console.log(ourEvent)
                               alert("All employee reservations and requests for\n"+ event.act + " have been revoked")
                               setCompanyRequests([])
                               resolve()
-
-
-
-
                             }
                            })
                            
@@ -454,6 +450,8 @@ console.log(ourEvent)
                           });
 
                           prom.then(() => {
+
+                            
                             console.log("setting occupied then");
 
                             console.log("CLOSING MODAL");

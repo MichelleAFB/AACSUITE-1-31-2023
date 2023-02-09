@@ -5,18 +5,17 @@ import { useSelector, useDispatch, connect } from "react-redux";
 
 //redux
 import {
-  setPublicModalEvent,
-  setPublicModalOpen,
-  setPublicModalClose,
+  setPrivateModalEvent,
+  setPrivateModalOpen,
+  setPrivateModalClose,
 
  
   editEventAccessType,
-  setPublicReserved,
-  setPublicReservedOpen,
+ 
 } from "../../redux/eventModal/eventModal-action";
 import { setOccupiedSeats } from "../../redux/events/events-actions";
 import { useNavigate } from "react-router-dom";
-import { addPublicEvent } from "../../redux/access/accessEvents-actions";
+
 //import { reloadPage } from "../redux/reload/reload-actions";
 
 //data
@@ -61,6 +60,7 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
   const [pendingCompanyRequests, setPendingCompanyRequests] = useState(); //company requests exist
   const [revokeEmployees, setRevokeEmployees] = useState(false);
   const [revokePublicRequests, setRevokePublicRequests] = useState(false);
+  const[reserve,setReserve]=useState()
   
 
   const [count, setCount] = useState(0);
@@ -76,12 +76,12 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
     var reservedExists;
     const prom = new Promise((resolve, reject) => {
       console.log("edit Event");
-      console.log(ourEvent.publicEvent);
-      const id = ourEvent.publicEvent.id;
+      console.log(ourEvent.privateEvent);
+      const id = ourEvent.privateEvent.id;
       console.log(id);
       //TODO: CHANGE API CALL TO USE MODALEVENT NOT OUR EVENT
       axios
-        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.publicEvent.id)
+        .post("https://accserverheroku.herokuapp.com/getEventInfo/" + ourEvent.privateEvent.id)
         .then( (response) => {
           console.log(response);
           setEvent( response.data[0]);
@@ -185,14 +185,14 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
            animate="visible"
            exit="exit">
           <main id='content' role='main' class='w-full max-w-md mx-auto '>
-            <div class=' bg-white  rounded-xl shadow-lg dark:bg-pink-400 dark:border-gray-700 mb-5'>
+            <div class=' bg-white  rounded-xl shadow-lg dark:bg-gray-500 dark:border-gray-700 mb-5'>
               <div class='p-4 sm:p-7'>
                 <div class='text-center'>
                 <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
                      
-                      setIsClientRequested(false)
+                      
                       setIsLoading(true);
-                      dispatch(setPublicModalClose(false));
+                      dispatch(setPrivateModalClose(false));
                     }}>
                       Exit
                     </button>
@@ -209,61 +209,10 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
                     {event.time}{" "}
                   </p>
                 
-                  {
-                    isCompanyRequested?<p class="font-bold text-red-600">Wait to see Detected</p>:<p></p>
-                  }
+                 
                  </div>
                 
-                  {
-                    isClientRequested ? (
-                    <div class="flex flex-col p-10">
-                      <div class="flex flex-col justify-center">
-                       <p class='text-center block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED
-                        </p>
-                        <p class='text center text-white text-small mt-3 mb-2'>
-                          This event has pending or confirmed
-                          public reservation(s):
-                        </p>
-                        {
-                          clientRequests.map((m) => {
-                            return<p>{m.clientName} | {m.dateReserved} | {m.timeReserved}|{m.act}</p>
-                          })
-                        }
-                         
-                        </div>
-                        <div class="p-3">
-                      {/*clientRequests.map((m) =>{
-                        console.log(m)
-                        return <p class="text-white text-sm">{m.act} | {m.clientName} | reserved on: {m.dateReserved}</p>
-                      })*/}
-
-                       {revokePublicRequests == false ? (
-                        <button
-                          class='mt-3 p-2 rounded-md bg-gray-400 '
-                          onClick={() => {
-                            setRevokePublicRequests(!revokePublicRequests);
-                          }}
-                        >
-                          <a class='text-white text-xs font-bold'>
-                            Click to cancel all public reservations
-                          </a>
-                        </button>
-                      ) : (
-                        <button class='mt-3 p-2 rounded-md bg-red-600 '>
-                          <a
-                            class='text-white text-xs '
-                            onClick={() => {
-                              setRevokePublicRequests(!revokePublicRequests);
-                            }}
-                          >
-                            Retain public reservations
-                          </a>
-                        </button>
-                      )}
-                      </div>
-                    </div>):(<p></p>)
-                  }
+                
 
             
 
@@ -351,12 +300,12 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
 
                             prom2.then(() => {
                               setIsLoading(true);
-                              dispatch(setPublicModalClose(false));
+                              dispatch(setPrivateModalClose(false));
                               
                             })
                           }else{
                             setIsLoading(true);
-                            dispatch(setPublicModalClose(false));
+                            dispatch(setPrivateModalClose(false));
 
                           }
                             
@@ -372,7 +321,7 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
                     <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
                      
                       setIsLoading(true);
-                      dispatch(setPublicModalClose(false));
+                      dispatch(setPrivateModalClose(false));
                     }}>
                       Exit
                     </button>

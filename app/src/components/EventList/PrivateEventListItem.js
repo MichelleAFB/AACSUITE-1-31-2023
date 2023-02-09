@@ -236,7 +236,7 @@ import axios from 'axios'
     <div class="max-h-sm rounded-md">
       <li class="py-5 m-4  bg-gray-500 border-purple-100 px-3 transition hover:bg-gray-400 rounded-lg shadow-lg ">
         <a href="#" class="flex justify-between items-center">
-          <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
+          <h3 class=" text-center text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
         </a>
         <h3>{event.access}</h3>
       

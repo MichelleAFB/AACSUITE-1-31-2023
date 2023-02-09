@@ -422,17 +422,40 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                           });
 
                           prom.then(() => {
+
+
+                            const prom3= new Promise((resolve3,reject3) => {
+
+                              axios.post("http://localhost:3002/reservations/revokeAllEventRequests/"+event.id).then((response) => {
+                                console.log(response)
+
+                                if(response.data.success){
+                                  alert(response.data.changed + " requests have been updated in db")
+                                  resolve3()
+                                }else{
+                                  alert("updating requests not successful")
+                                  resolve3()
+                                }
+                              })
+
+                            })
+
+                            prom3.then(() => {
+
+                              
                             console.log("reinstating occupied")
+                            //Handle updating companyRequest
                             if(changedAccess=="company"){
-                            const prom2= new Promise((resolve1,reject1) =>{
+                            const prom2= new Promise((resolve2,reject2) =>{
 
                               axios.post("http://localhost:3002/company/reinstateAllOccupiedEmployee/"+event.id).then((response2) => {
-                                if(response2.data.success){
+                                console.log(response2)
+                              if(response2.data.success){
                                   alert("reinstating company data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve1()
+                                  resolve2()
                                 }else{
                                   alert("error for reinstating data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve1()
+                                  resolve2()
 
                                 }
                               })
@@ -445,10 +468,16 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                               
                             })
                           }else{
+                           
+                           
                             setIsLoading(true);
                             dispatch(setPublicModalClose(false));
 
                           }
+
+                            })
+
+
                             
                           
                             
