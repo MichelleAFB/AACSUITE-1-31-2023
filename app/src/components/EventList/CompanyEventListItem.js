@@ -21,6 +21,7 @@ import EventModal from '../EventModal'
 
     const visible= useSelector(state => state.showModal.visibilty)
     const [visibility,setVisibility]=useState(visible)
+    const[seeMore,setSeeMore]=useState(false)
    
     console.log("**************************EVENTLIST ITEM RERENDER**********")
     const dispatch= useDispatch()
@@ -29,7 +30,9 @@ import EventModal from '../EventModal'
     const [isLoading,setIsLoading] =useState(true)
     const[isReserved,setIsReserved] =useState(false)
     const [typeModal,setTypeModal] =useState()
-    
+    const[isRequested,setIsRequested]=useState(false)
+    const [companyRequests,setCompanyRequests]=useState()
+   
     const eve=useRef(event)
     
 
@@ -302,6 +305,58 @@ import EventModal from '../EventModal'
         }}>
          Update Access
         </button>
+        <div class="flex flex-col p-3">
+        <button class="text-lg text-white" onClick={() => {
+          
+          axios
+          .get(
+            "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/company/" +
+              event.id
+          ).then((response) => {
+            console.log(response.data)
+            setCompanyRequests(response.data.requests)
+            if(companyRequests!=null){
+              setIsRequested(true)
+            }
+            setTimeout(() => {
+              console.log(isRequested)
+             console.log(companyRequests)
+              setSeeMore(!seeMore)
+            },500)
+            
+            console.log(isRequested)
+            console.log(companyRequests)
+          })
+        }}>
+          See more
+        </button>
+        {
+          seeMore ?  <div class="flex-col m-3 p-3 items-center justify-items-center border-t-2 border-gray-200">
+            <div class="flex-col p-3">
+             {
+              seeMore ? <div>{companyRequests.map((m) => {
+                console.log(m)
+                return 
+                <div class="bg-gray-500 p-2 rounded-md m-2">
+                   <button class="p-2 bg-red-400 rounded-md">
+                    <p class="text-white text-xs">x</p>
+                   </button>
+                  <p class="font-bold text-xs">{m.firstname} {m.lastname}| {m.seat} </p>
+                  {m.confirmedApproval==1 ? <p class="text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
+                 
+                  :<p class="text-xs">pending</p>}
+                </div>
+              })}</div>:<div><p>No reservations</p></div>
+              }
+            
+            
+            </div>
+           
+
+          </div>
+            :<div><p>No reservations</p></div>
+        }
+        </div>
         
       </li>
       </div>

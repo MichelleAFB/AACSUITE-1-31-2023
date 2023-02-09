@@ -4,7 +4,7 @@ import * as actionTypes from '../../redux/eventModal/eventModal-action'
 import {useDispatch,useSelector,connect} from 'react-redux'
 import {setPublicModalEvent,setPublicModalOpen,setPublicModalOccupied} from '../../redux/eventModal/eventModal-action'
 import { setEmployeeModalOpen,setEmployeeModalEvent} from '../../redux/employee/employeeModal-actions'
-
+import {BiX} from 'react-icons/bi'
 //functions
 
 
@@ -29,7 +29,9 @@ import axios from 'axios'
     const [isLoading,setIsLoading] =useState(true)
     const[isReserved,setIsReserved] =useState(false)
     const [typeModal,setTypeModal] =useState()
-    
+    const[clientRequests,setClientRequests]=useState()
+    const[isRequested,setIsRequested]=useState(false)
+    const[seeMore,setSeeMore]=useState(false)
     const eve=useRef(event)
     
 
@@ -251,14 +253,12 @@ import axios from 'axios'
      
   return (
     <div class="max-h-sm rounded-md">
-      <li class="py-5 m-4  bg-pink-300 border-purple-100 px-3 transition hover:bg-indigo-100 rounded-lg shadow-lg ">
+      <li class="py-5 m-4  bg-pink-500 border-purple-100 px-3 transition hover:bg-pink-400 rounded-lg shadow-lg ">
         <a href="#" class="flex justify-between items-center">
           <h3 class="text-lg font-semibold">{event.act} | {event.date} | {event.time} |</h3>
         </a>
         <h3>{event.access}</h3>
-        {
-          individual ? <button class="bg-orange-300 p-2 rounded-md"><p class="text-sm">Individual Seats</p></button>:<h3></h3>
-        }
+      
         {
           event.reserved == true? <p class="font-bold text-red-500">RESERVED</p>:<p></p>
         }
@@ -318,6 +318,67 @@ import axios from 'axios'
         }}>
          Update Access
         </button>
+        <div class="flex flex-col p-3">
+        <button class="text-lg text-white" onClick={() => {
+          
+          axios
+          .get(
+            "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/public/" +
+              event.id
+          ).then((response) => {
+            console.log(response.data)
+            setClientRequests(response.data.requests)
+            if(clientRequests!=null){
+              setIsRequested(true)
+            }
+            setTimeout(() => {
+              console.log(isRequested)
+              console.log(clientRequests)
+              setSeeMore(!seeMore)
+            },500)
+            
+            console.log(isRequested)
+            console.log(clientRequests)
+          })
+        }}>
+          See more
+        </button>
+        {
+          seeMore ?  <div class="flex-col m-3 p-3 items-center justify-items-center border-t-2 border-gray-200">
+            <div class="flex-col p-3">
+             {
+              seeMore ? <div>{clientRequests.map((m) => {
+                console.log(m)
+                return <div class="bg-gray-200 p-2 rounded-md m-2">
+                  <p class="font-bold text-xs">{m.clientName}| {m.dateReserved} | {m.timeReserved}</p>
+                </div>
+              })}</div>:<p>No reservations</p>
+              }
+            {() =>{
+             
+              clientRequests.map((m) => {
+                console.log(clientRequests)
+                return 
+                <div class="bg-gray-300 p-2 rounded-lg m-2 border-gray-600 border-3 shadow-lg">
+                  <p class="text-sm font-bold text-left">{m.act}</p> 
+                    <div class="flex bg-gray-400">
+                        <p class="text-xs">{m.clientName}</p> | <p class="text-xs">{m.dateReserved}</p> | <p class="text-xs">{m.timeReserved}</p>
+                        <div class=""></div>
+                   </div>
+                  
+                </div>
+              })
+            }
+              
+            }
+            </div>
+           
+
+          </div>
+            :<div></div>
+        }
+        </div>
+        
         
       </li>
       </div>
