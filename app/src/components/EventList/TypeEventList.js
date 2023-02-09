@@ -6,6 +6,7 @@ import { ReactReduxContext, useSelector } from 'react-redux'
 import axios from 'axios'
 import PublicEventListItem from './PublicEventListItem'
 import CompanyEventListItem from './CompanyEventListItem'
+import PrivateEventListItem from './PrivateEventListItem'
 
 
 
@@ -128,6 +129,9 @@ if(!isLoading){
                 }
                 if(e.access=="company"){
                   return <li><CompanyEventListItem key={e.id} event={e}/></li>
+                }
+                if(e.access=='private'){
+                  return <li><PrivateEventListItem key={e.id}event={e}/></li>
                 }
                 })
             }

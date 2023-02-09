@@ -18,7 +18,9 @@ import NewEventList from '../../components/NewEventList'
 import Modal from '../../components/Modal'
 import PublicEventModal from '../../components/EventList/PublicEventModal'
 import CompanyEventModal from '../../components/EventList/CompanyEventModal'
+import PrivateEventModal from '../../components/EventList/PrivateEventModal'
 import TypeEventList from '../../components/EventList/TypeEventList'
+import PrivateEventModal from '../../components/EventList/PrivateEventModal'
 function UI() {
 
   const navigate = useNavigate()
@@ -28,6 +30,7 @@ function UI() {
       <RequestModal/>
       <EventModal/>
       <PublicEventModal/>
+      <PrivateEventModal/>
       <CompanyEventModal/>
       
     <div class="page">

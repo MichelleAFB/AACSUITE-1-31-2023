@@ -32,7 +32,7 @@ import { motion } from "framer-motion";
 import ReservedPublicReservations from "./ReservedPublicReservations";
 
 
-const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
+const PrivateEventModal = ({ ourEvent, visibility}) => {
   const editEvent = useSelector((state) => state.showModal.event);
   const editEventOccupied = useSelector((state) => state.showModal.occupied);
   console.log(editEvent);
