@@ -363,6 +363,7 @@ import axios from 'axios'
                   <p class="text-sm font-bold text-left">{m.act}</p> 
                     <p>{m.approved}</p>
                         <p class="text-xs">{m.clientName}</p> | <p class="text-xs">{m.dateReserved}</p> | <p class="text-xs">{m.timeReserved}</p>
+                        hii
                         <div class="flex">
                           {m.confirmedApproval==0 && m.approved==0?<p>pending</p>:<p></p>}
                           {m.confirmedApproval==1 && m.approved==0?<p>approved: inform customer</p>:<p></p>}
