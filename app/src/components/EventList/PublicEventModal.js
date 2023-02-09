@@ -422,12 +422,34 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                           });
 
                           prom.then(() => {
-                            console.log("setting occupied then");
+                            console.log("reinstating occupied")
+                            if(changedAccess=="company"){
+                            const prom2= new Promise((resolve1,reject1) =>{
 
-                            console.log("CLOSING MODAL");
-                            
+                              axios.post("http://localhost:3002/company/reinstateAllOccupiedEmployee/"+event.id).then((response2) => {
+                                if(response2.data.success){
+                                  alert("reinstating company data for "+ event.act + "\n"+response2.data.changed)
+                                  resolve1()
+                                }else{
+                                  alert("error for reinstating data for "+ event.act + "\n"+response2.data.changed)
+                                  resolve1()
+
+                                }
+                              })
+
+                            })
+
+                            prom2.then(() => {
+                              setIsLoading(true);
+                              dispatch(setPublicModalClose(false));
+                              
+                            })
+                          }else{
                             setIsLoading(true);
                             dispatch(setPublicModalClose(false));
+
+                          }
+                            
                           
                             
                           });

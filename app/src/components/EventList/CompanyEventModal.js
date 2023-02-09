@@ -267,7 +267,7 @@ console.log(ourEvent)
                     <div class='flex flex-col p-10'>
                       <div>
                         <p class='block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED
+                          RESERVED!
                         </p>
                         <p class='text-white text-small mt-3 mb-2'>
                           employees have active requests or reservations for
@@ -277,26 +277,10 @@ console.log(ourEvent)
                       <div class={`flex `}>
                         <div class='justify-center seats'>
                           {companyRequests.map((m) => {
-                            return (
+                            {
+                              m.confirmedApproval==1 ?<p>confirmed</p> :<p>not confirmed</p>                           
+                            }
                         
-                          
-                              <div
-                                class='seat selected p-3'
-                                onMouseEnter={() => {
-                                  return (
-                                    <p>
-                                     {m.act} {m.firstname} {m.lastname}
-                                    </p>
-                                  );
-                                }}
-                              >
-                                <p class='text-xs text-white text-center'>
-                                  {m.seat} : {m.firstname}
-                                </p>
-                                
-                              </div>
-                      
-                            );
                           })}
                         </div>
                       </div>
@@ -308,7 +292,7 @@ console.log(ourEvent)
                           }}
                         >
                           <a class='text-white text-xs font-bold'>
-                            Click to cancel all reservations
+                            Click to cancel all reservations!
                           </a>
                         </button>
                       ) : (
@@ -329,52 +313,9 @@ console.log(ourEvent)
                   )}
                 </div>
                 
-                  {
-                    isClientRequested ? (
-                    <div class="flex flex-col p-10">
-                      <div class="flex flex-col justify-center">
-                       <p class='text-center block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED!
-                        </p>
-                        <p class='text center text-white text-small mt-3 mb-2'>
-                         ! This event has pending or confirmed
-                          public reservation(s):
-                        </p>
-                        </div>
-                        <div class="p-3">
-                      {clientRequests.map((m) =>{
-                        console.log(m)
-                        return <p class="text-white text-sm">{m.act} | {m.clientName} | reserved on: {m.dateReserved}</p>
-                      })}
-                       {revokePublicRequests == false ? (
-                        <button
-                          class='mt-3 p-2 rounded-md bg-gray-400 '
-                          onClick={() => {
-                            setRevokePublicRequests(!revokePublicRequests);
-                          }}
-                        >
-                          <a class='text-white text-xs font-bold'>
-                            Click to cancel all public reservations
-                          </a>
-                        </button>
-                      ) : (
-                        <button class='mt-3 p-2 rounded-md bg-red-600 '>
-                          <a
-                            class='text-white text-xs '
-                            onClick={() => {
-                              setRevokePublicRequests(!revokePublicRequests);
-                            }}
-                          >
-                            Retain public reservations
-                          </a>
-                        </button>
-                      )}
-                      </div>
-                    </div>):(<p></p>)
-                  }
+                 
 
-            
-
+      
                 <div class='mt-5'>
                   
                   <form>
@@ -402,21 +343,19 @@ console.log(ourEvent)
                           console.log("ATTEMPTING TO DELETE ALL COMPANY RESERVATIONS")
                           const prom=new Promise((resolve,reject) => {
                         
-                            axios.post("https://accserverheroku.herokuapp.com/company/revokeAllOccupiedEmployee/"+event.eventId).then((response) => {
+                            axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.id).then((response) => {
                             console.log(response.data)
                             if(response.data.success==true){
                               alert("All employee reservations and requests for\n"+ event.act + " have been revoked")
-                              
+                              setCompanyRequests([])
+                              resolve()
 
 
 
 
                             }
                            })
-                           setCompanyRequests([])
-                      
-                           // resolve()
-
+                           
                           })
 
                           prom.then(() => {
