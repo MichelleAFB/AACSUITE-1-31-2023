@@ -30,6 +30,7 @@ import { motion } from "framer-motion";
 //components
 
 import ReservedPublicReservations from "./ReservedPublicReservations";
+import { reloadPage } from "../../redux/reload/reload-actions";
 
 
 const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
@@ -317,7 +318,7 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                         </p>
                         {
                           clientRequests.map((m) => {
-                            return<p>{m.clientName} | {m.dateReserved} | {m.timeReserved}|{m.act}</p>
+                            return<p class="text-xs">{m.clientName} | {m.dateReserved} | {m.timeReserved}|{m.act}</p>
                           })
                         }
                          
@@ -368,29 +369,27 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                         const select = allSeats.filter(
                           (s) => s.selected == true
                         );
-                        console.log("\n\n\n\n\n\n\n")
-                        console.log("HASCHANGED:*************" + hasChanged)
-                        //TODO:implement client revoke mechanism
-                        if(isClientRequested==true && hasChanged==true && revokePublicRequests==true){
-                          console.log("HASCHANGED"+ hasChanged)
-                          console.log("*************************************************************************************************************************************************************************************************************************************************************************************************************************************************\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
+                      
 
+                        console.log("isClientRequested:"+isClientRequested +" revokePublicRequests"+
+                        revokePublicRequests +" Haschanged:"+
+                      
+                        hasChanged)
 
-                        }{
-
+                        /************************************** */
+                        if(isClientRequested==true && hasChanged==true && revokePublicRequests!=true){
+                          alert("Please confirm to revoke public requests before change")
                         }
-                        console.log(isCompanyRequested +" "+
-                          revokeEmployees +" "+
-                        
-                          hasChanged)
+                        /****************************** */
+                       
                         //if company req exist,revoke is approved, and access has changed
                        
                       //TODO: allow cancellation mechanism for public reservations
 
                       //if no reservations found change access type
                         if (
-                          isCompanyRequested == false &&
-                          isClientRequested == false && hasChanged
+                          revokePublicRequests &&
+                          isClientRequested && hasChanged
                         ) {
                           const prom = new Promise((resolve, reject) => {
                             select.map((s) => {
@@ -463,6 +462,7 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                             })
 
                             prom2.then(() => {
+                             
                               setIsLoading(true);
                               dispatch(setPublicModalClose(false));
                               

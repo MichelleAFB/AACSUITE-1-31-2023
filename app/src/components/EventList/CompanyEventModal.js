@@ -400,8 +400,37 @@ console.log(ourEvent)
                           });
 
                           prom1.then(() => {
-                            console.log("setting occupied then");
 
+                            if(changedAccess=="public"){
+
+                              const promPublic = new Promise((resolvePublic,rejectPublic) => {
+
+                                axios.post("http://localhost:3002/reservations/reinstateAllEventRequests/"+event.id).then((response) => {
+                                  if(response.data.success){
+                                    alert("public requests have been restored")
+                                    resolvePublic()
+                                  }
+                                })
+
+                              })
+
+                              promPublic.then(() => {
+                                console.log("setting occupied then");
+
+                                console.log("CLOSING MODAL");
+                                dispatch(addPublicEvent(event));
+                                setCompanyRequests([])
+                                setIsLoading(true);
+                                dispatch(setCompanyModalClose(false));
+                                console.log("isloading");
+                                console.log(isLoading);
+                                console.log("has access changed:" + hasChanged);
+                                console.log(changedAccess);
+
+                              })
+                            }else{
+                            console.log("setting occupied then");
+                            setCompanyRequests(null)
                             console.log("CLOSING MODAL");
                             dispatch(addPublicEvent(event));
                             setIsLoading(true);
@@ -410,6 +439,7 @@ console.log(ourEvent)
                             console.log(isLoading);
                             console.log("has access changed:" + hasChanged);
                             console.log(changedAccess);
+                            }
                           });
 
                           /***** */
@@ -441,7 +471,8 @@ console.log(ourEvent)
                                   console.log(response);
                                   console.log("changed Access?");
                                   console.log(changedAccess);
-                                  setCompanyRequests()
+                                  setCompanyRequests(null)
+
                                
                                 });
                             }
@@ -473,7 +504,7 @@ console.log(ourEvent)
                         
                       }}>See</button>
                     <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
-                     
+                      setCompanyRequests(null)
                       setIsLoading(true);
                       dispatch(setCompanyModalClose(false));
                     }}>

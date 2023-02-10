@@ -7,6 +7,7 @@ import RequestModal from "../../components/RequestModal";
 import ErrorBoundary from "../../components/ErrorBoundary";
 import RecentChangesCard from "../../components/RecentChangesCard";
 import TodayEventBox from "../../components/TodayEventBox";
+import CompanyEditList from "../../components/CompanyEditList";
 
 function ReservationsPage() {
   const [requests, setRequests] = useState();
@@ -115,6 +116,25 @@ function ReservationsPage() {
         <section class="grid grid-col-1">
        <RecentChangesCard changeType={"reservationChanges"} color={"bg-yellow-400"} title={"Approvals and Revocations"}/>
         </section>
+        <section class="grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6">
+          
+          <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
+                <div class="flex-col p-3">
+                  <p class="text-center text-xl">Company </p>
+                </div>
+            <div class="grid lg:grid-cols-2 md:grid-cols-1">
+              <div class="flex p-4 flex-grow">
+                <div class="flex">
+                  <p class="text-center text-xl"><CompanyEditList/></p>
+                </div>
+                <div class="flex ">
+                  <p class="text-center text-xl">Company </p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+
       
        
        

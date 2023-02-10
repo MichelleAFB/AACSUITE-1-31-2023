@@ -15,6 +15,7 @@ import {
 } from "../../redux/eventModal/eventModal-action";
 import { setOccupiedSeats } from "../../redux/events/events-actions";
 import { useNavigate } from "react-router-dom";
+import { reloadPage } from "../../redux/reload/reload-actions";
 
 //import { reloadPage } from "../redux/reload/reload-actions";
 
@@ -31,7 +32,7 @@ import { motion } from "framer-motion";
 import ReservedPublicReservations from "./ReservedPublicReservations";
 
 
-const PrivateEventModal = ({ ourEvent, visibility}) => {
+const PrivateEventModal = ({ ourEvent, visibility,reload}) => {
   const editEvent = useSelector((state) => state.showModal.event);
   const editEventOccupied = useSelector((state) => state.showModal.occupied);
   console.log(editEvent);
@@ -300,11 +301,35 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
 
                             prom2.then(() => {
                               setIsLoading(true);
+                              dispatch(reloadPage(!reload))
                               dispatch(setPrivateModalClose(false));
                               
                             })
+                          }if(changedAccess=="public"){
+                            const prom2= new Promise((resolve1,reject1) =>{
+
+                              axios.post("http://localhost:3002/reservations/reinstateAllEventRequests/"+event.id).then((response2) => {
+                                if(response2.data.success){
+                                  alert("reinstating company data for "+ event.act + "\n"+response2.data.changed)
+                                  resolve1()
+                                }else{
+                                  alert("error for reinstating data for "+ event.act + "\n"+response2.data.changed)
+                                  resolve1()
+
+                                }
+                              })
+                            })
+
+                            prom2.then(() => {
+                              setIsLoading(true);
+                              dispatch(reloadPage(!reload))
+                              dispatch(setPrivateModalClose(false));
+                              
+                            })
+
                           }else{
                             setIsLoading(true);
+                            dispatch(reloadPage(!reload))
                             dispatch(setPrivateModalClose(false));
 
                           }
@@ -500,11 +525,14 @@ const PrivateEventModal = ({ ourEvent, visibility}) => {
 const mapStateToProps = (state, props) => {
   const vis = state.showModal.privateVisibility;
   const event = state.showModal.privateEvent;
+  const reload=state.reloadPage.reload
+  console.log("reload:"+reload)
  
   
   return {
     visibility: vis,
     ourEvent: event,
+    reload:reload
 
   };
 };

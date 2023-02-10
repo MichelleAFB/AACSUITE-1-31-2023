@@ -14,7 +14,7 @@ import PrivateEventListItem from './PrivateEventListItem'
 
 
 
-function TypeEventList({listType}) {
+function TypeEventList({listType,reload}) {
 
   const [events,setEvents]=useState()
   const [isLoading,setIsLoading]=useState(true)
@@ -23,6 +23,7 @@ function TypeEventList({listType}) {
   const[accessPrivate,setAccessPrivate]=useState(false)
   const[accessCompany,setAccessCompany]=useState(false)
   const [accessChecked, setAccessChecked] = useState(false)
+  const[reloadPage,setReloadPage]=useState()
   
   console.log("**************************FULL EVENTLIST RERENDER**********")
   
@@ -30,6 +31,7 @@ function TypeEventList({listType}) {
   useEffect(()=>{
     
     const prom= new Promise((resolve,reject) => {
+      setReloadPage(reload)
       axios.get("http://localhost:3002/currentEvents").then((response)=> {
         setFiltered(response.data)
      console.log(response)
@@ -42,7 +44,7 @@ function TypeEventList({listType}) {
       setIsLoading(false)
     })
     
-  },[access,accessChecked])
+  },[access,accessChecked,reload])
 
   const [event,setEvent]=useState()
   const [filtered,setFiltered] = useState()
@@ -140,5 +142,21 @@ if(!isLoading){
   )
   }
 }
+
+const mapStateToProps = (state, props) => {
+  const vis = state.showModal.publicVisibility;
+  const event = state.showModal.publicEvent;
+  const reserved = state.showModal.publicReserved;
+  const reload=state.reloadPage.reload
+  const occ=state.showModal.publicOccupied
+  console.log("occupied:"+occ);
+  return {
+    visibility: vis,
+    ourOccupied:occ,
+    ourEvent: event,
+    reserved:reserved,
+    reload:reload
+  };
+};
 
 export default  TypeEventList

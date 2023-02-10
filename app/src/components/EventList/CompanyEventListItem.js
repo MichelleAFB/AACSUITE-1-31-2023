@@ -337,18 +337,28 @@ import EventModal from '../EventModal'
              {
               seeMore && companyRequests!=null ? <div>{companyRequests.map((m) => {
                 console.log(m)
-                return <div class=" flex bg-gray-500 p-2 rounded-md m-2">
-                  <div class="flex">
+                return <div class=" flex bg-gray-300 p-3 w-full rounded-md m-2">
+                  <div class="flex align-items-center">
                     <button class="p-2 bg-red-400 rounded-md">
                       <p class="text-white text-xs">x</p>
                     </button>
                    </div>
-                  <div class="flex p-2 m-2 justify-between bg-gray-100">
-                  <p class="font-bold text-xs">{m.firstname} {m.lastname}| {m.seat} </p>
-                  {m.confirmedApproval==1 ? <p class="text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
-                  
-                 
-                  :<p class="text-xs">pending</p>}
+                  <div class="flex  m-2 justify-between ">
+                    
+                      <p class="font-bold text-xs">{m.firstname} {m.lastname}| {m.seat} </p>
+                  </div>
+                  <div class="flex m-1 justify-content-end justify-end">
+                       
+                        {m.confirmedApproval==0 && m.approval==0? <p class= " text-align-end text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending</p>
+                        :<p class="text-xs"></p>}
+                         {m.confirmedApproval==1 && m.approval==0? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed pre revoke:please update this</p>
+                        :<p class="text-xs"></p>}
+                         {m.confirmedApproval==1 && m.approval==1? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
+                        :<p class="text-xs"></p>}
+                        {m.confirmedApproval==-1 && m.approval==-1?<p>denied</p>:<p></p>}
+                        {m.confirmedApproval==-1 && m.approval==0?<p>revoked post access Change</p>:<p></p>}
+                        {m.confirmedApproval==0 && m.approval==-1? <p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending pre revoke: please update</p>
+                        :<p class="text-xs"></p>}
                   </div>
                  
                 </div>
