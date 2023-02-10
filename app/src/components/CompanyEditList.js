@@ -2,24 +2,36 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import  axios from 'axios'
 
+//components
+import CompanyEditListItem from './CompanyEditListItem'
+
 function CompanyEditList() {
 
   const[events,setEvents]=useState()
   const[isLoading,setIsLoading]=useState(true)
 
+
   useEffect(() => {
    
-
+const ev=[]
     const prom=new Promise((resolve,reject) => {
       
       axios.get("http://localhost:3002/company/employee-occupied").then((response) => {
        console.log(response.data)
-        setEvents(response.data)
+        response.data.map((m) => {
+          if(!ev.includes(m.eventId)){
+            ev.push(m.eventId)
+          }
+        })
+
+        
       })
+      resolve()
 
     })
 
     prom.then(() => {
+      setEvents(ev)
       setIsLoading(false)
     })
 
@@ -31,7 +43,7 @@ function CompanyEditList() {
       <ul>
         {
           events.map((e) => {
-            return<p>{e}</p>
+            return <CompanyEditList eventId={e.id}/>
           })
         }
 
