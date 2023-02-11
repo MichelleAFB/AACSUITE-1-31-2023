@@ -364,14 +364,19 @@ import axios from 'axios'
                     <p>{m.approved}</p>
                         <p class="text-xs">{m.clientName}</p> | <p class="text-xs">{m.dateReserved}</p> | <p class="text-xs">{m.timeReserved}</p>
                         hii
-                        <div class="flex">
-                          {m.confirmedApproval==0 && m.approved==0?<p>pending</p>:<p></p>}
-                          {m.confirmedApproval==1 && m.approved==0?<p>approved: inform customer</p>:<p></p>}
-                          {m.confirmedApproval==1 && m.approved==1 ? <p class="text-green-600 font-bold">approved</p>:<p></p>}
-                          {m.confirmedApproval==-1 && m.approved==-1 ? <p class="text-red-500 font-bold">denied</p>:<p></p>}
-                          {m.confirmedApproval==-1 && m.approved==1 ? <p class="text-red-500 font-bold">pending</p>:<p></p>}
+                        <div class="flex m-1 justify-content-end justify-end">
                        
-                   </div>
+                        {m.confirmedApproval==0 && m.approval==0? <p class= " text-align-end text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending</p>
+                        :<p class="text-xs"></p>}
+                         {m.confirmedApproval==1 && m.approval==0? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed pre revoke:please update this</p>
+                        :<p class="text-xs"></p>}
+                         {m.confirmedApproval==1 && m.approval==1? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
+                        :<p class="text-xs"></p>}
+                        {m.confirmedApproval==-1 && m.approval==-1?<p class="text-align-end text-red-800 text-xs font-bold  text-shadow-lg">denied</p>:<p></p>}
+                        {m.confirmedApproval==-1 && m.approval==0?<p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">revoked before access Change</p>:<p></p>}
+                        {m.confirmedApproval==0 && m.approval==-1? <p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending before access change please update</p>
+                        :<p class="text-xs"></p>}
+                  </div>
                   
                 </div>
               })

@@ -162,6 +162,7 @@ console.log(ourEvent)
           //console.log("company rested?"+isCompanyRequested)
 
           setIsLoading(false);
+          console.log("isloading company:"+isLoading)
           /******************************** */
           console.log("DONEE")
           /******************************** */
@@ -276,28 +277,7 @@ console.log(ourEvent)
                       </div>
                       <div class={`flex `}>
                         <div class='justify-center seats'>
-                          {companyRequests.map((m) => {
-                            {
-                              m.confirmedApproval==1 ? <p>confirmed</p> : (
-                                <div
-                                class={`seat selected p-3`}
-                                onMouseEnter={() => {
-                                  return (
-                                    <p>
-                                     {m.act} {m.firstname} {m.lastname}
-                                    </p>
-                                  );
-                                }}
-                              >
-                                <p class='text-xs text-white text-center'>
-                                  {m.seat} : {m.firstname}
-                                </p>
-                                
-                              </div>
-                              )                   
-                            }
-                        
-                          })}
+                     
                         </div>
                       </div>
                       {revokeEmployees == false ? (
@@ -362,6 +342,7 @@ console.log(ourEvent)
                             axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.id).then((response) => {
                             console.log(response.data)
                             if(response.data.success==true){
+                            
                               alert("All employee reservations and requests for\n"+ event.act + " have been revoked")
                               setCompanyRequests([])
                               resolve()
@@ -386,27 +367,32 @@ console.log(ourEvent)
                                   "https://accserverheroku.herokuapp.com/setAccessType",
                                   { event: event, access: changedAccess }
                                 )
-                                .then((response) => {
+                                .then((response1) => {
                                   console.log("response");
-                                  console.log(response);
+                                  console.log(response1);
                                   console.log("changed Access?");
                                   console.log(changedAccess);
-                                  setCompanyRequests()
-                                  setClientRequests()
+                                  //setCompanyRequests()
+                                  //setClientRequests()
                                 });
                             }
 
                             resolve1();
                           });
 
+
+                       
                           prom1.then(() => {
 
                             if(changedAccess=="public"){
 
                               const promPublic = new Promise((resolvePublic,rejectPublic) => {
 
-                                axios.post("http://localhost:3002/reservations/reinstateAllEventRequests/"+event.id).then((response) => {
-                                  if(response.data.success){
+                                axios.post("http://localhost:3002/reservations/reinstateAllEventRequests/"+event.id).then((response2) => {
+
+                                console.log(response2.data)
+                                console.log("public eventss successfully reinstated? "+response2.data)
+                                  if(response2.data.success){
                                     alert("public requests have been restored")
                                     resolvePublic()
                                   }
@@ -416,6 +402,8 @@ console.log(ourEvent)
 
                               promPublic.then(() => {
                                 console.log("setting occupied then");
+
+                                //revokeCompanyEvents
 
                                 console.log("CLOSING MODAL");
                                 dispatch(addPublicEvent(event));
@@ -451,7 +439,7 @@ console.log(ourEvent)
                       //if no reservations found change access type
                         if (
                           isCompanyRequested == false &&
-                          isClientRequested == false && hasChanged
+                           hasChanged
                         ) {
                           const prom = new Promise((resolve, reject) => {
                             select.map((s) => {

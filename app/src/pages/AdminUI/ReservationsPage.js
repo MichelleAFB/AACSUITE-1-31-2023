@@ -125,7 +125,7 @@ function ReservationsPage() {
             <div class="grid lg:grid-cols-2 md:grid-cols-1">
               <div class="flex p-4 flex-grow">
                 <div class="flex">
-                  <p class="text-center text-xl"><CompanyEditList/></p>
+                  
                 </div>
                 <div class="flex ">
                   <p class="text-center text-xl">Company </p>

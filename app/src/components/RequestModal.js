@@ -51,6 +51,7 @@ function RequestModal({ request, visibility }) {
   useEffect(() => {
     const prom = new Promise((resolve, reject) => {
       //setEvent(modalEvent)
+      console.log(request.request.clientName)
       const name=request.request.clientName.split(" ")
       console.log(name)
       setRevokeData({
@@ -386,7 +387,7 @@ function RequestModal({ request, visibility }) {
                               const prom = new Promise((resolve, reject) => {
                                 axios
                                 .post(
-                                  "https://accserverheroku.herokuapp.com/reservations/approveRequest",
+                                  "http://localhost:3002/reservations/approveRequest",
                                   {request,message:"Approved reservation for client [" + request.request.clientName + "] for [" + request.request.act.toUpperCase() + " on " + request.request.actDate + "|" + request.request.actTime +"]"}
                                 ).then((response) => {
                                   console.log(sessionStorage.getItem("user"))
@@ -436,7 +437,7 @@ function RequestModal({ request, visibility }) {
                         <input name="message" class="hidden" value={revokeData.message}/>
                         <button class='object-fit py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-red-600 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800' onClick={() => {
                              const prom = new Promise((resolve, reject) => {
-                              axios.post("https://accserverheroku.herokuapp.com/reservations/revokeReservation ",{reservation:request.request}).then((response) =>{
+                              axios.post("https://localhost:3002/reservations/revokeReservation ",{reservation:request.request}).then((response) =>{
                                 const prom1=new Promise((resolve,reject) => {
                                   if(response.data.revoked==true){
                                     const successRevokeEmail=sendEmail(revokeForm)

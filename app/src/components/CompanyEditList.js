@@ -12,41 +12,54 @@ function CompanyEditList() {
 
 
   useEffect(() => {
+    
    
-const ev=[]
+    const eve=[]
     const prom=new Promise((resolve,reject) => {
       
       axios.get("http://localhost:3002/company/employee-occupied").then((response) => {
        console.log(response.data)
-        response.data.map((m) => {
+       const ev=response.data
+        ev.map((m) => {
           if(!ev.includes(m.eventId)){
-            ev.push(m.eventId)
+            console.log(m)
+            eve.push(m.eventId) 
+            
           }
         })
 
         
       })
-      resolve()
+      setTimeout(()=>{
+        resolve()
+      },500)
+    
 
     })
 
     prom.then(() => {
-      setEvents(ev)
+      setEvents(eve)
       setIsLoading(false)
     })
 
   },[])
 
-  if(!isLoading){
+ 
+  if(!isLoading && events!=null){
   return (
-    <div class="flex p-5 w-full bg-gray-300 rounded-md shadow-xl">
+    <div class="flex p-5 w-full bg-pink-400 rounded-md shadow-xl">
       <ul>
-        {
-          events.map((e) => {
-            return <CompanyEditList eventId={e.id}/>
-          })
-        }
-
+          <div>{
+            
+            events.map((e) => {
+             
+               return <li key={e.eventId}>
+                <p>{e.eventId}</p>
+                  <CompanyEditListItem key={e.eventId} eventId={e.eventId}/>
+              </li>
+            
+            })
+          }</div>
       </ul>
     </div>
   )

@@ -355,9 +355,9 @@ import EventModal from '../EventModal'
                         :<p class="text-xs"></p>}
                          {m.confirmedApproval==1 && m.approval==1? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
                         :<p class="text-xs"></p>}
-                        {m.confirmedApproval==-1 && m.approval==-1?<p>denied</p>:<p></p>}
-                        {m.confirmedApproval==-1 && m.approval==0?<p>revoked post access Change</p>:<p></p>}
-                        {m.confirmedApproval==0 && m.approval==-1? <p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending pre revoke: please update</p>
+                        {m.confirmedApproval==-1 && m.approval==-1?<p class="text-align-end text-red-800 text-xs font-bold  text-shadow-lg">denied</p>:<p></p>}
+                        {m.confirmedApproval==-1 && m.approval==0?<p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">revoked before access Change</p>:<p></p>}
+                        {m.confirmedApproval==0 && m.approval==-1? <p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending before access change please update</p>
                         :<p class="text-xs"></p>}
                   </div>
                  
@@ -370,7 +370,7 @@ import EventModal from '../EventModal'
            
 
           </div>
-            :<div><p>No reservations</p></div>
+            :<div><p></p></div>
         }
         </div>
         
