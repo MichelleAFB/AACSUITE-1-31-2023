@@ -44,23 +44,29 @@ function CompanyEditList() {
 
   },[])
 
+  const[seeMore,setSeeMore]=useState(false)
+  
+
  
   if(!isLoading && events!=null){
   return (
     <div class="flex p-5 w-full bg-pink-400 rounded-md shadow-xl">
-      <ul>
-          <div>{
+      
+
+      <ul class=" flex-col m-4 p-4 rounded-md">
+        {
             
             events.map((e) => {
              
-               return <li key={e.eventId}>
-                <p>{e.eventId}</p>
-                  <CompanyEditListItem key={e.eventId} eventId={e.eventId}/>
-              </li>
+             
+               return (
+                <CompanyEditListItem eventId={e}/>
+                  
+               )
             
             })
-          }</div>
-      </ul>
+          }
+          </ul>
     </div>
   )
   }

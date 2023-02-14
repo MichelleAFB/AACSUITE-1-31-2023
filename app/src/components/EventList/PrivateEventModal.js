@@ -30,6 +30,7 @@ import { motion } from "framer-motion";
 //components
 
 import ReservedPublicReservations from "./ReservedPublicReservations";
+import { CollectionsOutlined } from "@material-ui/icons";
 
 
 const PrivateEventModal = ({ ourEvent, visibility,reload}) => {
@@ -90,6 +91,8 @@ const PrivateEventModal = ({ ourEvent, visibility,reload}) => {
           console.log("*****************OUR EVENT*******")
           console.log(event)
           //setIsLoading(false)
+
+          
           resolve();
         });
 
@@ -172,7 +175,7 @@ const PrivateEventModal = ({ ourEvent, visibility,reload}) => {
   
    
    
-  
+    console.log(event)
     console.log("clientRequets");
     console.log(clientRequests);
     console.log(isClientRequested);
@@ -223,121 +226,22 @@ const PrivateEventModal = ({ ourEvent, visibility,reload}) => {
                   
                     <button
                       onClick={(e) => {
-                        e.preventDefault();
-                        console.log("setting occupied confirm");
-                        const select = allSeats.filter(
-                          (s) => s.selected == true
-                        );
-                        console.log("\n\n\n\n\n\n\n")
-                        console.log("HASCHANGED:*************" + hasChanged)
-                        //TODO:implement client revoke mechanism
-                        if(isClientRequested==true && hasChanged==true && revokePublicRequests==true){
-                          console.log("HASCHANGED"+ hasChanged)
-                          console.log("*************************************************************************************************************************************************************************************************************************************************************************************************************************************************\n\n\n\n\n\n\n\n\n\n\n\n\n\n")
 
+                        e.preventDefault()
 
-                        }{
-
-                        }
-                        console.log(isCompanyRequested +" "+
-                          revokeEmployees +" "+
-                        
-                          hasChanged)
-                        //if company req exist,revoke is approved, and access has changed
-                       
-                      //TODO: allow cancellation mechanism for public reservations
-
-                      //if no reservations found change access type
-                        if (
-                          isCompanyRequested == false &&
-                          isClientRequested == false && hasChanged
-                        ) {
-                          const prom = new Promise((resolve, reject) => {
-                            select.map((s) => {
-                              s.actID = event.id;
-                              s.act = event.act;
-                            });
-                            console.log("changed Access?");
-                            console.log(changedAccess);
-                            if (hasChanged == true) {
-                              axios
-                                .post(
-                                  "https://accserverheroku.herokuapp.com/setAccessType",
-                                  { event: event, access: changedAccess }
-                                )
-                                .then((response) => {
-                                  console.log("response");
-                                  console.log(response);
-                                  console.log("changed Access?");
-                                  console.log(changedAccess);
-                                  setCompanyRequests([])
-                                  setClientRequests([])
-                                });
+                        const prom = new Promise((resolve,reject) =>{
+                          axios.post("http://localhost:3002/setAccessType",{event:event,access:changedAccess}).then((response) =>{
+                            if(response.data.success){
+                              resolve()
                             }
-                            setTimeout(() => {
-                              console.log("resolving...")
-                              resolve();
-                            },1000)
-                            
-                          });
+                          })
+                        })
 
-                          prom.then(() => {
-                            console.log("reinstating occupied")
-                            if(changedAccess=="company"){
-                            const prom2= new Promise((resolve1,reject1) =>{
+                        prom.then(() =>{
+                          setIsLoading(true);
+                          dispatch(setPrivateModalClose(false));
 
-                              axios.post("http://localhost:3002/company/reinstateAllOccupiedEmployee/"+event.id).then((response2) => {
-                                if(response2.data.success){
-                                  alert("reinstating company data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve1()
-                                }else{
-                                  alert("error for reinstating data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve1()
-
-                                }
-                              })
-
-                            })
-
-                            prom2.then(() => {
-                              setIsLoading(true);
-                              dispatch(reloadPage(!reload))
-                              dispatch(setPrivateModalClose(false));
-                              
-                            })
-                          }if(changedAccess=="public"){
-                            const prom2= new Promise((resolve2,reject1) =>{
-
-                              axios.post("http://localhost:3002/reservations/reinstateAllEventRequests/"+event.id).then((response2) => {
-                                if(response2.data.success){
-                                  alert("reinstating company data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve2()
-                                }else{
-                                  alert("error for reinstating data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve2()
-
-                                }
-                              })
-                            })
-
-                            prom2.then(() => {
-                              setIsLoading(true);
-                              dispatch(reloadPage(!reload))
-                              dispatch(setPrivateModalClose(false));
-                              
-                            })
-
-                          }else{
-                            setIsLoading(true);
-                            dispatch(reloadPage(!reload))
-                            dispatch(setPrivateModalClose(false));
-
-                          }
-                            
-                          
-                            
-                          });
-                        }
+                        })
                       }}
                       class='py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'
                     >

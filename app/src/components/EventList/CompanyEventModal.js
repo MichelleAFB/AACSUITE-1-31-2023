@@ -100,15 +100,16 @@ console.log(ourEvent)
       const prom1 = new Promise((resolve1, reject1) => {
        
           console.log("*********COMPANY OPTION");
-
+          setCompanyRequests(null)
           //do pending request existing
         console.log(event)
           axios
             .get(
-              "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/company/" +
+              "http://localhost:3002/reservations/reservationsandrequests/company/" +
                 ourEvent.companyEvent.id
             )
             .then((responseCompany) => {
+              console.log(responseCompany)
               if (responseCompany.data.success == true) {
                 console.log("**********ComPANY MODAL:GETTING OCCUPIEND");
                 const data = responseCompany.data.requests;
@@ -116,6 +117,9 @@ console.log(ourEvent)
                 console.log("request from api");
                 console.log(responseCompany.data.requests);
                 const r = responseCompany.data.requests;
+                if(r.length==null || r==[]){
+                  resolve1()
+                }
                 if (r.length == 1) {
                   requested = true;
                   companyrequests.push(r);
@@ -220,6 +224,21 @@ console.log(ourEvent)
     }
   }
 
+  async function getRequests(event){
+    const id=event.id
+    const request=await axios.get("http://localhost:3002/reservations/reservationsandrequests/company/"+id).then((response) => {
+      console.log(response)
+      return {success:response.data.success,requests:response.data.requests}
+    })
+    return request
+
+  }
+
+  const companyReq=getRequests(event).then((response) =>{
+    console.log(response)
+    return response
+  })
+  console.log(companyReq.data)
  
 
   if (visibility == true && !isLoading) {
@@ -318,170 +337,24 @@ console.log(ourEvent)
                     <button
                       onClick={(e) => {
                         e.preventDefault();
-                        console.log("setting occupied confirm");
-                        const select = allSeats.filter(
-                          (s) => s.selected == true
-                        );
-                        console.log("\n\n\n\n\n\n\n")
-                        console.log("HASCHANGED:*************" + hasChanged)
-                        //TODO:implement client revoke mechanism
-                       console.log("has reseervation? "+ isCompanyRequested)
-                       console.log("revoke:" + revokeEmployees)
-                       console.log("hasChanged:" + hasChanged)
-                        //if company req exist,revoke is approved, and access has changed
-                        if(
-                          isCompanyRequested ==true
-                          &&
-                          revokeEmployees==true
-                          &&
-                          hasChanged==true
-                        ){
-                          console.log("ATTEMPTING TO DELETE ALL COMPANY RESERVATIONS")
-                          const prom=new Promise((resolve,reject) => {
-                        
-                            axios.post("http://localhost:3002/company/revokeAllOccupiedEmployee/"+event.id).then((response) => {
-                            console.log(response.data)
-                            if(response.data.success==true){
-                            
-                              alert("All employee reservations and requests for\n"+ event.act + " have been revoked")
-                              setCompanyRequests([])
-                              resolve()
-                            }
-                           })
-                           
+                      
+                        if(hasChanged && setChangedAccess!=""){
+                          setCompanyRequests(null)
+                          const prom=new Promise((resolve,reject) =>{
+                            axios.post("http://localhost:3002/setAccessType",{event:event,access:changedAccess}).then((response) =>{
+                              console.log(response)
+                              if(response.data.success){
+                                resolve()
+                              }
+                            })
                           })
 
-                          prom.then(() => {
-                            
-                           /******** */
-                           const prom1 = new Promise((resolve1, reject) => {
-                            select.map((s) => {
-                              s.actID = event.id;
-                              s.act = event.act;
-                            });
-                            console.log("changed Access?");
-                            console.log(changedAccess);
-                            if (hasChanged == true) {
-                              axios
-                                .post(
-                                  "https://accserverheroku.herokuapp.com/setAccessType",
-                                  { event: event, access: changedAccess }
-                                )
-                                .then((response1) => {
-                                  console.log("response");
-                                  console.log(response1);
-                                  console.log("changed Access?");
-                                  console.log(changedAccess);
-                                  //setCompanyRequests()
-                                  //setClientRequests()
-                                });
-                            }
+                        prom.then(()=>{
+                        
+                        setIsLoading(true);
+                        dispatch(setCompanyModalClose(false));
 
-                            resolve1();
-                          });
-
-
-                       
-                          prom1.then(() => {
-
-                            if(changedAccess=="public"){
-
-                              const promPublic = new Promise((resolvePublic,rejectPublic) => {
-
-                                axios.post("http://localhost:3002/reservations/reinstateAllEventRequests/"+event.id).then((response2) => {
-
-                                console.log(response2.data)
-                                console.log("public eventss successfully reinstated? "+response2.data)
-                                  if(response2.data.success){
-                                    alert("public requests have been restored")
-                                    resolvePublic()
-                                  }
-                                })
-
-                              })
-
-                              promPublic.then(() => {
-                                console.log("setting occupied then");
-
-                                //revokeCompanyEvents
-
-                                console.log("CLOSING MODAL");
-                                dispatch(addPublicEvent(event));
-                                setCompanyRequests([])
-                                setIsLoading(true);
-                                dispatch(setCompanyModalClose(false));
-                                console.log("isloading");
-                                console.log(isLoading);
-                                console.log("has access changed:" + hasChanged);
-                                console.log(changedAccess);
-
-                              })
-                            }else{
-                            console.log("setting occupied then");
-                            setCompanyRequests(null)
-                            console.log("CLOSING MODAL");
-                            dispatch(addPublicEvent(event));
-                            setIsLoading(true);
-                            dispatch(setCompanyModalClose(false));
-                            console.log("isloading");
-                            console.log(isLoading);
-                            console.log("has access changed:" + hasChanged);
-                            console.log(changedAccess);
-                            }
-                          });
-
-                          /***** */
-
-                          })   
-                      }
-                      //TODO: allow cancellation mechanism for public reservations
-                     
-                      //if no reservations found change access type
-                        if (
-                          isCompanyRequested == false &&
-                           hasChanged
-                        ) {
-                          const prom = new Promise((resolve, reject) => {
-                            select.map((s) => {
-                              s.actID = event.id;
-                              s.act = event.act;
-                            });
-                            console.log("changed Access?");
-                            console.log(changedAccess);
-                            if (hasChanged == true) {
-                              axios
-                                .post(
-                                  "https://accserverheroku.herokuapp.com/setAccessType",
-                                  { event: event, access: changedAccess }
-                                )
-                                .then((response) => {
-                                  console.log("response");
-                                  console.log(response);
-                                  console.log("changed Access?");
-                                  console.log(changedAccess);
-                                  setCompanyRequests(null)
-
-                               
-                                });
-                            }
-
-                            resolve();
-                          });
-
-                          prom.then(() => {
-
-                            
-                            console.log("setting occupied then");
-
-                            console.log("CLOSING MODAL");
-                          
-                            setIsLoading(true);
-                            dispatch(setCompanyModalClose(false));
-                            console.log("isloading");
-                            console.log(isLoading);
-                            console.log("has access changed:" + hasChanged);
-                            console.log(changedAccess);
-                          });
+                          })
                         }
                       }}
                       class='py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'
@@ -492,9 +365,17 @@ console.log(ourEvent)
                         
                       }}>See</button>
                     <button class="py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-gray-400 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800" onClick={() => {
-                      setCompanyRequests(null)
-                      setIsLoading(true);
-                      dispatch(setCompanyModalClose(false));
+
+                     
+                        setCompanyRequests(null)
+
+
+                     
+                        setIsLoading(true);
+                        dispatch(setCompanyModalClose(false));
+
+                     
+                     
                     }}>
                       Exit
                     </button>

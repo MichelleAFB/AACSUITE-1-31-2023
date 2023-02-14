@@ -10,6 +10,8 @@ import { reloadReducer } from './reload/reload-reducer'
 import {requestModalReducer} from './reservations/requestModal-reducer'
 import {employeeEventModalReducer} from './employee/employeeModal-reducer'
 import { userReducer } from './user/user-reducer'
+import { companyRequestsReducer } from './companyReservations/companyRequests-reducer'
+
 export const rootReducer = combineReducers({
   storeEvent:eventReducer,
   showModal:eventModalReducer,
@@ -20,7 +22,8 @@ export const rootReducer = combineReducers({
   requestModal:requestModalReducer,
   employeeModal:employeeEventModalReducer,
   topNavbar:topNavbarReducer,
-  user:userReducer
+  user:userReducer,
+  companyRequests:companyRequestsReducer
 })
 
 console.log(rootReducer)

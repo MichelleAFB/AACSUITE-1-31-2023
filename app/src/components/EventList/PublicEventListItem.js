@@ -349,8 +349,23 @@ import axios from 'axios'
              {
               seeMore ? <div>{clientRequests.map((m) => {
                 console.log(m)
-                return <div class="bg-gray-200 p-2 rounded-md m-2">
-                  <p class="font-bold text-xs">{m.clientName}| {m.dateReserved} | {m.timeReserved}</p>
+                return <div class="flex bg-gray-200 p-2 rounded-md m-2">
+                  <div class="flex  m-2 justify-between ">
+                      <p class="font-bold text-xs">{m.clientName}| {m.dateReserved} | {m.timeReserved}</p>
+                  </div>
+                  <div class="flex m-1 justify-content-end justify-end">
+                       
+                       {m.confirmedApproval==0 && m.approved==0? <p class= " text-align-end text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending</p>
+                       :<p class="text-xs"></p>}
+                        {m.confirmedApproval==1 && m.approved==0? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed pre revoke:please update this</p>
+                       :<p class="text-xs"></p>}
+                        {m.confirmedApproval==1 && m.approved==1? <p class="text-align-end text-green-600 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">confirmed</p>
+                       :<p class="text-xs"></p>}
+                       {m.confirmedApproval==-1 && m.approved==-1?<p class="text-align-end text-red-800 text-xs font-bold  text-shadow-lg">denied</p>:<p></p>}
+                       {m.confirmedApproval==-1 && m.approved==0?<p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">revoked before access Change</p>:<p></p>}
+                       {m.confirmedApproval==0 && m.approved==-1? <p class="text-align-end text-orange-800 text-xs font-bold [text-shadow:_0_1px_0_var(--tw-shadow-color)] text-shadow-lg">pending before access change please update</p>
+                       :<p class="text-xs"></p>}
+                 </div>
                 </div>
               })}</div>:<p>No reservations</p>
               }

@@ -365,123 +365,22 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                     <button
                       onClick={(e) => {
                         e.preventDefault();
-                        console.log("setting occupied confirm");
-                        const select = allSeats.filter(
-                          (s) => s.selected == true
-                        );
-                      
-
-                        console.log("isClientRequested:"+isClientRequested +" revokePublicRequests"+
-                        revokePublicRequests +" Haschanged:"+
-                      
-                        hasChanged)
-
-                        /************************************** */
-                        if(isClientRequested==true && hasChanged==true && revokePublicRequests!=true){
-                          alert("Please confirm to revoke public requests before change")
-                        }
-                        /****************************** */
                        
-                        //if company req exist,revoke is approved, and access has changed
-                       
-                      //TODO: allow cancellation mechanism for public reservations
+                        if(hasChanged && changedAccess!=""){
 
-                      //if no reservations found change access type
-                        if (
-                          revokePublicRequests &&
-                          isClientRequested && hasChanged
-                        ) {
-                          const prom = new Promise((resolve, reject) => {
-                            select.map((s) => {
-                              s.actID = event.id;
-                              s.act = event.act;
-                            });
-                            console.log("changed Access?");
-                            console.log(changedAccess);
-                            if (hasChanged == true) {
-                              axios
-                                .post(
-                                  "https://accserverheroku.herokuapp.com/setAccessType",
-                                  { event: event, access: changedAccess }
-                                )
-                                .then((response) => {
-                                  console.log("response");
-                                  console.log(response);
-                                  console.log("changed Access?");
-                                  console.log(changedAccess);
-                                  setCompanyRequests([])
-                                  setClientRequests([])
-                                });
-                            }
-                            setTimeout(() => {
-                              console.log("resolving...")
-                              resolve();
-                            },1000)
-                            
-                          });
-
-                          prom.then(() => {
-
-
-                            const prom3= new Promise((resolve3,reject3) => {
-
-                              axios.post("http://localhost:3002/reservations/revokeAllEventRequests/"+event.id).then((response) => {
-                                console.log(response)
-
-                                if(response.data.success){
-                                  alert(response.data.changed + " requests have been updated in db")
-                                  resolve3()
-                                }else{
-                                  alert("updating requests not successful")
-                                  resolve3()
-                                }
-                              })
-
+                          const prom= new Promise((resolve,reject) => {
+                            axios.post("http://localhost:3002/setAccessType",{event:event,access:changedAccess}).then((response) =>{
+                              if(response.data.success){
+                                resolve()
+                              }
                             })
+                          })
 
-                            prom3.then(() => {
-
-                              
-                            console.log("reinstating occupied")
-                            //Handle updating companyRequest
-                            if(changedAccess=="company"){
-                            const prom2= new Promise((resolve2,reject2) =>{
-
-                              axios.post("http://localhost:3002/company/reinstateAllOccupiedEmployee/"+event.id).then((response2) => {
-                                console.log(response2)
-                              if(response2.data.success){
-                                  alert("reinstating company data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve2()
-                                }else{
-                                  alert("error for reinstating data for "+ event.act + "\n"+response2.data.changed)
-                                  resolve2()
-
-                                }
-                              })
-
-                            })
-
-                            prom2.then(() => {
-                             
-                              setIsLoading(true);
-                              dispatch(setPublicModalClose(false));
-                              
-                            })
-                          }else{
-                           
-                           
+                          prom.then((response) => {
                             setIsLoading(true);
                             dispatch(setPublicModalClose(false));
 
-                          }
-
-                            })
-
-
-                            
-                          
-                            
-                          });
+                          })
                         }
                       }}
                       class='py-3 px-4 inline-flex mr-5 ml-5 justify-center items-center gap-2 rounded-md border border-transparent font-semibold bg-blue-500 text-white hover:bg-blue-600 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-all text-sm dark:focus:ring-offset-gray-800'
