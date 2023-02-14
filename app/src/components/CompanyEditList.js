@@ -13,6 +13,8 @@ function CompanyEditList({reload}) {
   const[isLoading,setIsLoading]=useState(true)
 
 
+  
+
   useEffect(() => {
     
    
@@ -50,16 +52,17 @@ function CompanyEditList({reload}) {
   
 
  
-  if(!isLoading && events!=null && reload){
+  if(!isLoading && events!=null){
   return (
-    <div class="flex p-5 w-full bg-pink-400 rounded-md shadow-xl">
+    <div class="flex p-2 w-full rounded-md ">
+      
       
 
-      <ul class=" flex-col m-4 p-4 rounded-md">
+      <div class="flex nowrap max-w-screen m-4  rounded-md overflow-x-auto  ">
         {
             
             events.map((e) => {
-             
+             console.log(e)
              
                return (
                 <CompanyEditListItem eventId={e}/>
@@ -68,7 +71,8 @@ function CompanyEditList({reload}) {
             
             })
           }
-          </ul>
+          </div>
+        
     </div>
   )
   }

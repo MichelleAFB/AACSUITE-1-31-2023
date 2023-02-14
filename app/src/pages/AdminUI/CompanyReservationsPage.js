@@ -1,4 +1,5 @@
 import React from 'react'
+import Carousel from '../../components/Carousel'
 
 //components
 import CompanyEditList from '../../components/CompanyEditList'
@@ -65,31 +66,26 @@ function CompanyReservationsPage() {
         </section>
         <section class="grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6">
           
-          <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-                <div class="flex-col p-3">
+          <div class="flex bg-gray-400  bg-white shadow rounded-lg">
+                <div class="flex-col w-full p-3">
                   <p class="text-center text-xl">Company </p>
+                  <CompanyEditList/>
                 </div>
-         
-              <div class="flex p-4 flex-grow">
-                <div class="flex">
-                  
-                </div>
-                <div class="flex ">
-                  <p class="text-center text-xl"><CompanyEditList/></p>
-              
-              </div>
-            </div>
           </div>
+          
         </section>
+       <div class="p-4 bg-gray-300">
+          <Carousel/>
+       </div>
+         
+        
    
       
        
        
    
        
-        <section class="text-right font-semibold text-gray-500">
-          <a href="#" class="text-purple-600 hover:underline">Recreated on Codepen</a> with <a href="https://tailwindcss.com/" class="text-teal-400 hover:underline">Tailwind CSS</a> by Azri Kahar, <a href="https://dribbble.com/shots/10711741-Free-UI-Kit-for-Figma-Online-Courses-Dashboard" class="text-purple-600 hover:underline">original design</a> made by Chili Labs
-        </section>
+       
       </main>
     </div>
    </body>
