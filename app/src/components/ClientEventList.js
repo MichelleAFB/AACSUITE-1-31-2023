@@ -102,6 +102,6 @@ function ClientEventList(reload) {
 </div>
   );
   }
-}
+} 
 
 export default ClientEventList;

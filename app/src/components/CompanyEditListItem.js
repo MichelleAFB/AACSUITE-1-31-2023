@@ -1,10 +1,12 @@
 import React from 'react'
 import {useState,useEffect,useRef}from 'react'
 import axios from 'axios'
+import { useDispatch } from 'react-redux'
 
 //outside
 import{toast,ToastContainer} from 'react-toastify'
 import emailjs from "@emailjs/browser";
+import { reloadPage, reReloadPage } from '../redux/reload/reload-actions'
 //components
 
 
@@ -109,6 +111,7 @@ function CompanyEditListItem({eventId}) {
 
   
   console.log(approveData)
+  const dispatch=useDispatch()
 
   const[seeMore,setSeeMore]=useState(false)
   
@@ -215,6 +218,7 @@ function CompanyEditListItem({eventId}) {
 
               prom1.then(() =>{
                 console.log("email sent")
+               
 
               })
             })

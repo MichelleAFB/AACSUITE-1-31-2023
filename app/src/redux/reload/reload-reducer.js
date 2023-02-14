@@ -16,6 +16,13 @@ export const reloadReducer = (state = initialState,action) => {
       ...state,
       reload: !state.reload
     }
+    case actionTypes.RE_RELOAD_PAGE:
+      console.log("*********RELOADING PAGE TO UPDATE EVENT INFO")
+    
+    return{
+      ...state,
+      reload: !state.reload
+    }
     default:
       return{
         ...state

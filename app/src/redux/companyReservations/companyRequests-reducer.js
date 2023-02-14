@@ -12,9 +12,12 @@ export const companyRequestsReducer = (state = initialState,action) => {
   switch(action.type){
     case actionTypes.SET_COMPANY_REQUESTS:
       console.log("COMPANY REQUEST REDUCER")
+      console.log(action.payload)
+      console.log(state.requests)
+
     return{
       ...state,
-      requests:[...state.requests,action.payload]
+      requests:action.payload.request
     }
    
     default:

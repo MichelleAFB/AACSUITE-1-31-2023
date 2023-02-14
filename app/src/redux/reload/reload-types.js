@@ -1,1 +1,2 @@
 export const RELOAD_PAGE="RELOAD_PAGE"
+export const RE_RELOAD_PAGE ="RE_RELOAD_PAGE"

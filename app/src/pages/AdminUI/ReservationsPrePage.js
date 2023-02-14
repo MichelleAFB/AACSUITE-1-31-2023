@@ -32,9 +32,9 @@ function ReservationsPrePage() {
               console.log(response2.data.results[0].employeeId)
               const requests=response2.data.results
               requests.map((r) =>{
-                dispatch(setCompanyRequests(r))
+                eve.push({eventId:r.eventId,requests:r})
               })
-              eve.push({requests:response2.data.results})
+             
               console.log(eve)
           
               console.log(response2.data)
@@ -46,22 +46,29 @@ function ReservationsPrePage() {
         
       })
      
-        resolve()
+      setTimeout(() =>{
+        resolve(eve)
+      },3000)
+     
       
     
 
     })
 
     prom.then(() => {
-    
+      if(eve!=null){
+        dispatch(setCompanyRequests(eve))
+      }
       setIsLoading(false)
     })
 
   },[])
 
+
   const navigate=useNavigate()
 
   if(!isLoading){
+    
   return (
     <body class="overflow-y-auto flex bg-gray-100 min-h-screen">
    

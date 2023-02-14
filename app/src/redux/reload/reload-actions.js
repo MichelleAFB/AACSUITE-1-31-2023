@@ -1,14 +1,21 @@
 import * as actionTypes from './reload-types'
 
 
-export function reloadPage (reload) {
+export function reloadPage () {
   
   
   return {
     type: actionTypes.RELOAD_PAGE,
-    payload: {
-      reload:!reload
-    }
+   
+    
+  }
+}
+export function reReloadPage () {
+  
+  
+  return {
+    type: actionTypes.RE_RELOAD_PAGE,
+   
     
   }
 }

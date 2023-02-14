@@ -2,10 +2,12 @@ import React from 'react'
 import {useState,useEffect} from 'react'
 import  axios from 'axios'
 
+import {connect} from 'react-redux'
+
 //components
 import CompanyEditListItem from './CompanyEditListItem'
 
-function CompanyEditList() {
+function CompanyEditList({reload}) {
 
   const[events,setEvents]=useState()
   const[isLoading,setIsLoading]=useState(true)
@@ -42,13 +44,13 @@ function CompanyEditList() {
       setIsLoading(false)
     })
 
-  },[])
+  },[reload])
 
   const[seeMore,setSeeMore]=useState(false)
   
 
  
-  if(!isLoading && events!=null){
+  if(!isLoading && events!=null && reload){
   return (
     <div class="flex p-5 w-full bg-pink-400 rounded-md shadow-xl">
       
@@ -72,4 +74,12 @@ function CompanyEditList() {
   }
 }
 
-export default CompanyEditList
+const mapStateToProps = (state,props) => {
+  const reload=state.reloadPage.reload
+  console.log(reload)
+  return{
+    reload:reload
+  }
+ }
+
+export default connect(mapStateToProps)(CompanyEditList)
