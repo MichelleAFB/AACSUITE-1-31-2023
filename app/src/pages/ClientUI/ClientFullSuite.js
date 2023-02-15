@@ -74,6 +74,13 @@ function ClientFullSuite({modalOpen}) {
 					</div>
 				</div>
 			</div>
+			<footer>
+				<div class="p-3 flex-col ">
+					<p>Contact Us</p>
+
+				</div>
+
+			</footer>
 		</body>
 			)
 	}

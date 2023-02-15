@@ -21,6 +21,7 @@ import ClientHome from './pages/ClientUI/ClientHome';
 import ReservedPublic from './components/EventList/ReservedPublic';
 import CompanyReservationsPage from './pages/AdminUI/CompanyReservationsPage';
 import ReservationsPrePage from './pages/AdminUI/ReservationsPrePage';
+import ClientContact from './pages/ClientUI/ClientContact';
 
 function App() {
   return (
@@ -37,6 +38,7 @@ function App() {
         <Route path="/admin-reservations" element={<ReservationsPage/>}/>
         <Route path="/admin-events" element={<EventsPage/>}/>
         <Route path="/client-home" element={<ClientHome/>}/>
+        <Route path="/client-contact" element={<ClientContact/>}/>
         <Route path="/admin-company-reservation" element={<CompanyReservationsPage/>}/>
         <Route path="/admin-reservations-pre" element={<ReservationsPrePage/>}/>
 

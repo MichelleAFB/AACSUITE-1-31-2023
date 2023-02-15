@@ -25,7 +25,7 @@ function UI() {
 
   const navigate = useNavigate()
   return (
-    <body class="flex bg-gray-100 min-h-screen">
+    <body class="flex bg-gray-100 min-h-screen bg-gradient-to-tr from-blue-200">
       
       <RequestModal/>
       <EventModal/>
@@ -33,10 +33,10 @@ function UI() {
       <PrivateEventModal/>
       <CompanyEventModal/>
       
-    <div class="page">
+    
     
       <main class="p-6 sm:p-10 space-y-6">
-        <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between">
+        <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between ">
           <div class="mr-6">
             <h1 class="text-4xl font-semibold mb-2">Dashboard</h1>
             <h2 class="text-gray-600 ml-0.5 text-lg">Welcome {JSON.parse(sessionStorage.getItem("admin")).firstname}!</h2>
@@ -85,7 +85,7 @@ function UI() {
                 
                 </button>
             </div>
-            <EventListFull listType={"current"}/>
+           <TypeEventList/>
           </div>
 
 
@@ -125,7 +125,7 @@ function UI() {
               Create new dashboard
             </button>
               
-              <TypeEventList/>
+             
            
           </div>
             
@@ -136,7 +136,7 @@ function UI() {
        
       
       </main>
-    </div>
+   
   </body>
   )
 }
