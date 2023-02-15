@@ -27,7 +27,10 @@ function CompanyEditList({reload}) {
         ev.map((m) => {
           if(!ev.includes(m.eventId)){
             console.log(m)
-            eve.push(m.eventId) 
+            axios.post("http://localhost:3002/getEventInfo/"+m.eventId).then((response2) =>{
+              eve.push({id:m.eventId,event:response2.data}) 
+            })
+           
             
           }
         })
@@ -36,7 +39,7 @@ function CompanyEditList({reload}) {
       })
       setTimeout(()=>{
         resolve()
-      },500)
+      },1000)
     
 
     })
@@ -44,28 +47,78 @@ function CompanyEditList({reload}) {
     prom.then(() => {
       setEvents(eve)
       setIsLoading(false)
+      
     })
 
   },[reload])
 
-  const[seeMore,setSeeMore]=useState(false)
+  const[seeSearch,setSeeSearch]=useState(false)
+  const[searchWord,setSearchWord]=useState("")
+
+
+  function readSearchWord(word,searchWord){
+    console.log("\n\n\n\n")
+    console.log(word)
+    const event=word.split(" ")
+    console.log("EVENT")
+    console.log(event)
+    console.log("SEARCHWORD")
+    console.log(searchWord)
+    
+    var exist=false
+    const prom=new Promise((resolve,reject) => {
+      event.map((e) => {
+        console.log(e.includes(searchWord))
+        if(e.toUpperCase().includes(searchWord.toUpperCase())){
+          console.log("\n\nMATCH\n\n")
+          exist=true
+          resolve(exist)
+        }
+      
+      })
+
+      setTimeout(()=>{
+        resolve(exist)
+      },3000)
+     
+
+    })
+
+    prom.then((exist) => {
+      console.log("searchWord:"+searchWord)
+      console.log("word:"+word)
+      console.log("exist:"+exist)
+      return exist
+    })
+    
+  }
   
 
  
   if(!isLoading && events!=null){
   return (
-    <div class="flex p-2 w-full rounded-md ">
-      
+    <div class="flex-col p-2 w-full rounded-md ">
+      <div>
+      <input type="text"  class="bg-gray-200 rounded-md p-3 w-full" placeholder="event.." onChange={(e) =>{
+        setSearchWord(e.target.value)
+        console.log(searchWord)
+        if(searchWord!=null){
+          setSeeSearch(true)
+        }
+      }}/>
+     
+      </div>
+     
       
 
-      <div class="flex nowrap max-w-screen m-4  rounded-md overflow-x-auto  ">
+      <div class="flex m-4  rounded-md  overflow-x-scroll h-400">
         {
             
             events.map((e) => {
              console.log(e)
              
                return (
-                <CompanyEditListItem eventId={e}/>
+                <CompanyEditListItem eventId={e.id}/>
                   
                )
             

@@ -1,7 +1,7 @@
 import React from 'react'
 import {useState,useEffect,useRef}from 'react'
 import axios from 'axios'
-import { useDispatch } from 'react-redux'
+import { useDispatch,connect } from 'react-redux'
 
 //outside
 import{toast,ToastContainer} from 'react-toastify'
@@ -11,9 +11,12 @@ import { reloadPage, reReloadPage } from '../redux/reload/reload-actions'
 
 
 
-function CompanyEditListItem({eventId}) {
+function CompanyEditListItem({eventId,allRequests }) {
+
+
 
   const revokeForm=useRef()
+
  
 
 
@@ -53,12 +56,12 @@ function CompanyEditListItem({eventId}) {
 
   useEffect(() => {
 
-    console.log(eventId)
+ 
     const prom=new Promise((resolve,reject)=> {
-      console.log(eventId)
+     
       axios.get("http://localhost:3002/company/getEventRequests/"+eventId).then((response) => {
         
-        console.log(response.data)
+       
         const r=response.data.results
         setRequests(response.data.results)
 
@@ -70,7 +73,7 @@ function CompanyEditListItem({eventId}) {
 
             axios.get("http://localhost:3002/company/getEmployeeInfo/"+r[0].employeeId).then((response2) =>{
 
-            console.log(response2)
+            
             //console.log(response1.data[0].act)
             const employee=response2.data.employee[0]
             //console.log(employee.email)
@@ -113,19 +116,24 @@ function CompanyEditListItem({eventId}) {
   },[eventId])
 
   
-  console.log(approveData)
+  
   const dispatch=useDispatch()
 
   const[seeMore,setSeeMore]=useState(false)
   
   if(!isLoading && requests!=null){
+  
+   
+
+    
+
     console.log(requests)
-    console.log(event[0])
+    
   return (
 
-    <div class="w-200 bg-blue-400 w-full overflow-y-scroll w-100 p-3 m-3 rounded-md rounded-md">
-      <ToastContainer/>
-      
+    <div class="w-200 bg-blue-400  h-150 p-3 m-3 rounded-md ">
+      <ToastContainer/> 
+      <div class="overflow-y-scroll bg-blue-500 p-3 h-80 overflow-hidden">
       <p class="text-xl text-center font-bold text-white">{event[0].act} | {event[0].date } | {event[0].time}</p>
       <div >
         <form ref={revokeForm}>
@@ -245,12 +253,20 @@ function CompanyEditListItem({eventId}) {
       }
         </div>
       </div>
+      </div>
         )
   }
 
  
 }
 
+const mapStateToProps = (state,props) => {
+  const requests=state.companyRequests.requests
+  console.log(requests)
+  
+  return{
+    allRequests:requests
+  }
+ }
 
-
-export default CompanyEditListItem
+export default connect(mapStateToProps)(CompanyEditListItem)

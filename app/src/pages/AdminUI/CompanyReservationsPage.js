@@ -66,7 +66,7 @@ function CompanyReservationsPage() {
         </section>
         <section class="grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6">
           
-          <div class="flex bg-gray-400  bg-white shadow rounded-lg">
+          <div class="flex bg-gray-400  bg-white h-300 shadow rounded-lg">
                 <div class="flex-col w-full p-3">
                   <p class="text-center text-xl">Company </p>
                   <CompanyEditList/>
