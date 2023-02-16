@@ -22,9 +22,11 @@ import ReservedPublic from './components/EventList/ReservedPublic';
 import CompanyReservationsPage from './pages/AdminUI/CompanyReservationsPage';
 import ReservationsPrePage from './pages/AdminUI/ReservationsPrePage';
 import ClientContact from './pages/ClientUI/ClientContact';
+import {GoogleOAuthProvider} from '@react-oauth/google'
 
 function App() {
   return (
+    <GoogleOAuthProvider clientId={process.env}>
     <div >
      
       <BrowserRouter>
@@ -49,6 +51,7 @@ function App() {
       </BrowserRouter>
       
     </div>
+    </GoogleOAuthProvider>
   );
 }
 
