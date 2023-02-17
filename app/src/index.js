@@ -1,12 +1,17 @@
 import React from "react";
-import ReactDOM from "react-dom/client";
+import ReactDOM from "react-dom";
 import "./index.css";
+import { StrictMode } from "react";
 import App from "./App";
 import reportWebVitals from "./reportWebVitals";
 import {store} from "./redux/store";
 import { Provider } from "react-redux";
-require("./components/flowers.jpg")
+
+
 const root = ReactDOM.createRoot(document.getElementById("root"));
+console.log("\n\n\n")
+console.log(ReactDOM)
+
 root.render(
  <React.StrictMode>
     <Provider store={store}>
