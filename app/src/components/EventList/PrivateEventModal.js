@@ -230,7 +230,7 @@ const PrivateEventModal = ({ ourEvent, visibility,reload}) => {
                         e.preventDefault()
 
                         const prom = new Promise((resolve,reject) =>{
-                          axios.post("http://localhost:3002/setAccessType",{event:event,access:changedAccess}).then((response) =>{
+                          axios.post("https://accserverheroku.herokuapp.com//setAccessType",{event:event,access:changedAccess}).then((response) =>{
                             if(response.data.success){
                               resolve()
                             }

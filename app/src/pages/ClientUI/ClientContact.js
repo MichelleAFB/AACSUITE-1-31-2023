@@ -1,6 +1,7 @@
 import React from 'react'
-import { Link } from 'react-router-dom'
+import { json, Link } from 'react-router-dom'
 import {useState} from 'react'
+import axios from 'axios'
 
 function ClientContact() {
   
@@ -16,9 +17,9 @@ function ClientContact() {
     
   
   
-    <main class="p-6 sm:p-10 space-y-6">
+    <main class=" sm:p-10 space-y-6">
       <div class="flex flex-col space-y-6 md:space-y-0 md:flex-row justify-between ">
-        <div class="mr-6">
+        <div >
           <h1 class="text-4xl font-semibold mb-2">Dashboard</h1>
           <h2 class="text-gray-600 ml-0.5 text-lg">Welcome {JSON.parse(sessionStorage.getItem('client')).firstname}!</h2>
         </div>
@@ -30,7 +31,7 @@ function ClientContact() {
       <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
           <div class="p-6 font-semibold border-b border-gray-100">
             <p class="text-center text-xl">Contact</p>
-            <div class="form">
+            <form>
               <div class="form-group">
                 <p class="text-center m-3">Your Contact Details</p>
               
@@ -44,8 +45,15 @@ function ClientContact() {
                   }}/>
                   <button class="m-3 bg-green-400 rounded-md p-3 hover:bg-green-300"  onClick={()=>{
                       if(phone!=null && message!=null){
-                        console.log(phone)
-                        console.log(message)
+                        axios.post("https://accserverheroku.herokuapp.com/user/sign-in/reservations/client-messages",{firstname:JSON.parse(sessionStorage.getItem('client')).firstname,lastname:JSON.parse(sessionStorage.getItem('client')).lastname,email:JSON.parse(sessionStorage.getItem('client')).email,phone:phone,message:message}).then((response) => {
+                          if(response.data.success){
+                            alert("Message Sent!")
+                            setPhone("")
+                            setMessage("")
+                          }else{
+                            alert("we experienced an error")
+                          }
+                        })
                       }
                   }
                   }>Submit</button>
@@ -53,7 +61,7 @@ function ClientContact() {
               <div class="form-group">
                 
               </div>
-            </div>
+            </form>
           </div>
           <div class="p-4 flex-grow">
               

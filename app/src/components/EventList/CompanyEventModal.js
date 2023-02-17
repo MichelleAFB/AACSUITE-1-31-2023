@@ -105,7 +105,7 @@ console.log(ourEvent)
         console.log(event)
           axios
             .get(
-              "http://localhost:3002/reservations/reservationsandrequests/company/" +
+              "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/company/" +
                 ourEvent.companyEvent.id
             )
             .then((responseCompany) => {
@@ -226,7 +226,7 @@ console.log(ourEvent)
 
   async function getRequests(event){
     const id=event.id
-    const request=await axios.get("http://localhost:3002/reservations/reservationsandrequests/company/"+id).then((response) => {
+    const request=await axios.get("https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/company/"+id).then((response) => {
       console.log(response)
       return {success:response.data.success,requests:response.data.requests}
     })
@@ -341,7 +341,7 @@ console.log(ourEvent)
                         if(hasChanged && setChangedAccess!=""){
                           setCompanyRequests(null)
                           const prom=new Promise((resolve,reject) =>{
-                            axios.post("http://localhost:3002/setAccessType",{event:event,access:changedAccess}).then((response) =>{
+                            axios.post("https://accserverheroku.herokuapp.com/setAccessType",{event:event,access:changedAccess}).then((response) =>{
                               console.log(response)
                               if(response.data.success){
                                 resolve()

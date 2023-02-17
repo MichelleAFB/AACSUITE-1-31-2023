@@ -19,7 +19,7 @@ function ReservationsPrePage() {
     const eve=[]
     const prom=new Promise((resolve,reject) => {
       
-      axios.get("http://localhost:3002/company/employee-occupied").then((response) => {
+      axios.get("https://accserverheroku.herokuapp.com/company/employee-occupied").then((response) => {
        console.log(response.data)
        const ev=response.data
         ev.map((m) => {
@@ -27,7 +27,7 @@ function ReservationsPrePage() {
             console.log("\n\n")
             console.log(m)
             
-            axios.get("http://localhost:3002/company/getEventRequests/"+m.eventId).then((response2) =>{
+            axios.get("https://accserverheroku.herokuapp.com/company/getEventRequests/"+m.eventId).then((response2) =>{
               console.log(response2.data.results)
               console.log(response2.data.results[0].employeeId)
               const requests=response2.data.results

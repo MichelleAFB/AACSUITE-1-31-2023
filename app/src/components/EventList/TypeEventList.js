@@ -32,7 +32,7 @@ function TypeEventList({listType,reload}) {
     
     const prom= new Promise((resolve,reject) => {
       setReloadPage(reload)
-      axios.get("http://localhost:3002/currentEvents").then((response)=> {
+      axios.get("https://accserverheroku.herokuapp.com/currentEvents").then((response)=> {
         setFiltered(response.data)
      console.log(response)
       setEvents(response.data)

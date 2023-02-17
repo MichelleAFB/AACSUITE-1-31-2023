@@ -24,7 +24,7 @@ function ReservedPublicReservations({ourEvent,visibility}) {
 
       axios
         .get(
-          "http://localhost:3002/reservations/reservationsandrequests/" +
+          "https://accserverheroku.herokuapp.com/reservations/reservationsandrequests/" +
             ourEvent.publicEvent.access +
             "/" +
             ourEvent.publicEvent.id

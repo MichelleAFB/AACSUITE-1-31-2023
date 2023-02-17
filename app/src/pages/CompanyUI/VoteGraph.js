@@ -27,7 +27,7 @@ function VoteGraph({event,visibility}) {
   useEffect(() => {
     const prom = new Promise((resolve, reject) => {
       axios
-        .get("http://localhost:3002/company/getVotes/"+event.id)
+        .get("https://accserverheroku.herokuapp.com/company/getVotes/"+event.id)
         .then((response) => {
           console.log(response.data);
           setStarters(response.data.starters);
@@ -161,7 +161,7 @@ function VoteGraph({event,visibility}) {
       <div>
        
        
-          <div class='p-3 rounded-md bg-gray-300'>
+          <div class='m-3 p-3 rounded-md bg-gray-300'>
             <div class="flex w-full justify-items-end">
                 <button class="bg-red-600 p-3 rounded-md" onClick={() =>{
                   dispatch(setGraphHidden())

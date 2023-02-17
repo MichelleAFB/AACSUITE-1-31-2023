@@ -47,6 +47,12 @@ function SignIn() {
   const navigate = useNavigate();
   const dispatch = useDispatch();
 
+  const[googleUserType,setGoogleUserType]=useState("client")
+  const[googleUserEmployee,setGoogleUserEmployee]=useState(false)
+  const[googleUserEmployeeId,setGoogleUserEmployeeId]=useState("")
+  const[googleUserClient,setGoogleUserClient]=useState(true)
+  const[googleUserAdmin,setGoogleUserAdmin]=useState(false)
+
   useEffect(() => {
     const prom=new Promise((resolve,reject) => {
       dispatch(hideTopNavbar())
@@ -175,7 +181,7 @@ function SignIn() {
     if(employeeActive && !admin && employeeId!=" "){
       console.log({email:email,password:password})
       console.log("LOOG EMPLOY\n\n\n "+ employeeId)
-       await axios.post("http://localhost:3002/user/sign-in/employee/"+employeeId,{email:email,password:password}).then((response) => {
+       await axios.post("https://accserverheroku.herokuapp.com/user/sign-in/employee/"+employeeId,{email:email,password:password}).then((response) => {
         console.log(response.data)
         if(response.data.login ==true){
           console.log(response.data)
@@ -231,6 +237,10 @@ function SignIn() {
     navigate("/sign-up");
   };
 
+  const forgotPassword = () => {
+    navigate("/forgot-password");
+  };
+
   /**<img 
                 className="showPassword"
                 //src={visibilityIcon}
@@ -275,19 +285,21 @@ if(!isLoading){
         </header>
         <main classname='m-4'>
           <form onSubmit={signin}>
+          <div className='passwordInputDiv m-2'>
             <input
               id='email'
-              className='emailInput'
+              className='bg-blue-100 p-2 rounded-md w-full'
               type='email'
               onChange={(e) => {
                 setEmail(e.target.value);
               }}
               placeholder='Email'
             />
-            <div className='passwordInputDiv'>
+            </div>
+            <div className='passwordInputDiv m-2'>
               <input
                 type={showPassword ? "text" : "password"}
-                className='passwordInput'
+                className='bg-blue-100 p-2 rounded-md w-full'
                 placeholder='Password'
                 id='password'
                 onChange={(e) => {
@@ -302,12 +314,14 @@ if(!isLoading){
                   setShowPassword(!showPassword);
                 }}
               />
+                
+       
             </div>
             {employeeActive ? (
-              <div className='passwordInputDiv'>
+              <div className="passwordInputDiv m-2">
                 <input
-                  type={showPassword ? "text" : "password"}
-                  className='passwordInput'
+                  type={showEmployeeId ? "text" : "password"}
+                  class='bg-blue-100 p-2 rounded-md w-full'
                   placeholder='Employee Id..'
                   id='password'
                   onChange={(e) => {
@@ -322,10 +336,12 @@ if(!isLoading){
                     setShowEmployeeId((prevState) => !prevState);
                   }}
                 />
-              </div>
+                </div>
+             
             ) : (
               <p></p>
             )}
+          
 
             <div className='signInBar'>
               <button
@@ -346,32 +362,104 @@ if(!isLoading){
               >
                 Employee
               </button>
-              <img
-                className='showPassword'
-                src={visibilityIcon}
-                alt='show password'
-                onClick={() => {
-                  setShowEmployeeId((prevState) => !prevState);
-                }}
-              />
+             
               <button className='signInButton' type='submit'>
-                {/*<ArrowRightIcon fill='#ffffff' width='34px' height='34px' />*/}
+                {<ArrowRightIcon fill='#ffffff' width='34px' height='34px' />}
                 <faCloudArrowUp/>
               </button>
-              <button className='registerLink' onClick={signUpInstead}>
-                Sign Up Instead
-              </button>
-             {/* <a
-                href='http://localhost:3002/auth/google'
-                class='btn red darken-1'
-              >
-                Login with Google
-              </a>*/
-              }
+             
+             
+           
+              
+
+          
             </div>
           </form>
+          <div class="flex w-full justify-between">
+                <button className='registerLink' onClick={signUpInstead}>
+                  Sign Up Instead
+                </button>
+                <button  className='registerLink' onClick={forgotPassword}>
+                  Forgot Password
+                </button>
+            </div>
           <ToastContainer/>
         </main>
+        {<div class="flex-row-2 bg-gray-200 p-3 w-full rounded-md "> 
+          
+          <div class="flex">
+          {googleUserEmployee? 
+              <div>
+                  <button class="bg-green-100 p-3 rounded-md m-2" onClick={()=>{
+                     setGoogleUserType("client")
+                      setGoogleUserEmployee(false)
+                      console.log(googleUserType)
+                    }}>
+                      Employee
+                  </button>
+                  <input type="text" class="p-2 bg-gray-100 rounded-md" onChange={(e) => {
+                        setGoogleUserEmployeeId(e.target.value)
+                  }}/>
+              </div>
+              :
+              <button class="bg-gray-100 p-3 rounded-md m-2" onClick={()=>{
+                setGoogleUserType("employee")
+                setGoogleUserEmployee(true)
+                console.log(googleUserType)
+              }}>
+                Employee
+              </button>
+            }
+              {googleUserAdmin? 
+              <button class="bg-green-100 p-3 rounded-md m-2" onClick={()=>{
+                setGoogleUserType("client")
+                setGoogleUserAdmin(false)
+                console.log(googleUserType)
+              }}>
+              Admin
+              </button>
+              :
+              <button class="bg-gray-100 p-3 rounded-md m-2" onClick={()=>{
+                setGoogleUserType("admin")
+                setGoogleUserAdmin(true)
+                console.log(googleUserType)
+              }}>
+                Admin
+              </button>
+            }
+            </div>
+              <div class="flex">
+              {
+              googleUserType=="client" && googleUserClient ?
+                <a
+                  href='https://accserverheroku.herokuapp.com/user/sign-in/auth/google'
+                  class='btn red darken-1'>
+                  Login with Google
+                </a>:<a></a>
+              }
+              {
+                googleUserType=="employee"&&googleUserEmployee ?
+                <a
+                href={'http://localhost:3002/auth/google/employee/'+googleUserEmployeeId}
+                class='btn red darken-1'>
+                Login with Google Employee
+              </a>:
+                  <a>
+                  </a>
+              }
+                {
+                googleUserType=="admin"&&googleUserAdmin ?
+                <a
+                href={'http://localhost:3002/auth/google/admin/'}
+                class='btn red darken-1'>
+                Login with Google Admin
+              </a>:
+                  <a> 
+                </a>
+              }
+              </div>
+              </div>
+              }
       </div>
     
     </div>

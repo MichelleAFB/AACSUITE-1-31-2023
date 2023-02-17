@@ -23,10 +23,14 @@ import CompanyReservationsPage from './pages/AdminUI/CompanyReservationsPage';
 import ReservationsPrePage from './pages/AdminUI/ReservationsPrePage';
 import ClientContact from './pages/ClientUI/ClientContact';
 import {GoogleOAuthProvider} from '@react-oauth/google'
+import ForgotPassword from './pages/ForgotPassword';
+import ResetPassword from './pages/ResetPassword';
 
 function App() {
+  console.log("\n\n\n\n\n\n")
+  console.log(process.env.REACT_APP_PUBLIC_GOOGLE_CLIENT_ID)
   return (
-    <GoogleOAuthProvider clientId={process.env}>
+    <GoogleOAuthProvider clientId="76818182289-fq7cdpldsbp20bcvij5deru1fnovvk0n.apps.googleusercontent.com">
     <div >
      
       <BrowserRouter>
@@ -35,6 +39,8 @@ function App() {
       <Routes>
         <Route path="/" element={<SignIn/>}/>
         <Route path="/sign-up" element={<SignUp/>}/>
+        <Route path="/forgot-password" element={<ForgotPassword/>}/>
+        <Route path="/reset-password/:id/:email/:firstname/:lastname" element={<ResetPassword/>}/>
         <Route path="/admin-home" element={<UI/>}/>
         <Route path="/employee-home" element={<EmployeeHome/>}/>
         <Route path="/admin-reservations" element={<ReservationsPage/>}/>

@@ -122,7 +122,7 @@ function ClientM({visibility,ourEvent}) {
                         console.log(primaryEmail)
                         console.log(useAltEmail )
                         if(useAltEmail && clientAltEmail!="" && clientPhone!="" ){
-                          axios.post("http://localhost:3002/reservations/reservationRequests",{altEmail:clientAltEmail,firstname:primaryEmail.firstname,lastname:primaryEmail.lastname,email:primaryEmail.email,phone:clientPhone,event:event}).then((response) => {
+                          axios.post("https://accserverheroku.herokuapp.com/user/sign-in/reservations/reservationRequests",{altEmail:clientAltEmail,firstname:primaryEmail.firstname,lastname:primaryEmail.lastname,email:primaryEmail.email,phone:clientPhone,event:event}).then((response) => {
                             console.log(response.data)
                             if(response.data.success){
                             console.log("CLOSE MODAL")
@@ -133,7 +133,7 @@ function ClientM({visibility,ourEvent}) {
                         }
                         if(!useAltEmail && clientPhone!="" ){
                           console.log("sending")
-                          axios.post("http://localhost:3002/reservations/reservationRequests",{firstname:primaryEmail.firstname,lastname:primaryEmail.lastname,email:primaryEmail.email,phone:clientPhone,event:event}).then((response) => {
+                          axios.post("https://accserverheroku.herokuapp.com/user/sign-in/reservations/reservationRequests",{firstname:primaryEmail.firstname,lastname:primaryEmail.lastname,email:primaryEmail.email,phone:clientPhone,event:event}).then((response) => {
                             console.log(response.data)
                           })
                         }
