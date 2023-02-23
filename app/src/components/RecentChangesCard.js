@@ -9,8 +9,10 @@ function RecentChangesCard({title,changeType,width,color}) {
   const[isLoading,setIsLoading]=useState(true)
   const[ourTitle,setOurTitle]=useState()
 
+  console.log(title)
   useEffect(() => {
     const change=[]
+    
 
    const prom = new Promise((resolve,reject) => {
    
@@ -20,37 +22,55 @@ function RecentChangesCard({title,changeType,width,color}) {
     data.map((r) => {
         change.push(r) 
     })
+
+    
+    resolve()
   })
     
-  console.log(change)
-    resolve()
+ 
+    
    })
 
    prom.then(() => {
     
-    setChanges(change)
     
-    setIsLoading(false)
+    const prom1=new Promise((resolve1,reject1) =>{
+      console.log(change)
+      setChanges(change)
+
+      setTimeout(() =>{
+        resolve1(changes)
+      },1000)
+      
+    })
+
+    prom1.then(()=>{
+      console.log(changes)
+      if(changes!=null){
+        setIsLoading(false)
+      }
+    })
+   
    })
    
 
-  },[changeType])
+  },[])
 
   console.log("changes")
   console.log(changes)
-
-  if(!isLoading ){
+  
+  if(!isLoading && changes){
     console.log(changes)
     console.log(title)
     console.log(ourTitle)
   return (
     
     <div class={`rounded-md object-contain max-h-screen overflow-y-auto p-5 m-5 items-center ${color}`}>
-      {ourTitle}
+      {title}
       <ul>
             {changes.map((m) => {
-              console.log(changes)
-              return (
+              
+              return 
                 <li key={m.id} class='rounded-md m-2 p-3 bg-gray-200 shadow-md'>
                   <p  class='text-sm pb-3'>
                     
@@ -61,7 +81,7 @@ function RecentChangesCard({title,changeType,width,color}) {
                   {m.date} | {m.time}
                   </p>
                 </li>
-              );
+              ;
             })}
             </ul>
             
@@ -71,7 +91,7 @@ function RecentChangesCard({title,changeType,width,color}) {
   )
           }
 }
-
+console.log(RecentChangesCard.defaultProps)
 RecentChangesCard.defaultProps = {
   width:"full",
   changeType:"",

@@ -30,7 +30,7 @@ function EmployeeReservationList() {
 
       const employee=JSON.parse(sessionStorage.getItem("employee"))
       console.log(employee.id)
-      axios.post("https://accserverheroku.herokuapp.com/company/employeeReservations/"+employee.id).then((response)=> {
+      axios.get("http://localhost:3002/company/employeeReservations/"+employee.id).then((response)=> {
         console.log(response.data)
         setFiltered(response.data)
      

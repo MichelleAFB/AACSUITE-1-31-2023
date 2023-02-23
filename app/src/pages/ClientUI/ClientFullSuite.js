@@ -28,6 +28,7 @@ function ClientFullSuite({modalOpen}) {
 	
 		const[event,setEvent] = useState()
 		const [isLoading,setIsLoading] = useState(true)
+		const[seeMessages,setSeemessages]=useState(false)
 		
 		
 		useEffect(() => {

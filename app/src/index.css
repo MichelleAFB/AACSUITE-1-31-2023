@@ -2,7 +2,26 @@
 @tailwind components;
 @tailwind utilities;
 
+#messages{
+  display:flex;
+  flex-direction: column;
+}
+#messages:nth-child(odd){
+  display:flex;
+  flex-direction: column;
+  justify-self: start;
+  background-color: pink;
 
+}
+
+#messages:nth-child(even){
+  display:flex;
+  flex-direction: column;
+  justify-self: start;
+  background-color: plue;
+  
+
+}
 
 p {
   font-size:.5;

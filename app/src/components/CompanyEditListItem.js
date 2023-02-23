@@ -147,7 +147,7 @@ function CompanyEditListItem({eventId,allRequests }) {
       <div class="grid overflow-y-auto">
       {
         requests.map((r) =>{
-          return <li class="bg-gray-100 rounded-md p-3 m-2 " key={r.id}>
+          return <div class="bg-white rounded-md p-3 m-2 " key={r.id}>
             <div class="flex-row">
               <div class="flex">
                 <p class="text-xs">{r.firstname} {r.lastname} |seat: {r.seat}| </p>
@@ -248,7 +248,7 @@ function CompanyEditListItem({eventId,allRequests }) {
             </div>
             
            
-          </li>
+          </div>
         })
       }
         </div>

@@ -20,6 +20,7 @@ import PublicEventModal from '../../components/EventList/PublicEventModal'
 import CompanyEventModal from '../../components/EventList/CompanyEventModal'
 import PrivateEventModal from '../../components/EventList/PrivateEventModal'
 import TypeEventList from '../../components/EventList/TypeEventList'
+import AdminClientMessages from '../../components/AdminClientMessages'
 
 function UI() {
 
@@ -72,11 +73,11 @@ function UI() {
         <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
           
 
-        <div class="grid lg:grid-cols-2 md:grid-cols-1">
+        <div class="grid  md:grid-cols-1">
 
           <div>
-            <div class="flex flex-col-1  items-start justify-center mb-3 p-3 mt-3">
-           
+            <div class="flex flex-col items-start justify-center mb-3 p-3 mt-3">
+           <div>
                 <button class="inline-flex px-5 py-3 text-white bg-orange-600 hover:bg-orange-400 focus:bg-purple-700 rounded-md ml-6 mb-3">
                   <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
@@ -84,8 +85,13 @@ function UI() {
                   <Link to="/admin-events"> Manage Events</Link>
                 
                 </button>
+                </div>
+                <div>
+                <TypeEventList/>
+                </div>
+                
             </div>
-           <TypeEventList/>
+           
           </div>
 
 
@@ -99,7 +105,7 @@ function UI() {
                     <Link to="/admin-reservations-pre">Manage Requests</Link>
                   </button>
             </div>
-              <RequestsList/>
+              
             </div>
 
             </div>
@@ -108,30 +114,16 @@ function UI() {
         </section>
       
        
-        <section class="grid gap-6 m-3">
-          <div class="flex items-center p-8 bg-white shadow rounded-lg">
-            <div>
-            <div class="flex flex-wrap items-start justify-end -mb-3">
-            <button class="inline-flex px-5 py-3 text-orange-600 hover:text-orange-400 focus:text-purple-700 hover:bg-orange-200 focus:bg-purple-100 border border-purple-600 rounded-md mb-3">
-              <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="flex-shrink-0 h-5 w-5 -ml-1 mt-0.5 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-              </svg>
-              Manage dashboard
-            </button>
-            <button class="inline-flex px-5 py-3 text-white bg-orange-600 hover:bg-orange-400 focus:bg-purple-700 rounded-md ml-6 mb-3">
-              <svg aria-hidden="true" fill="none" viewBox="0 0 24 24" stroke="currentColor" class="flex-shrink-0 h-6 w-6 text-white -ml-1 mr-2">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-              </svg>
-              Create new dashboard
-            </button>
-              
-             
-           
-          </div>
-            
-            </div>
-          </div>
+       
+          <section class="flex flex-col items-center p-3 bg-white shadow rounded-lg">
+          
+           <div>
+              <AdminClientMessages/>
+           </div>
+          
+      
         </section>
+       
 
        
       

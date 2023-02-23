@@ -95,6 +95,8 @@ function SignIn() {
     const storageEvents = [];
     const publicEvents = [];
     const prom = new Promise((resolve, reject) => {
+
+    
       axios
         .get("https://accserverheroku.herokuapp.com/currentEvents")
         .then((response) => {
@@ -275,8 +277,27 @@ function SignIn() {
     
   };
 
+  function sayHello(){
+    return "Hello " + this.name;
+  }
+          
+  var obj = {name: "SANDYYYYYY"};
+          
+  sayHello.call(obj);
+
+  
+
   //setInterval(waitForGoogle(),10000)
 if(!isLoading){
+
+  function add (a) {
+    return function(b){
+      return a + b;
+    }
+  }
+  
+  add(3)(4) 
+  
   return (
     <div>
       <div className='pageContainer'>

@@ -11,7 +11,7 @@ import CompanyEditList from "../../components/CompanyEditList";
 
 function ReservationsPage() {
   const [requests, setRequests] = useState();
-
+  const[seeRecentChanges,setSeeRecentChanges]=useState(false)
  
 
           
@@ -113,8 +113,13 @@ function ReservationsPage() {
             </div>
           </div>
         </section>
-        <section class="grid grid-col-1">
-       <RecentChangesCard changeType={"reservationChanges"} color={"bg-yellow-400"} title={"Approvals and Revocations"}/>
+        <section class="flex flex-col   bg-white shadow rounded-lg p-3">
+          <button class="bg-green-300 p-3 rounded-md w-1/2" onClick={() => {
+            setSeeRecentChanges(!seeRecentChanges)
+          }}>See Recent Changes</button>
+       <div>{seeRecentChanges?<RecentChangesCard changeType={"reservationChanges"} color={"bg-yellow-400"} />:<div></div>
+        }
+        </div>
         </section>
         <section class="grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6">
           

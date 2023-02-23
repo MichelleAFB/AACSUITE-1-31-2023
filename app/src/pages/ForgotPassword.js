@@ -120,6 +120,7 @@ export default function ForgotPassword() {
             })
         
         }
+        //TODO:set up password revovery for client
         if(!employeeActive && !adminActive){
 
           const prom=new Promise((resolve,reject) => {
@@ -181,7 +182,7 @@ export default function ForgotPassword() {
                     firstname:n.firstname,
                     lastname:n.lastname,
                     email:email,
-                    message:`Please use the following link to reset your password: https://localhost:3000/reset-password/${n.id}/${n.email}/${n.firstname}/${n.lastname}`
+                    message:`Please use the following link to reset your password: http://localhost:3000/reset-password/${n.id}/${n.email}/${n.firstname}/${n.lastname}`
   
                   })
                   resolve()
@@ -192,6 +193,12 @@ export default function ForgotPassword() {
 
                 prom.then(() =>{
                   console.log(formData)
+                  const prom1 =new Promise((resolve,reject) => {
+                    if(formData.fistname != ""){
+                      console.log(formData)
+                      sendEmail(forgetForm)
+                    }
+                  })
                 })
            
                

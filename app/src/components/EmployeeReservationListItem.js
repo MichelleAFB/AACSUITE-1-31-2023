@@ -29,6 +29,7 @@ import axios from 'axios'
     const [Act,setAct]=useState(event)
     const[occupied,setOccupied]=useState()
     
+    console.log(ourEvent)
     const eve=useRef(event)
       //console.log(eve)
       useEffect(() => {
@@ -141,7 +142,7 @@ import axios from 'axios'
           {
             
               occupied.map((m) => {
-                return <p class="inline">{m+","}</p>
+                return <p class="inline">{m}</p>
               })
             
           }

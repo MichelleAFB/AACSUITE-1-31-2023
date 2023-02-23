@@ -27,7 +27,8 @@ function CompanyEditList({reload}) {
         ev.map((m) => {
           if(!ev.includes(m.eventId)){
             console.log(m)
-            axios.post("http://localhost:3002/getEventInfo/"+m.eventId).then((response2) =>{
+            axios.post("http://localhost:3002/getEventInfo/"+m).then((response2) =>{
+              console.log(response2)
               eve.push({id:m.eventId,event:response2.data}) 
             })
            
