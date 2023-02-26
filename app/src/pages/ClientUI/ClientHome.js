@@ -21,7 +21,7 @@ function ClientHome() {
 			<button class="bg-green-200 p-3 w-full rounded-sm m-2">
 				<Link  to="/client-contact">Contact</Link>
 			</button>
-			<ClientMessagesList/>	
+			
 		</div>
 		
 			<div class="px-10 mt-6">

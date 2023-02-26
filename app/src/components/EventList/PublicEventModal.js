@@ -305,56 +305,10 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                   }
                  </div>
                 
-                  {
-                    isClientRequested ? (
-                    <div class="flex flex-col p-10">
-                      <div class="flex flex-col justify-center">
-                       <p class='text-center block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED
-                        </p>
-                        <p class='text center text-white text-small mt-3 mb-2'>
-                          This event has pending or confirmed
-                          public reservation(s):
-                        </p>
-                        {
-                          clientRequests.map((m) => {
-                            return<p class="text-xs">{m.clientName} | {m.dateReserved} | {m.timeReserved}|{m.act}</p>
-                          })
-                        }
-                         
-                        </div>
-                        <div class="p-3">
-                      {/*clientRequests.map((m) =>{
-                        console.log(m)
-                        return <p class="text-white text-sm">{m.act} | {m.clientName} | reserved on: {m.dateReserved}</p>
-                      })*/}
-
-                       {revokePublicRequests == false ? (
-                        <button
-                          class='mt-3 p-2 rounded-md bg-gray-400 '
-                          onClick={() => {
-                            setRevokePublicRequests(!revokePublicRequests);
-                          }}
-                        >
-                          <a class='text-white text-xs font-bold'>
-                            Click to cancel all public reservations
-                          </a>
-                        </button>
-                      ) : (
-                        <button class='mt-3 p-2 rounded-md bg-red-600 '>
-                          <a
-                            class='text-white text-xs '
-                            onClick={() => {
-                              setRevokePublicRequests(!revokePublicRequests);
-                            }}
-                          >
-                            Retain public reservations
-                          </a>
-                        </button>
-                      )}
-                      </div>
-                    </div>):(<p></p>)
-                  }
+                <div class="m-3">
+                <p class="text-white text-sm text-center">Changing the access type will automatically cancel allrequests and reservations</p>
+                </div>
+                 
 
             
 
@@ -396,14 +350,14 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                     </button>
                     <div class='grid gap-y-4'>
                       <div>
-                        <div class='relative p-4'>
+                        <div class='relative p-4 mt-5'>
                           <p class='text-bold text-gray-200'>
                             Current: {event.access}
                           </p>
 
                           <select
                             id='states'
-                            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg border-l-gray-100 dark:border-l-gray-700 border-l-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500'
+                            class='bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-r-lg border-l-gray-100 dark:border-l-gray-700 border-l-2 focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 '
                             onChange={(e) => {
                               setHasChanged(true);
 
@@ -430,18 +384,11 @@ const PublicEventModal = ({ ourEvent, visibility,reserved}) => {
                         </div>
                       </div>
                       <div>
-                        <label
-                          for='email'
-                          class='block text-sm font-bold ml-1 mb-2 dark:text-white'
-                        >
-                          Reservation
-                        </label>
+                      
                         <div class='relative'>
                           <div class='seats'>
                             {occupied == null ? (
-                              <p class='text-bold text-gray-200'>
-                                Current:No reservations
-                              </p>
+                             <p></p>
                             ) : (
                               <div class='seats'>
                                 {occupied.map((o) => {

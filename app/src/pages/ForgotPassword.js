@@ -215,9 +215,39 @@ export default function ForgotPassword() {
           <div><p class="text-center text-orange-300 text-lg">Is this you?</p></div>
           <div>
           {
-            possibleNames.map((n) => {
-              return<button class="bg-gray-400 rounded-md p-3 m-2 "><p class="text-white" onClick={() => {
-                setCorrectName({firstname:n.first,last:n.last})
+             possibleNames.map((n) => {
+              console.log(n.last)
+              return<button key={n.id} class="bg-gray-400 rounded-md p-3 m-2 "><p class="text-white" onClick={() => {
+
+
+                const prom=new Promise((resolve,reject) =>{
+                  console.log(email)
+                  setCorrectName({firstname:n.firstname,last:n.lastname})
+                  setFormData({
+                    firstname:n.first,
+                    lastname:n.last,
+                    email:email,
+                    message:`Please use the following link to reset your password: http://localhost:3000/reset-password/${n.email}/${n.first}/${n.last}`
+  
+                  })
+                  resolve()
+
+                })
+
+                
+
+                prom.then(() =>{
+                  console.log(formData)
+                  const prom1 =new Promise((resolve,reject) => {
+                    if(formData.fistname != ""){
+                      console.log(formData)
+                      sendEmail(forgetForm)
+                      alert("sending email to "+email+" for reset")
+                    }
+                  })
+                })
+           
+               
               }}>{n.first} {n.last}</p></button>
             })
           }

@@ -4,6 +4,7 @@ import {Link} from 'react-router-dom'
 
 //components
 import CompanyEditList from '../../components/CompanyEditList'
+import TodayEventBox from '../../components/TodayEventBox'
 
 
 //
@@ -37,7 +38,9 @@ function CompanyReservationsPage() {
         </div>
    
         <div class="flex flex-col row-span-3 bg-white shadow rounded-lg">
-            <div class="px-6 py-5 font-semibold border-b border-gray-100">Students by type of studying</div>
+              <div class="px-6 py-5 font-semibold border-b border-gray-100">
+                  <TodayEventBox/>
+              </div>
             
           </div>
    
@@ -49,23 +52,7 @@ function CompanyReservationsPage() {
    
    
    </div>
-        <section class="grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6">
-          
-          <div class="flex flex-col md:col-span-2 md:row-span-2 bg-white shadow rounded-lg">
-          <div class="grid lg:grid-cols-2 md:grid-cols-1">
-            <div class="p-4 flex-grow">
-            
-            </div>
-            <div>
-          
-            </div>
-   
-            </div>
-          </div>
-        </section>
-        <section class="grid grid-col-1">
-      
-        </section>
+        
         <section class="grid md:grid-cols-1 xl:grid-cols-1 xl:grid-rows-1 xl:grid-flow-col gap-6">
           
           <div class="flex bg-gray-400  bg-white h-300 shadow rounded-lg">
@@ -75,19 +62,7 @@ function CompanyReservationsPage() {
                 </div>
           </div>
           
-        </section>
-       <div class="p-4 bg-gray-300">
-          <Carousel/>
-       </div>
-         
-        
-   
-      
-       
-       
-   
-       
-       
+        </section>   
       </main>
     </div>
    </body>
@@ -95,3 +70,8 @@ function CompanyReservationsPage() {
 }
 
 export default CompanyReservationsPage
+/**
+ *  <div class="p-4 bg-gray-300">
+          <Carousel/>
+       </div>
+ */

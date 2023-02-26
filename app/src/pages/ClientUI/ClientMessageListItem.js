@@ -17,53 +17,65 @@ function ClientMessageListItem({threadId}) {
   //console.log(message)
   useEffect(()=>{
 
-    if(threadId!=""){
-        //console.log(message)
-     
-    const prom=new Promise((resolve,reject) =>{
+    var mes
+    var eve
+    const prom1=new Promise((resolve1,reject) =>{
       const message=JSON.parse(sessionStorage.getItem('messages'))
-      console.log(message)
-      console.log(message)
       const mess=message.map((m)=>{
         if(m.threadId==threadId){
-          
-            return m.messages
+          return m.messages
         }
       })
-      
       console.log(mess[0])
-     setMessages(mess[0])
-     console.log(mess[0])
-     const mes=mess[0]
-     const eve=mes[0].eventId
-     console.log(eve)
-     console.log(mes[0])
+      setMessages(mess[0])
+      console.log(mess[0])
+       mes=mess[0]
       
-      
-      
-      axios.post("http://localhost:3002/getEventInfo/"+eve).then((response) =>{
-        
-        setEvent(response.data[0])
-        setTimeout(()=>{
-          
-           resolve()
-         },2000)
-      })
-      
-      
-      
+      console.log(eve)
+      console.log(mes)
+
+      if(mes!==null  ){
+        resolve1()
+      }
     })
 
-    prom.then(()=>{
-      //console.log(event)
-      //console.log(messages)
-      //console.log(threadId)
-      if(messages!=null&& event!=null){
-       setIsLoading(false)
-      }
-      
+    prom1.then(()=>{
+      const prom=new Promise((resolve,reject) =>{
+       
+        eve=mes[0].eventId
+        console.log(eve)
+        
+    
+        setTimeout(()=>{
+  
+          axios.post("http://localhost:3002/getEventInfo/"+eve).then((response) =>{
+          
+          setEvent(response.data[0])
+          setTimeout(()=>{
+            
+             resolve()
+           },2000)
+        })
+  
+        },100)
+        
+        
+        
+        
+      })
+  
+      prom.then(()=>{
+        //console.log(event)
+        //console.log(messages)
+        //console.log(threadId)
+        if(messages!=null&& event!=null){
+         setIsLoading(false)
+        }
+        
+      })
+
     })
-  }
+   
 
   },[])
  
@@ -111,11 +123,11 @@ function ClientMessageListItem({threadId}) {
                  overflow-y-scroll w-[80vw] h-[40vh]"
                   >
                   {messages.map((r) =>{
-                    r.hasOwnProperty("sendToId") ?
+                   
                   
                    
                       
-                  (<div class="flex-col p-2 rounded-sm m-2 bg-blued-200 ">
+                  <div class="flex-col p-2 rounded-sm m-2 bg-blued-200 ">
                       <div class="flex-col">
                        
                         <div class="flex"><p class="text-sm">{r.dateSent}| {r.timeSent}</p></div>
@@ -127,18 +139,7 @@ function ClientMessageListItem({threadId}) {
                   
                       
                   </div>
-                </div>): (<div class="flex-col p-2 rounded-sm m-2 bg-white">
-                      <div class="flex-col">
-                       
-                        <div class="flex"><p class="text-sm">{r.dateSent}| {r.timeSent}</p></div>
-                        <div class="flex"><p class="text-sm"></p></div>
-                        <div class="bg-white p-2 mt-3">
-                          <p class="text-lg">{r.message}</p>
-                  
-                        </div>  
-                     </div>
-                    </div>)
-
+                </div> 
                     
                  
 

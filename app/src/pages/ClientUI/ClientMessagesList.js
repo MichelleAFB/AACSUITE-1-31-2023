@@ -76,12 +76,12 @@ if(!isLoading && messages!=null){
     <div class="flex-col p-3 bg-blue-200 rounded-sm justify-center">
       {
         messages.map((m) =>{
-         console.log(m)
+         
             
-          return <div class="justify-center p-1">
+          return (<div class="justify-center p-1">
            
                   <ClientMessageListItem threadId={m.threadId}/>
-            </div>
+            </div>)
           
           
         })

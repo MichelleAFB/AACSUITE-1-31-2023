@@ -6,11 +6,12 @@ import {connect} from 'react-redux'
 
 //components
 import CompanyEditListItem from './CompanyEditListItem'
-
+import CompanyReqItem from './CompanyReqItem'
 function CompanyEditList({reload}) {
 
   const[events,setEvents]=useState()
   const[isLoading,setIsLoading]=useState(true)
+  const[filtered,setFiltered]=useState()
 
 
   
@@ -21,22 +22,10 @@ function CompanyEditList({reload}) {
     const eve=[]
     const prom=new Promise((resolve,reject) => {
       
-      axios.get("http://localhost:3002/company/employee-occupied").then((response) => {
-       console.log(response.data)
-       const ev=response.data
-        ev.map((m) => {
-          if(!ev.includes(m.eventId)){
-            console.log(m)
-            axios.post("http://localhost:3002/getEventInfo/"+m).then((response2) =>{
-              console.log(response2)
-              eve.push({id:m.eventId,event:response2.data}) 
-            })
-           
-            
-          }
-        })
-
-        
+      axios.get("https://accserverheroku.herokuapp.com/company/companyInfoRequests").then((response) =>{
+        setFiltered(response.data)
+        setEvents(response.data)
+        console.log(response.data)
       })
       setTimeout(()=>{
         resolve()
@@ -46,18 +35,20 @@ function CompanyEditList({reload}) {
     })
 
     prom.then(() => {
+      
       setEvents(eve)
       setIsLoading(false)
       
     })
 
-  },[reload])
+  },[])
 
   const[seeSearch,setSeeSearch]=useState(false)
   const[searchWord,setSearchWord]=useState("")
 
 
   function readSearchWord(word,searchWord){
+    const filterWord=[]
     console.log("\n\n\n\n")
     console.log(word)
     const event=word.split(" ")
@@ -95,33 +86,86 @@ function CompanyEditList({reload}) {
   }
   
 
+  function search(e,filtered){
+
+    if(e.target.value==null || e.target.value==""){
+      const fil=events
+      setFiltered(events)
+    }
+
+    const fil=[]
+
+    const prom = new Promise((resolve,reject) => {
+      
+    setFiltered([])
+    events.map((ev) => {
+     
+    
+      const str=e.target.value.toUpperCase()
+      const evie=ev.event.act.toUpperCase()
+      console.log(evie)
+      console.log(str)
+      const evieSplit=evie.split(" ")
+      
+      
+      const eve=ev.event.act
+      console.log("\n\n")
+      console.log(eve)
+      //console.log(eve)
+      console.log(evie.includes(str))
+      if(evie.includes(str)){
+        evieSplit.map((o) => {
+          if(o.includes(str)){
+            //console.log(evie.includes(str))
+            console.log(o)
+            console.log("string:"+str)
+            console.log("event:"+evie)
+            console.log("\n\n")
+            fil.push(ev.event)
+          }
+        })
+        
+      }
+    })
+    console.log(fil)
+      resolve(fil)
+    })
+
+    prom.then(() => {
+      setFiltered(fil)
+      console.log("filtered should be")
+      console.log(filtered)
+  }).catch(
+    console.log("filter not working")
+  )   
+    
+  }
+
  
   if(!isLoading && events!=null){
   return (
-    <div class="flex-col p-2 w-full rounded-md ">
+    <div class=" p-2 w-full rounded-md w-200 bg-gray-300 h-200 ">
       <div>
       <input type="text"  class="bg-gray-200 rounded-md p-3 w-full" placeholder="event.." onChange={(e) =>{
-        setSearchWord(e.target.value)
-        console.log(searchWord)
-        if(searchWord!=null){
-          setSeeSearch(true)
-        }
+        //setSearchWord(e.target.value)
+        e.preventDefault()
+          search(e,events)
+       
       }}/>
      
       </div>
      
       
 
-      <div class="flex m-4  rounded-md  overflow-x-scroll h-400">
+      <div class="flex m-4  rounded-md   overflow-x-scroll h-400">
         {
             
             events.map((e) => {
              console.log(e)
              
-               return (
-                <CompanyEditListItem eventId={e.id}/>
+               return  (<div><CompanyReqItem eventId={e.id} event={e.event} requests={e.requests}/></div>)
                   
-               )
+               
             
             })
           }

@@ -61,8 +61,34 @@ function ResetPassword({handle}) {
         <button class="bg-green-200 rounded-md p-3" onClick={(e) =>{
           e.preventDefault()
           if(confirmPassword!=null && confirmPassword==password){
-         
+         console.log(id)
 
+           if(id==null || id=="undefined"){
+            console.log("null")
+            const prom=new Promise((resolve,reject) =>{
+
+              axios.post("http://localhost:3002/user/reset-password/"+email+"/"+firstname+"/"+lastname+"/"+password).then((response)=> {
+                console.log(response)
+                if (response.data.success){
+                    console.log(response.data.results)
+                    const results=response.data.results
+                    alert(results[0].first + " "+ results[0].last +" your password has been reset!")
+                    sessionStorage.setItem('client',JSON.stringify(results[0]))
+                    dispatch(showTopNavbar())
+                    resolve()
+                    
+                }else{
+                 const  results=response.data.results
+                  alert(results[0].first+ " "+ results[0].last +" "+response.data.message)
+                }
+              })
+
+            })
+
+            prom.then(()=>{
+              navigate("/client-home")
+            })
+          } else{
             const prom=new Promise((resolve,reject) =>{
 
               axios.post("http://localhost:3002/user/reset-password/employee/"+id+"/"+email+"/"+firstname+"/"+lastname+"/"+password).then((response)=> {
@@ -71,10 +97,13 @@ function ResetPassword({handle}) {
                     console.log(response.data.results)
                     const results=response.data.results
                     alert(results[0].firstname + " "+ results[0].lastname +" your password has been reset!")
-                    sessionStorage.setItem('employee',JSON.stringify(results[0]))
+                    sessionStorage.setItem('client',JSON.stringify(results[0]))
                     dispatch(showTopNavbar())
-                    resolve()
+                    //resolve()
                     
+                }else{
+                 const  results=response.data.results
+                  alert(results[0].firstname + " "+ results[0].lastname +" "+response.data.message)
                 }
               })
 
@@ -83,7 +112,9 @@ function ResetPassword({handle}) {
             prom.then(()=>{
               navigate("/employee-home")
             })
+          
           }
+        }
           
 
         }}>

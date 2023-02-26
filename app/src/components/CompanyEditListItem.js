@@ -11,7 +11,7 @@ import { reloadPage, reReloadPage } from '../redux/reload/reload-actions'
 
 
 
-function CompanyEditListItem({eventId,allRequests }) {
+function CompanyEditListItem({eventId,equests }) {
 
 
 
@@ -61,20 +61,21 @@ function CompanyEditListItem({eventId,allRequests }) {
      
       axios.get("http://localhost:3002/company/getEventRequests/"+eventId).then((response) => {
         
-       
+       console.log(response.data.results)
         const r=response.data.results
         setRequests(response.data.results)
 
+        console.log(r[0].employeeId)
         
-       
-        axios.post("http://localhost:3002/getEventInfo/"+eventId).then((response1) =>{
-          //console.log(response1)
+       console.log(eventId)
+        axios.post("https://accserverheroku.herokuapp.com/getEventInfo/"+eventId).then((response1) =>{
+            console.log(response1)
             setEvent(response1.data)
 
-            axios.get("http://localhost:3002/company/getEmployeeInfo/"+r[0].employeeId).then((response2) =>{
+            axios.get("https://accserverheroku.herokuapp.com/company/getEmployeeInfo/"+r[0].employeeId).then((response2) =>{
 
             
-            //console.log(response1.data[0].act)
+            console.log(response1.data[0].act)
             const employee=response2.data.employee[0]
             //console.log(employee.email)
             setRevokeData({
@@ -94,7 +95,7 @@ function CompanyEditListItem({eventId,allRequests }) {
             
             setTimeout(() =>{
               resolve()
-            },3000)
+            },1000)
                
 
             })
@@ -108,7 +109,11 @@ function CompanyEditListItem({eventId,allRequests }) {
 
     prom.then((r)=>{
       console.log(requests)
+      console.log("DONEEEEE")
+      
         setIsLoading(false)
+      
+        //setIsLoading(false)
       
      
     })
@@ -121,7 +126,7 @@ function CompanyEditListItem({eventId,allRequests }) {
 
   const[seeMore,setSeeMore]=useState(false)
   
-  if(!isLoading && requests!=null){
+  if(!isLoading ){
   
    
 

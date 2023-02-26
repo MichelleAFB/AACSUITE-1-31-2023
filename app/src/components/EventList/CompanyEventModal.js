@@ -280,25 +280,16 @@ console.log(ourEvent)
                     console.log(ourEvent)
                     console.log(event==ourEvent)
                   }}
-                  {
-                    isCompanyRequested?<p class="font-bold text-red-600">Wait to see Detected</p>:<p></p>
-                  }
+                 
                   {isCompanyRequested ? (
                     <div class='flex flex-col p-10'>
-                      <div>
-                        <p class='block text-2xl font-bold text-gray-800 dark:text-red-500'>
-                          RESERVED!
-                        </p>
-                        <p class='text-white text-small mt-3 mb-2'>
-                          employees have active requests or reservations for
-                          this event
-                        </p>
-                      </div>
+                      
                       <div class={`flex `}>
                         <div class='justify-center seats'>
                      
                         </div>
                       </div>
+                      <p class="text-white">Changing the access type will automatically cancel allrequests and reservations</p>
                       {revokeEmployees == false ? (
                         <button
                           class='mt-3 p-2 rounded-md bg-gray-400 '

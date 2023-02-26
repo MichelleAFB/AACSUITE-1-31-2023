@@ -9,7 +9,7 @@ function AdminClientMessages() {
 
   useEffect(() =>{
     const prom=new Promise((resolve,reject) => {
-        axios.get("http://localhost:3002/reservations/client-messages").then((response) =>{
+        axios.get("https://accserverheroku.herokuapp.com/reservations/client-messages").then((response) =>{
           console.log(response.data.messages)
           setMessages(response.data.messages)
           resolve(messages)
@@ -71,7 +71,7 @@ if(!isLoading){
                     onClick={() =>{
                       const prom=new Promise((resolve,reject) =>{
                         if(message!=""){
-                        axios.post("http://localhost:3002/reservations/messages-to-client",{messageInfo:m,message:message}).then((response) =>{
+                        axios.post("https://accserverheroku.herokuapp.com/reservations/messages-to-client",{messageInfo:m,message:message}).then((response) =>{
                           console.log(response)
                         })
                       }

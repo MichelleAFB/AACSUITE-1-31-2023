@@ -3,7 +3,7 @@ import React from 'react'
 import {useEffect,useState} from 'react'
 
 
-function RecentChangesCard({title,changeType,width,color}) {
+function RecentChangesCard({title,changeType,width,color,show}) {
 
   const [changes,setChanges] = useState()
   const[isLoading,setIsLoading]=useState(true)
@@ -54,7 +54,7 @@ function RecentChangesCard({title,changeType,width,color}) {
    })
    
 
-  },[])
+  },[show])
 
   console.log("changes")
   console.log(changes)
@@ -70,7 +70,7 @@ function RecentChangesCard({title,changeType,width,color}) {
       <ul>
             {changes.map((m) => {
               
-              return 
+              return (
                 <li key={m.id} class='rounded-md m-2 p-3 bg-gray-200 shadow-md'>
                   <p  class='text-sm pb-3'>
                     
@@ -81,6 +81,7 @@ function RecentChangesCard({title,changeType,width,color}) {
                   {m.date} | {m.time}
                   </p>
                 </li>
+              )
               ;
             })}
             </ul>
